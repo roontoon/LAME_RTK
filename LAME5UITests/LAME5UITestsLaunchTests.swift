@@ -1,13 +1,13 @@
 //
-//  LAME5UITestsLaunchTests.swift
-//  LAME5UITests
+//  Lame5UITestsLaunchTests.swift
+//  Lame5UITests
 //
-//  Created by Roontoon on 9/10/23.
+//  Created by Roontoon on 9/5/23.
 //
 
 import XCTest
 
-final class LAME5UITestsLaunchTests: XCTestCase {
+final class GPSDataModelUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

@@ -3,210 +3,188 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A83617342AAE08D100A083FF /* LAME5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83617332AAE08D100A083FF /* LAME5App.swift */; };
-		A83617362AAE08D100A083FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83617352AAE08D100A083FF /* ContentView.swift */; };
-		A83617382AAE08D300A083FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83617372AAE08D300A083FF /* Assets.xcassets */; };
-		A836173B2AAE08D300A083FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A836173A2AAE08D300A083FF /* Preview Assets.xcassets */; };
-		A83617452AAE08D300A083FF /* LAME5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83617442AAE08D300A083FF /* LAME5Tests.swift */; };
-		A836174F2AAE08D300A083FF /* LAME5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836174E2AAE08D300A083FF /* LAME5UITests.swift */; };
-		A83617512AAE08D300A083FF /* LAME5UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83617502AAE08D300A083FF /* LAME5UITestsLaunchTests.swift */; };
+		A803A0082AA7E07F008F587E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A0072AA7E07F008F587E /* CoreDataManager.swift */; };
+		A803A00A2AA7E0E8008F587E /* GPSDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A0092AA7E0E8008F587E /* GPSDataListView.swift */; };
+		A803A00C2AA7F8F3008F587E /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A00B2AA7F8F3008F587E /* PersistenceController.swift */; };
+		A806CDD82AAB81D50003092A /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDD72AAB81D50003092A /* EditView.swift */; };
+		A806CDDA2AAB84700003092A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDD92AAB84700003092A /* ContentView.swift */; };
+		A806CDDC2AAB85160003092A /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDB2AAB85160003092A /* JoyStickView.swift */; };
+		A806CDDE2AAB87370003092A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDD2AAB87370003092A /* MapView.swift */; };
+		A806CDE02AABC4B00003092A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDF2AABC4B00003092A /* PreferencesView.swift */; };
+		A82E30072AACE6C1003DAA2B /* Lame5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82E30062AACE6C1003DAA2B /* Lame5App.swift */; };
+		A84E96B02AACBBE100AC6669 /* MapboxCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */; };
+		A84E96B12AACBBE100AC6669 /* MapboxCommon.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A84E96B32AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */; };
+		A84E96B42AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A84E96B52AACBBE600AC6669 /* MapboxMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */; };
+		A84E96B62AACBBE600AC6669 /* MapboxMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A84E96B72AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */; };
+		A84E96B82AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A84E96B92AACBBEB00AC6669 /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */; };
+		A84E96BA2AACBBEB00AC6669 /* Turf.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A8531E652AA9172C006E498C /* GPSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A86B239B2AA7C45500B25F6E /* GPSDataModel.xcdatamodeld */; };
+		A85CE9422AAC130F00837AB2 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CE9412AAC130F00837AB2 /* MapBoxView.swift */; };
+		A86B23952AA7C45500B25F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86B23942AA7C45500B25F6E /* Assets.xcassets */; };
+		A86B23982AA7C45500B25F6E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86B23972AA7C45500B25F6E /* Preview Assets.xcassets */; };
+		A8F92AB32AACBEE9007DACB5 /* TestMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F92AB22AACBEE9007DACB5 /* TestMap.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A83617412AAE08D300A083FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A83617282AAE08D100A083FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A836172F2AAE08D100A083FF;
-			remoteInfo = LAME5;
+/* Begin PBXCopyFilesBuildPhase section */
+		A84E96B22AACBBE100AC6669 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A84E96B42AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Embed Frameworks */,
+				A84E96B82AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Embed Frameworks */,
+				A84E96B12AACBBE100AC6669 /* MapboxCommon.xcframework in Embed Frameworks */,
+				A84E96BA2AACBBEB00AC6669 /* Turf.xcframework in Embed Frameworks */,
+				A84E96B62AACBBE600AC6669 /* MapboxMaps.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A836174B2AAE08D300A083FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A83617282AAE08D100A083FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A836172F2AAE08D100A083FF;
-			remoteInfo = LAME5;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A83617302AAE08D100A083FF /* LAME5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAME5.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A83617332AAE08D100A083FF /* LAME5App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME5App.swift; sourceTree = "<group>"; };
-		A83617352AAE08D100A083FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A83617372AAE08D300A083FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A836173A2AAE08D300A083FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A83617402AAE08D300A083FF /* LAME5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAME5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A83617442AAE08D300A083FF /* LAME5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME5Tests.swift; sourceTree = "<group>"; };
-		A836174A2AAE08D300A083FF /* LAME5UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAME5UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A836174E2AAE08D300A083FF /* LAME5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME5UITests.swift; sourceTree = "<group>"; };
-		A83617502AAE08D300A083FF /* LAME5UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME5UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A803A0072AA7E07F008F587E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A803A0092AA7E0E8008F587E /* GPSDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDataListView.swift; sourceTree = "<group>"; };
+		A803A00B2AA7F8F3008F587E /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A806CDD72AAB81D50003092A /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		A806CDD92AAB84700003092A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A806CDDB2AAB85160003092A /* JoyStickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoyStickView.swift; sourceTree = "<group>"; };
+		A806CDDD2AAB87370003092A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		A806CDDF2AABC4B00003092A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		A82E30062AACE6C1003DAA2B /* Lame5App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lame5App.swift; path = ../../../../Desktop/Lame5App.swift; sourceTree = "<group>"; };
+		A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCoreMaps.xcframework; path = ../../../Downloads/artifacts/MapboxCoreMaps.xcframework; sourceTree = "<group>"; };
+		A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCommon.xcframework; path = ../../../Downloads/artifacts/MapboxCommon.xcframework; sourceTree = "<group>"; };
+		A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMobileEvents.xcframework; path = ../../../Downloads/artifacts/MapboxMobileEvents.xcframework; sourceTree = "<group>"; };
+		A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMaps.xcframework; path = ../../../Downloads/artifacts/MapboxMaps.xcframework; sourceTree = "<group>"; };
+		A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Turf.xcframework; path = ../../../Downloads/artifacts/Turf.xcframework; sourceTree = "<group>"; };
+		A85CE9412AAC130F00837AB2 /* MapBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxView.swift; sourceTree = "<group>"; };
+		A86B238D2AA7C45400B25F6E /* Lame5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lame5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A86B23942AA7C45500B25F6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A86B23972AA7C45500B25F6E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A86B239C2AA7C45500B25F6E /* Lame5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lame5.xcdatamodel; sourceTree = "<group>"; };
+		A8F92AB22AACBEE9007DACB5 /* TestMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A836172D2AAE08D100A083FF /* Frameworks */ = {
+		A86B238A2AA7C45400B25F6E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A836173D2AAE08D300A083FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A83617472AAE08D300A083FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A84E96B32AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Frameworks */,
+				A84E96B02AACBBE100AC6669 /* MapboxCommon.xcframework in Frameworks */,
+				A84E96B52AACBBE600AC6669 /* MapboxMaps.xcframework in Frameworks */,
+				A84E96B92AACBBEB00AC6669 /* Turf.xcframework in Frameworks */,
+				A84E96B72AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A83617272AAE08D100A083FF = {
+		A84E96A52AACBB9C00AC6669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A83617322AAE08D100A083FF /* LAME5 */,
-				A83617432AAE08D300A083FF /* LAME5Tests */,
-				A836174D2AAE08D300A083FF /* LAME5UITests */,
-				A83617312AAE08D100A083FF /* Products */,
+				A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */,
+				A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */,
+				A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */,
+				A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */,
+				A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A86B23842AA7C45400B25F6E = {
+			isa = PBXGroup;
+			children = (
+				A86B238F2AA7C45400B25F6E /* Lame5 */,
+				A86B238E2AA7C45400B25F6E /* Products */,
+				A84E96A52AACBB9C00AC6669 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		A83617312AAE08D100A083FF /* Products */ = {
+		A86B238E2AA7C45400B25F6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A83617302AAE08D100A083FF /* LAME5.app */,
-				A83617402AAE08D300A083FF /* LAME5Tests.xctest */,
-				A836174A2AAE08D300A083FF /* LAME5UITests.xctest */,
+				A86B238D2AA7C45400B25F6E /* Lame5.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A83617322AAE08D100A083FF /* LAME5 */ = {
+		A86B238F2AA7C45400B25F6E /* Lame5 */ = {
 			isa = PBXGroup;
 			children = (
-				A83617332AAE08D100A083FF /* LAME5App.swift */,
-				A83617352AAE08D100A083FF /* ContentView.swift */,
-				A83617372AAE08D300A083FF /* Assets.xcassets */,
-				A83617392AAE08D300A083FF /* Preview Content */,
+				A82E30062AACE6C1003DAA2B /* Lame5App.swift */,
+				A806CDD92AAB84700003092A /* ContentView.swift */,
+				A806CDD72AAB81D50003092A /* EditView.swift */,
+				A803A0072AA7E07F008F587E /* CoreDataManager.swift */,
+				A803A0092AA7E0E8008F587E /* GPSDataListView.swift */,
+				A803A00B2AA7F8F3008F587E /* PersistenceController.swift */,
+				A806CDDB2AAB85160003092A /* JoyStickView.swift */,
+				A86B23942AA7C45500B25F6E /* Assets.xcassets */,
+				A86B239B2AA7C45500B25F6E /* GPSDataModel.xcdatamodeld */,
+				A86B23962AA7C45500B25F6E /* Preview Content */,
+				A806CDDD2AAB87370003092A /* MapView.swift */,
+				A806CDDF2AABC4B00003092A /* PreferencesView.swift */,
+				A85CE9412AAC130F00837AB2 /* MapBoxView.swift */,
+				A8F92AB22AACBEE9007DACB5 /* TestMap.swift */,
 			);
-			path = LAME5;
+			path = Lame5;
 			sourceTree = "<group>";
 		};
-		A83617392AAE08D300A083FF /* Preview Content */ = {
+		A86B23962AA7C45500B25F6E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				A836173A2AAE08D300A083FF /* Preview Assets.xcassets */,
+				A86B23972AA7C45500B25F6E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		A83617432AAE08D300A083FF /* LAME5Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A83617442AAE08D300A083FF /* LAME5Tests.swift */,
-			);
-			path = LAME5Tests;
-			sourceTree = "<group>";
-		};
-		A836174D2AAE08D300A083FF /* LAME5UITests */ = {
-			isa = PBXGroup;
-			children = (
-				A836174E2AAE08D300A083FF /* LAME5UITests.swift */,
-				A83617502AAE08D300A083FF /* LAME5UITestsLaunchTests.swift */,
-			);
-			path = LAME5UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A836172F2AAE08D100A083FF /* LAME5 */ = {
+		A86B238C2AA7C45400B25F6E /* Lame5 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A83617542AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5" */;
+			buildConfigurationList = A86B23B62AA7C45500B25F6E /* Build configuration list for PBXNativeTarget "Lame5" */;
 			buildPhases = (
-				A836172C2AAE08D100A083FF /* Sources */,
-				A836172D2AAE08D100A083FF /* Frameworks */,
-				A836172E2AAE08D100A083FF /* Resources */,
+				A86B23892AA7C45400B25F6E /* Sources */,
+				A86B238A2AA7C45400B25F6E /* Frameworks */,
+				A86B238B2AA7C45400B25F6E /* Resources */,
+				A84E96B22AACBBE100AC6669 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = LAME5;
-			productName = LAME5;
-			productReference = A83617302AAE08D100A083FF /* LAME5.app */;
+			name = Lame5;
+			productName = Lame5;
+			productReference = A86B238D2AA7C45400B25F6E /* Lame5.app */;
 			productType = "com.apple.product-type.application";
-		};
-		A836173F2AAE08D300A083FF /* LAME5Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A83617572AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5Tests" */;
-			buildPhases = (
-				A836173C2AAE08D300A083FF /* Sources */,
-				A836173D2AAE08D300A083FF /* Frameworks */,
-				A836173E2AAE08D300A083FF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A83617422AAE08D300A083FF /* PBXTargetDependency */,
-			);
-			name = LAME5Tests;
-			productName = LAME5Tests;
-			productReference = A83617402AAE08D300A083FF /* LAME5Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		A83617492AAE08D300A083FF /* LAME5UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A836175A2AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5UITests" */;
-			buildPhases = (
-				A83617462AAE08D300A083FF /* Sources */,
-				A83617472AAE08D300A083FF /* Frameworks */,
-				A83617482AAE08D300A083FF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A836174C2AAE08D300A083FF /* PBXTargetDependency */,
-			);
-			name = LAME5UITests;
-			productName = LAME5UITests;
-			productReference = A836174A2AAE08D300A083FF /* LAME5UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A83617282AAE08D100A083FF /* Project object */ = {
+		A86B23852AA7C45400B25F6E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A836172F2AAE08D100A083FF = {
+					A86B238C2AA7C45400B25F6E = {
 						CreatedOnToolsVersion = 15.0;
-					};
-					A836173F2AAE08D300A083FF = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = A836172F2AAE08D100A083FF;
-					};
-					A83617492AAE08D300A083FF = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = A836172F2AAE08D100A083FF;
 					};
 				};
 			};
-			buildConfigurationList = A836172B2AAE08D100A083FF /* Build configuration list for PBXProject "LAME5" */;
+			buildConfigurationList = A86B23882AA7C45400B25F6E /* Build configuration list for PBXProject "Lame5" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -214,88 +192,56 @@
 				en,
 				Base,
 			);
-			mainGroup = A83617272AAE08D100A083FF;
-			productRefGroup = A83617312AAE08D100A083FF /* Products */;
+			mainGroup = A86B23842AA7C45400B25F6E;
+			packageReferences = (
+				A85CE9402AAC0F1800837AB2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				A85CE9432AAC188800837AB2 /* XCLocalSwiftPackageReference "../../../Downloads/mapbox-maps-ios-main" */,
+			);
+			productRefGroup = A86B238E2AA7C45400B25F6E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A836172F2AAE08D100A083FF /* LAME5 */,
-				A836173F2AAE08D300A083FF /* LAME5Tests */,
-				A83617492AAE08D300A083FF /* LAME5UITests */,
+				A86B238C2AA7C45400B25F6E /* Lame5 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A836172E2AAE08D100A083FF /* Resources */ = {
+		A86B238B2AA7C45400B25F6E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A836173B2AAE08D300A083FF /* Preview Assets.xcassets in Resources */,
-				A83617382AAE08D300A083FF /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A836173E2AAE08D300A083FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A83617482AAE08D300A083FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A86B23982AA7C45500B25F6E /* Preview Assets.xcassets in Resources */,
+				A86B23952AA7C45500B25F6E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A836172C2AAE08D100A083FF /* Sources */ = {
+		A86B23892AA7C45400B25F6E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A83617362AAE08D100A083FF /* ContentView.swift in Sources */,
-				A83617342AAE08D100A083FF /* LAME5App.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A836173C2AAE08D300A083FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A83617452AAE08D300A083FF /* LAME5Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A83617462AAE08D300A083FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A836174F2AAE08D300A083FF /* LAME5UITests.swift in Sources */,
-				A83617512AAE08D300A083FF /* LAME5UITestsLaunchTests.swift in Sources */,
+				A85CE9422AAC130F00837AB2 /* MapBoxView.swift in Sources */,
+				A806CDDC2AAB85160003092A /* JoyStickView.swift in Sources */,
+				A82E30072AACE6C1003DAA2B /* Lame5App.swift in Sources */,
+				A803A00C2AA7F8F3008F587E /* PersistenceController.swift in Sources */,
+				A8531E652AA9172C006E498C /* GPSDataModel.xcdatamodeld in Sources */,
+				A806CDDA2AAB84700003092A /* ContentView.swift in Sources */,
+				A806CDD82AAB81D50003092A /* EditView.swift in Sources */,
+				A806CDE02AABC4B00003092A /* PreferencesView.swift in Sources */,
+				A803A0082AA7E07F008F587E /* CoreDataManager.swift in Sources */,
+				A806CDDE2AAB87370003092A /* MapView.swift in Sources */,
+				A8F92AB32AACBEE9007DACB5 /* TestMap.swift in Sources */,
+				A803A00A2AA7E0E8008F587E /* GPSDataListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		A83617422AAE08D300A083FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A836172F2AAE08D100A083FF /* LAME5 */;
-			targetProxy = A83617412AAE08D300A083FF /* PBXContainerItemProxy */;
-		};
-		A836174C2AAE08D300A083FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A836172F2AAE08D100A083FF /* LAME5 */;
-			targetProxy = A836174B2AAE08D300A083FF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		A83617522AAE08D300A083FF /* Debug */ = {
+		A86B23B42AA7C45500B25F6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -333,6 +279,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME5/Lame5;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -358,7 +305,7 @@
 			};
 			name = Debug;
 		};
-		A83617532AAE08D300A083FF /* Release */ = {
+		A86B23B52AA7C45500B25F6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -396,6 +343,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME5/Lame5;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -414,17 +362,18 @@
 			};
 			name = Release;
 		};
-		A83617552AAE08D300A083FF /* Debug */ = {
+		A86B23B72AA7C45500B25F6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LAME5/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Lame5/Preview Content\"";
 				DEVELOPMENT_TEAM = PD5U6R7BH5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lame5/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -435,7 +384,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5;
+				PRODUCT_BUNDLE_IDENTIFIER = "roontoon.Lame-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -443,17 +392,18 @@
 			};
 			name = Debug;
 		};
-		A83617562AAE08D300A083FF /* Release */ = {
+		A86B23B82AA7C45500B25F6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LAME5/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Lame5/Preview Content\"";
 				DEVELOPMENT_TEAM = PD5U6R7BH5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lame5/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -464,130 +414,68 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5;
+				PRODUCT_BUNDLE_IDENTIFIER = "roontoon.Lame-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		A83617582AAE08D300A083FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PD5U6R7BH5;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAME5.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LAME5";
-			};
-			name = Debug;
-		};
-		A83617592AAE08D300A083FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PD5U6R7BH5;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAME5.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LAME5";
-			};
-			name = Release;
-		};
-		A836175B2AAE08D300A083FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PD5U6R7BH5;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LAME5;
-			};
-			name = Debug;
-		};
-		A836175C2AAE08D300A083FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PD5U6R7BH5;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = roontoon.LAME5UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LAME5;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A836172B2AAE08D100A083FF /* Build configuration list for PBXProject "LAME5" */ = {
+		A86B23882AA7C45400B25F6E /* Build configuration list for PBXProject "Lame5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A83617522AAE08D300A083FF /* Debug */,
-				A83617532AAE08D300A083FF /* Release */,
+				A86B23B42AA7C45500B25F6E /* Debug */,
+				A86B23B52AA7C45500B25F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A83617542AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5" */ = {
+		A86B23B62AA7C45500B25F6E /* Build configuration list for PBXNativeTarget "Lame5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A83617552AAE08D300A083FF /* Debug */,
-				A83617562AAE08D300A083FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A83617572AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A83617582AAE08D300A083FF /* Debug */,
-				A83617592AAE08D300A083FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A836175A2AAE08D300A083FF /* Build configuration list for PBXNativeTarget "LAME5UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A836175B2AAE08D300A083FF /* Debug */,
-				A836175C2AAE08D300A083FF /* Release */,
+				A86B23B72AA7C45500B25F6E /* Debug */,
+				A86B23B82AA7C45500B25F6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A85CE9432AAC188800837AB2 /* XCLocalSwiftPackageReference "../../../Downloads/mapbox-maps-ios-main" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/mapbox-maps-ios-main";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A85CE9402AAC0F1800837AB2 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCVersionGroup section */
+		A86B239B2AA7C45500B25F6E /* GPSDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A86B239C2AA7C45500B25F6E /* Lame5.xcdatamodel */,
+			);
+			currentVersion = A86B239C2AA7C45500B25F6E /* Lame5.xcdatamodel */;
+			path = GPSDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			usesTabs = 0;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
-	rootObject = A83617282AAE08D100A083FF /* Project object */;
+	rootObject = A86B23852AA7C45400B25F6E /* Project object */;
 }

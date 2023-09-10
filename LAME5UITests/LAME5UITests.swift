@@ -1,13 +1,13 @@
 //
-//  LAME5UITests.swift
-//  LAME5UITests
+//  Lame5UITests.swift
+//  Lame5UITests
 //
-//  Created by Roontoon on 9/10/23.
+//  Created by Roontoon on 9/5/23.
 //
 
 import XCTest
 
-final class LAME5UITests: XCTestCase {
+final class Lame5UITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
