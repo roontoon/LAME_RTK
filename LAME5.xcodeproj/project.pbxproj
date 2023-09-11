@@ -15,17 +15,12 @@
 		A806CDDC2AAB85160003092A /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDB2AAB85160003092A /* JoyStickView.swift */; };
 		A806CDDE2AAB87370003092A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDD2AAB87370003092A /* MapView.swift */; };
 		A806CDE02AABC4B00003092A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A806CDDF2AABC4B00003092A /* PreferencesView.swift */; };
-		A82E30072AACE6C1003DAA2B /* Lame5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82E30062AACE6C1003DAA2B /* Lame5App.swift */; };
-		A84E96B02AACBBE100AC6669 /* MapboxCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */; };
-		A84E96B12AACBBE100AC6669 /* MapboxCommon.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A84E96B32AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */; };
-		A84E96B42AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A84E96B52AACBBE600AC6669 /* MapboxMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */; };
-		A84E96B62AACBBE600AC6669 /* MapboxMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A84E96B72AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */; };
-		A84E96B82AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A84E96B92AACBBEB00AC6669 /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */; };
-		A84E96BA2AACBBEB00AC6669 /* Turf.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A81C6C3C2AAFB25F00ECEA9D /* MapboxMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81C6C372AAFB25F00ECEA9D /* MapboxMaps.xcframework */; };
+		A81C6C3D2AAFB25F00ECEA9D /* MapboxCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81C6C382AAFB25F00ECEA9D /* MapboxCommon.xcframework */; };
+		A81C6C3E2AAFB25F00ECEA9D /* MapboxCoreMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81C6C392AAFB25F00ECEA9D /* MapboxCoreMaps.xcframework */; };
+		A81C6C3F2AAFB25F00ECEA9D /* MapboxMobileEvents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81C6C3A2AAFB25F00ECEA9D /* MapboxMobileEvents.xcframework */; };
+		A81C6C402AAFB25F00ECEA9D /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81C6C3B2AAFB25F00ECEA9D /* Turf.xcframework */; };
+		A81C6C422AAFB2BD00ECEA9D /* LAME5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C412AAFB2BD00ECEA9D /* LAME5App.swift */; };
 		A8531E652AA9172C006E498C /* GPSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A86B239B2AA7C45500B25F6E /* GPSDataModel.xcdatamodeld */; };
 		A85CE9422AAC130F00837AB2 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85CE9412AAC130F00837AB2 /* MapBoxView.swift */; };
 		A86B23952AA7C45500B25F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86B23942AA7C45500B25F6E /* Assets.xcassets */; };
@@ -40,11 +35,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A84E96B42AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Embed Frameworks */,
-				A84E96B82AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Embed Frameworks */,
-				A84E96B12AACBBE100AC6669 /* MapboxCommon.xcframework in Embed Frameworks */,
-				A84E96BA2AACBBEB00AC6669 /* Turf.xcframework in Embed Frameworks */,
-				A84E96B62AACBBE600AC6669 /* MapboxMaps.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,12 +50,12 @@
 		A806CDDB2AAB85160003092A /* JoyStickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoyStickView.swift; sourceTree = "<group>"; };
 		A806CDDD2AAB87370003092A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		A806CDDF2AABC4B00003092A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
-		A82E30062AACE6C1003DAA2B /* Lame5App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lame5App.swift; path = ../../../../Desktop/Lame5App.swift; sourceTree = "<group>"; };
-		A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCoreMaps.xcframework; path = ../../../Downloads/artifacts/MapboxCoreMaps.xcframework; sourceTree = "<group>"; };
-		A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCommon.xcframework; path = ../../../Downloads/artifacts/MapboxCommon.xcframework; sourceTree = "<group>"; };
-		A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMobileEvents.xcframework; path = ../../../Downloads/artifacts/MapboxMobileEvents.xcframework; sourceTree = "<group>"; };
-		A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMaps.xcframework; path = ../../../Downloads/artifacts/MapboxMaps.xcframework; sourceTree = "<group>"; };
-		A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Turf.xcframework; path = ../../../Downloads/artifacts/Turf.xcframework; sourceTree = "<group>"; };
+		A81C6C372AAFB25F00ECEA9D /* MapboxMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMaps.xcframework; path = "../../../../Downloads/artifacts 2/MapboxMaps.xcframework"; sourceTree = "<group>"; };
+		A81C6C382AAFB25F00ECEA9D /* MapboxCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCommon.xcframework; path = "../../../../Downloads/artifacts 2/MapboxCommon.xcframework"; sourceTree = "<group>"; };
+		A81C6C392AAFB25F00ECEA9D /* MapboxCoreMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxCoreMaps.xcframework; path = "../../../../Downloads/artifacts 2/MapboxCoreMaps.xcframework"; sourceTree = "<group>"; };
+		A81C6C3A2AAFB25F00ECEA9D /* MapboxMobileEvents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxMobileEvents.xcframework; path = "../../../../Downloads/artifacts 2/MapboxMobileEvents.xcframework"; sourceTree = "<group>"; };
+		A81C6C3B2AAFB25F00ECEA9D /* Turf.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Turf.xcframework; path = "../../../../Downloads/artifacts 2/Turf.xcframework"; sourceTree = "<group>"; };
+		A81C6C412AAFB2BD00ECEA9D /* LAME5App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME5App.swift; sourceTree = "<group>"; };
 		A85CE9412AAC130F00837AB2 /* MapBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxView.swift; sourceTree = "<group>"; };
 		A86B238D2AA7C45400B25F6E /* Lame5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lame5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A86B23942AA7C45500B25F6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,11 +69,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A84E96B32AACBBE400AC6669 /* MapboxCoreMaps.xcframework in Frameworks */,
-				A84E96B02AACBBE100AC6669 /* MapboxCommon.xcframework in Frameworks */,
-				A84E96B52AACBBE600AC6669 /* MapboxMaps.xcframework in Frameworks */,
-				A84E96B92AACBBEB00AC6669 /* Turf.xcframework in Frameworks */,
-				A84E96B72AACBBE900AC6669 /* MapboxMobileEvents.xcframework in Frameworks */,
+				A81C6C3E2AAFB25F00ECEA9D /* MapboxCoreMaps.xcframework in Frameworks */,
+				A81C6C3F2AAFB25F00ECEA9D /* MapboxMobileEvents.xcframework in Frameworks */,
+				A81C6C3C2AAFB25F00ECEA9D /* MapboxMaps.xcframework in Frameworks */,
+				A81C6C402AAFB25F00ECEA9D /* Turf.xcframework in Frameworks */,
+				A81C6C3D2AAFB25F00ECEA9D /* MapboxCommon.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,11 +83,6 @@
 		A84E96A52AACBB9C00AC6669 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A84E96A72AACBB9C00AC6669 /* MapboxCommon.xcframework */,
-				A84E96A62AACBB9C00AC6669 /* MapboxCoreMaps.xcframework */,
-				A84E96A92AACBB9C00AC6669 /* MapboxMaps.xcframework */,
-				A84E96A82AACBB9C00AC6669 /* MapboxMobileEvents.xcframework */,
-				A84E96AA2AACBB9C00AC6669 /* Turf.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,7 +107,7 @@
 		A86B238F2AA7C45400B25F6E /* Lame5 */ = {
 			isa = PBXGroup;
 			children = (
-				A82E30062AACE6C1003DAA2B /* Lame5App.swift */,
+				A81C6C412AAFB2BD00ECEA9D /* LAME5App.swift */,
 				A806CDD92AAB84700003092A /* ContentView.swift */,
 				A806CDD72AAB81D50003092A /* EditView.swift */,
 				A803A0072AA7E07F008F587E /* CoreDataManager.swift */,
@@ -136,6 +121,11 @@
 				A806CDDF2AABC4B00003092A /* PreferencesView.swift */,
 				A85CE9412AAC130F00837AB2 /* MapBoxView.swift */,
 				A8F92AB22AACBEE9007DACB5 /* TestMap.swift */,
+				A81C6C382AAFB25F00ECEA9D /* MapboxCommon.xcframework */,
+				A81C6C392AAFB25F00ECEA9D /* MapboxCoreMaps.xcframework */,
+				A81C6C372AAFB25F00ECEA9D /* MapboxMaps.xcframework */,
+				A81C6C3A2AAFB25F00ECEA9D /* MapboxMobileEvents.xcframework */,
+				A81C6C3B2AAFB25F00ECEA9D /* Turf.xcframework */,
 			);
 			path = Lame5;
 			sourceTree = "<group>";
@@ -225,12 +215,12 @@
 			files = (
 				A85CE9422AAC130F00837AB2 /* MapBoxView.swift in Sources */,
 				A806CDDC2AAB85160003092A /* JoyStickView.swift in Sources */,
-				A82E30072AACE6C1003DAA2B /* Lame5App.swift in Sources */,
 				A803A00C2AA7F8F3008F587E /* PersistenceController.swift in Sources */,
 				A8531E652AA9172C006E498C /* GPSDataModel.xcdatamodeld in Sources */,
 				A806CDDA2AAB84700003092A /* ContentView.swift in Sources */,
 				A806CDD82AAB81D50003092A /* EditView.swift in Sources */,
 				A806CDE02AABC4B00003092A /* PreferencesView.swift in Sources */,
+				A81C6C422AAFB2BD00ECEA9D /* LAME5App.swift in Sources */,
 				A803A0082AA7E07F008F587E /* CoreDataManager.swift in Sources */,
 				A806CDDE2AAB87370003092A /* MapView.swift in Sources */,
 				A8F92AB32AACBEE9007DACB5 /* TestMap.swift in Sources */,

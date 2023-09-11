@@ -1,9 +1,8 @@
 //
-//  LAME5app.swift
+//  LAME5App.swift
 //  Lame5
 //
-//  Created by Roontoon on 9/9/23.
-//
+//  Created by Roontoon on 9/11/23.
 
 import SwiftUI
 
@@ -15,3 +14,4 @@ struct Lame5App: App {
         }
     }
 }
+
