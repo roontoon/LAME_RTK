@@ -1,13 +1,13 @@
 //
-//  LAME5App.swift
-//  Lame5
+//  Lame_RTKApp.swift
+//  Lame_RTK
 //
 //  Created by Roontoon on 9/11/23.
 
 import SwiftUI
 
 @main
-struct Lame5App: App {
+struct Lame_RTKApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()  // This replaces ContentView() as the initial view
