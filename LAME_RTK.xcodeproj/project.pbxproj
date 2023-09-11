@@ -14,6 +14,7 @@
 		A81C6C612AAFB66E00ECEA9D /* LAME_RTKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C602AAFB66E00ECEA9D /* LAME_RTKTests.swift */; };
 		A81C6C6B2AAFB66E00ECEA9D /* LAME_RTKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C6A2AAFB66E00ECEA9D /* LAME_RTKUITests.swift */; };
 		A81C6C6D2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C6C2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift */; };
+		A863ED652AAFD07200C7DF64 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED642AAFD07200C7DF64 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		A81C6C662AAFB66E00ECEA9D /* LAME_RTKUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAME_RTKUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A81C6C6A2AAFB66E00ECEA9D /* LAME_RTKUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME_RTKUITests.swift; sourceTree = "<group>"; };
 		A81C6C6C2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME_RTKUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A863ED642AAFD07200C7DF64 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "../../../../Library/Mobile Documents/.Trash/LAME_RTK/LAME_RTK/CoreDataManager.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				A81C6C512AAFB66D00ECEA9D /* ContentView.swift */,
 				A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */,
 				A81C6C552AAFB66E00ECEA9D /* Preview Content */,
+				A863ED642AAFD07200C7DF64 /* CoreDataManager.swift */,
 			);
 			path = LAME_RTK;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A863ED652AAFD07200C7DF64 /* CoreDataManager.swift in Sources */,
 				A81C6C522AAFB66D00ECEA9D /* ContentView.swift in Sources */,
 				A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */,
 			);
