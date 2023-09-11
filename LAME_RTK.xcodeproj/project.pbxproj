@@ -16,9 +16,7 @@
 		A81C6C6D2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C6C2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift */; };
 		A81C6C892AAFBB1D00ECEA9D /* TestMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C792AAFBB1D00ECEA9D /* TestMap.swift */; };
 		A81C6C8A2AAFBB1D00ECEA9D /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C7A2AAFBB1D00ECEA9D /* JoyStickView.swift */; };
-		A81C6C8B2AAFBB1D00ECEA9D /* LAME5App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C7B2AAFBB1D00ECEA9D /* LAME5App.swift */; };
 		A81C6C8C2AAFBB1D00ECEA9D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C7C2AAFBB1D00ECEA9D /* Persistence.swift */; };
-		A81C6C8D2AAFBB1D00ECEA9D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C7D2AAFBB1D00ECEA9D /* Info.plist */; };
 		A81C6C8E2AAFBB1D00ECEA9D /* GPSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C7E2AAFBB1D00ECEA9D /* GPSDataModel.xcdatamodeld */; };
 		A81C6C8F2AAFBB1D00ECEA9D /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C802AAFBB1D00ECEA9D /* PreferencesView.swift */; };
 		A81C6C902AAFBB1D00ECEA9D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C812AAFBB1D00ECEA9D /* PersistenceController.swift */; };
@@ -61,9 +59,7 @@
 		A81C6C6C2AAFB66E00ECEA9D /* LAME_RTKUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME_RTKUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A81C6C792AAFBB1D00ECEA9D /* TestMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMap.swift; path = "../../LAME5 copy/Lame5/TestMap.swift"; sourceTree = "<group>"; };
 		A81C6C7A2AAFBB1D00ECEA9D /* JoyStickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoyStickView.swift; path = "../../LAME5 copy/Lame5/JoyStickView.swift"; sourceTree = "<group>"; };
-		A81C6C7B2AAFBB1D00ECEA9D /* LAME5App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LAME5App.swift; path = "../../LAME5 copy/Lame5/LAME5App.swift"; sourceTree = "<group>"; };
 		A81C6C7C2AAFBB1D00ECEA9D /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Persistence.swift; path = "../../LAME5 copy/Lame5/Persistence.swift"; sourceTree = "<group>"; };
-		A81C6C7D2AAFBB1D00ECEA9D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../LAME5 copy/Lame5/Info.plist"; sourceTree = "<group>"; };
 		A81C6C7F2AAFBB1D00ECEA9D /* Lame5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lame5.xcdatamodel; sourceTree = "<group>"; };
 		A81C6C802AAFBB1D00ECEA9D /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesView.swift; path = "../../LAME5 copy/Lame5/PreferencesView.swift"; sourceTree = "<group>"; };
 		A81C6C812AAFBB1D00ECEA9D /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = "../../LAME5 copy/Lame5/PersistenceController.swift"; sourceTree = "<group>"; };
@@ -124,23 +120,21 @@
 		A81C6C4E2AAFB66D00ECEA9D /* LAME_RTK */ = {
 			isa = PBXGroup;
 			children = (
+				A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */,
+				A81C6C512AAFB66D00ECEA9D /* ContentView.swift */,
+				A81C6C882AAFBB1D00ECEA9D /* GPSDataListView.swift */,
 				A81C6C822AAFBB1D00ECEA9D /* CoreDataManager.swift */,
 				A81C6C872AAFBB1D00ECEA9D /* EditView.swift */,
-				A81C6C882AAFBB1D00ECEA9D /* GPSDataListView.swift */,
-				A81C6C7E2AAFBB1D00ECEA9D /* GPSDataModel.xcdatamodeld */,
 				A81C6C832AAFBB1D00ECEA9D /* GPSDataPoint+CoreDataClass.swift */,
 				A81C6C852AAFBB1D00ECEA9D /* GPSDataPoint+CoreDataProperties.swift */,
-				A81C6C7D2AAFBB1D00ECEA9D /* Info.plist */,
 				A81C6C7A2AAFBB1D00ECEA9D /* JoyStickView.swift */,
-				A81C6C7B2AAFBB1D00ECEA9D /* LAME5App.swift */,
 				A81C6C862AAFBB1D00ECEA9D /* MapBoxView.swift */,
 				A81C6C842AAFBB1D00ECEA9D /* MapView.swift */,
 				A81C6C7C2AAFBB1D00ECEA9D /* Persistence.swift */,
 				A81C6C812AAFBB1D00ECEA9D /* PersistenceController.swift */,
 				A81C6C802AAFBB1D00ECEA9D /* PreferencesView.swift */,
 				A81C6C792AAFBB1D00ECEA9D /* TestMap.swift */,
-				A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */,
-				A81C6C512AAFB66D00ECEA9D /* ContentView.swift */,
+				A81C6C7E2AAFBB1D00ECEA9D /* GPSDataModel.xcdatamodeld */,
 				A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */,
 				A81C6C552AAFB66E00ECEA9D /* Preview Content */,
 			);
@@ -278,7 +272,6 @@
 			files = (
 				A81C6C572AAFB66E00ECEA9D /* Preview Assets.xcassets in Resources */,
 				A81C6C542AAFB66E00ECEA9D /* Assets.xcassets in Resources */,
-				A81C6C8D2AAFBB1D00ECEA9D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +302,6 @@
 				A81C6C922AAFBB1D00ECEA9D /* GPSDataPoint+CoreDataClass.swift in Sources */,
 				A81C6C8A2AAFBB1D00ECEA9D /* JoyStickView.swift in Sources */,
 				A81C6C892AAFBB1D00ECEA9D /* TestMap.swift in Sources */,
-				A81C6C8B2AAFBB1D00ECEA9D /* LAME5App.swift in Sources */,
 				A81C6C952AAFBB1D00ECEA9D /* MapBoxView.swift in Sources */,
 				A81C6C8C2AAFBB1D00ECEA9D /* Persistence.swift in Sources */,
 				A81C6C8F2AAFBB1D00ECEA9D /* PreferencesView.swift in Sources */,
