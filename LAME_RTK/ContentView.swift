@@ -4,8 +4,9 @@ struct ContentView: View {
     var body: some View {
         TabView {
             // Tab 1: Linking to GPSDataListView
-            GPSDataListView()
-                .tabItem {
+            GPSDataView()
+                .tabItem
+            {
                     Image(systemName: "1.circle.fill")
                     Text("GPS Data")
                 }

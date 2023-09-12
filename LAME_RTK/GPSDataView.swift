@@ -1,112 +1,28 @@
+// Importing necessary modules
 import SwiftUI
 import CoreData
 
-struct GPSDataListView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+// GPSDataView struct defines the UI and behavior for displaying GPS data points.
+struct GPSDataView: View {
+    
+    // Using sort descriptors to sort the fetched results based on the timestamp.
+    // Changed from GPSDataModel to GPSDataPoint
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \GPSDataPoint.timestamp, ascending: true)],
-        animation: .default)
-    private var gpsDataPoints: FetchedResults<GPSDataPoint>
+        entity: GPSDataPoint.entity(),  // Corrected line
+        sortDescriptors: [NSSortDescriptor(keyPath: \GPSDataPoint.timestamp, ascending: true)]  // Corrected line
+    ) private var gpsDataPoints: FetchedResults<GPSDataPoint>  // Corrected line
 
-    // DateFormatter
-    private let itemFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter
-    }()
-
+    
+    // The body property defines the UI elements that make up the GPSDataView.
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(gpsDataPoints, id: \.self) { dataPoint in
-                    // Added NavigationLink to navigate to EditView
-                    NavigationLink(destination: EditView(dataPoint: dataPoint)) {
-                        VStack {
-                            Text("Timestamp: \(itemFormatter.string(from: dataPoint.timestamp ?? Date()))")
-                            Text("Latitude: \(dataPoint.latitude)")
-                            Text("Longitude: \(dataPoint.longitude)")
-                            Text("Entry Type: \(dataPoint.entryType ?? "")")
-                            Text("Map ID: \(dataPoint.mapID ?? "")")
-                            Text("Mowing Pattern: \(dataPoint.mowingPattern ?? "")")
-                        }
-                    }
-                    .padding()
-                }
+        // Using a List to display each GPS data point.
+        List {
+            // Using ForEach to iterate through each GPS data point.
+            // Changed from gpsDataModels to gpsDataPoints
+            ForEach(gpsDataPoints, id: \.self) { dataPoint in
+                // Displaying the data point (this part depends on how your GPSDataPoint is structured)
+                Text("Data Point Info Here")
             }
-            .navigationBarTitle("GPS Data Points", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Delete All") {
-                deleteAllRecords()
-            })
-        }
-    }
-
-    private func deleteAllRecords() {
-        for dataPoint in gpsDataPoints {
-            viewContext.delete(dataPoint)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }
-}
-import SwiftUI
-import CoreData
-
-struct GPSDataListView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \GPSDataPoint.timestamp, ascending: true)],
-        animation: .default)
-    private var gpsDataPoints: FetchedResults<GPSDataPoint>
-
-    // DateFormatter
-    private let itemFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter
-    }()
-
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(gpsDataPoints, id: \.self) { dataPoint in
-                    // Added NavigationLink to navigate to EditView
-                    NavigationLink(destination: EditView(dataPoint: dataPoint)) {
-                        VStack {
-                            Text("Timestamp: \(itemFormatter.string(from: dataPoint.timestamp ?? Date()))")
-                            Text("Latitude: \(dataPoint.latitude)")
-                            Text("Longitude: \(dataPoint.longitude)")
-                            Text("Entry Type: \(dataPoint.entryType ?? "")")
-                            Text("Map ID: \(dataPoint.mapID ?? "")")
-                            Text("Mowing Pattern: \(dataPoint.mowingPattern ?? "")")
-                        }
-                    }
-                    .padding()
-                }
-            }
-            .navigationBarTitle("GPS Data Points", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Delete All") {
-                deleteAllRecords()
-            })
-        }
-    }
-
-    private func deleteAllRecords() {
-        for dataPoint in gpsDataPoints {
-            viewContext.delete(dataPoint)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }
