@@ -1,9 +1,10 @@
 //
-//  testmap.swift
-//  Lame5
+//  TestMap.swift
+//  LAME_RTK
 //
-//  Created by Roontoon on 9/9/23.
+//  Created by Roontoon on 9/11/23.
 //
+
 import SwiftUI
 import UIKit
 

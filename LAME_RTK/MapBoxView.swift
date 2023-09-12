@@ -1,8 +1,8 @@
 //
 //  MapBoxView.swift
-//  Lame5
+//  LAME_RTK
 //
-//  Created by Roontoon on 9/8/23.
+//  Created by Roontoon on 9/11/23.
 //
 
 // Import SwiftUI for UI components and Mapbox for map functionalities
