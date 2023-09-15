@@ -1,7 +1,12 @@
+//  Lame_RTK
+//
+//  Created by Roontoon on 9/5/23.
+//\
+
 import SwiftUI
 import MapboxMaps
 
-struct CustomMapView: UIViewRepresentable {
+struct MapView: UIViewRepresentable {
     var mapID: String = "TestData"  // Hardcoded for now, can be dynamic in the future
     
     // Coordinates from Preferences (hardcoded for now)
@@ -29,10 +34,10 @@ struct CustomMapView: UIViewRepresentable {
     }
 
     final class Coordinator: NSObject {
-        var control: CustomMapView
+        var control: MapView
         var view: UIView
 
-        init(_ control: CustomMapView) {
+        init(_ control: MapView) {
             self.control = control
             self.view = UIView()
         }
@@ -43,6 +48,6 @@ struct CustomMapView: UIViewRepresentable {
 
 struct CustomMapView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomMapView()
+        MapView()
     }
 }

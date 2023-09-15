@@ -1,3 +1,7 @@
+//  Lame_RTK
+//
+//  Created by Roontoon on 9/5/23.
+//\
 import SwiftUI
 import CoreData
 
@@ -170,3 +174,4 @@ struct EditView: View {
         }
     }
 }
+
