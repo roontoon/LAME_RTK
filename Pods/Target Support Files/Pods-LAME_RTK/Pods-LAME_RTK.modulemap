@@ -1,0 +1,6 @@
+framework module Pods_LAME_RTK {
+  umbrella header "Pods-LAME_RTK-umbrella.h"
+
+  export *
+  module * { export * }
+}

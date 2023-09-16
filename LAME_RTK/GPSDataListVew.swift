@@ -1,8 +1,3 @@
-//  Lame_RTK
-//
-//  Created by Roontoon on 9/5/23.
-//
-
 import SwiftUI
 import CoreData
 
@@ -25,7 +20,6 @@ struct GPSDataListView: View {
         NavigationView {
             List {
                 ForEach(gpsDataPoints, id: \.self) { dataPoint in
-                    // Added NavigationLink to navigate to EditView
                     NavigationLink(destination: EditView(dataPoint: dataPoint)) {
                         VStack {
                             Text("Timestamp: \(itemFormatter.string(from: dataPoint.timestamp ?? Date()))")
@@ -55,8 +49,8 @@ struct GPSDataListView: View {
             try viewContext.save()
         } catch {
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            // Suggested: Replace fatalError with better error handling
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }
-

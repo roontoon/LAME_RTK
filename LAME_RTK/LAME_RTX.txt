@@ -1,0 +1,14 @@
+
+CoreDataManager.swift
+EditView.swift
+GPSDataListVew.swift
+GPSDataPoint+CoreDataClass.swift
+GPSDataPoint+CoreDataProperties.swift
+GPSDataView.swift
+JoyStickView.swift
+LAME_RTKApp.swift
+MapBoxView.swift
+MapView.swift
+PersistenceController.swift
+PreferencesView.swift
+TestMap.swift
