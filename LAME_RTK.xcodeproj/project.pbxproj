@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A4342AB90F8400EC73FB /* Persistence.swift */; };
 		A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */; };
 		A81C6C542AAFB66E00ECEA9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */; };
 		A81C6C572AAFB66E00ECEA9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */; };
-		A824EF992AB2336A002D2BF6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A824EF982AB2336A002D2BF6 /* CoreDataManager.swift */; };
 		A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A824EF9A2AB23425002D2BF6 /* PersistenceController.swift */; };
 		A8630EF32AB54E8A00937A5F /* MapboxCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */; };
 		A8630EF42AB54E8A00937A5F /* MapboxCommon.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -53,11 +53,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A803A4342AB90F8400EC73FB /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		A81C6C4C2AAFB66D00ECEA9D /* LAME_RTK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAME_RTK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAME_RTKApp.swift; sourceTree = "<group>"; };
 		A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A824EF982AB2336A002D2BF6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A824EF9A2AB23425002D2BF6 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxCommon.xcframework; sourceTree = "<group>"; };
 		A8630EEA2AB54DBD00937A5F /* MapboxCoreMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxCoreMaps.xcframework; sourceTree = "<group>"; };
@@ -115,13 +115,13 @@
 				A8630EE82AB54D9B00937A5F /* Frameworks */,
 				A8BB7D112AB4E4E300B5819C /* ContentView.swift */,
 				A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */,
-				A824EF982AB2336A002D2BF6 /* CoreDataManager.swift */,
 				A863ED7D2AB0091F00C7DF64 /* Editview.swift */,
 				A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */,
 				A863ED9E2AB0F29700C7DF64 /* GPSDataListVew.swift */,
 				A863ED812AB009C000C7DF64 /* JoyStickView.swift */,
 				A824EF9A2AB23425002D2BF6 /* PersistenceController.swift */,
 				A863ED8B2AB00B3200C7DF64 /* MapView.swift */,
+				A803A4342AB90F8400EC73FB /* Persistence.swift */,
 				A863ED832AB009FC00C7DF64 /* MapBoxView.swift */,
 				A863ED892AB00AF700C7DF64 /* PreferencesView.swift */,
 				A863ED8D2AB00B6A00C7DF64 /* TestMap.swift */,
@@ -225,12 +225,12 @@
 			files = (
 				A863ED842AB009FC00C7DF64 /* MapBoxView.swift in Sources */,
 				A863ED9F2AB0F29700C7DF64 /* GPSDataListVew.swift in Sources */,
-				A824EF992AB2336A002D2BF6 /* CoreDataManager.swift in Sources */,
 				A863ED8C2AB00B3200C7DF64 /* MapView.swift in Sources */,
 				A863EDB02AB0FB6200C7DF64 /* GPSDataModel.xcdatamodeld in Sources */,
 				A863ED8E2AB00B6A00C7DF64 /* TestMap.swift in Sources */,
 				A863ED8A2AB00AF700C7DF64 /* PreferencesView.swift in Sources */,
 				A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */,
+				A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */,
 				A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */,
 				A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */,
 				A8BB7D122AB4E4E300B5819C /* ContentView.swift in Sources */,
