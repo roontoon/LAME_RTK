@@ -26,7 +26,7 @@ struct GPSDataView: View {
                 List {
                     ForEach(GPSDataPoints) { GPSDataPoint in
                         // Navigation link to ItemDetailView
-                        NavigationLink(destination: GPSDataListView(gpsDataPoint: GPSDataPoint)) {
+                        NavigationLink(destination: GPSDataModel(gpsDataPoint: GPSDataPoint)) {
                             // Card layout for each GPS data point
                             VStack(alignment: .leading) {
                                 Text(GPSDataPoint.timestamp!, formatter: itemFormatter)
@@ -98,7 +98,8 @@ struct GPSDataView: View {
             newItem.timestamp = Date()
             newItem.latitude = 0.0
             newItem.longitude = 0.0
-            
+            newItem.altitude = 0
+
             do {
                 try viewContext.save()
             } catch {

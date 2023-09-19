@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A4342AB90F8400EC73FB /* Persistence.swift */; };
+		A803A4362AB92A1A00EC73FB /* GPSDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */; };
 		A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */; };
 		A81C6C542AAFB66E00ECEA9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */; };
 		A81C6C572AAFB66E00ECEA9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */; };
@@ -23,7 +24,6 @@
 		A8630EFC2AB54E9200937A5F /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEC2AB54DBE00937A5F /* Turf.xcframework */; };
 		A8630EFD2AB54E9200937A5F /* Turf.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEC2AB54DBE00937A5F /* Turf.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7D2AB0091F00C7DF64 /* Editview.swift */; };
-		A863ED802AB0097000C7DF64 /* GPSDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */; };
 		A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED812AB009C000C7DF64 /* JoyStickView.swift */; };
 		A863ED842AB009FC00C7DF64 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED832AB009FC00C7DF64 /* MapBoxView.swift */; };
 		A863ED8A2AB00AF700C7DF64 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED892AB00AF700C7DF64 /* PreferencesView.swift */; };
@@ -235,7 +235,7 @@
 				A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */,
 				A8BB7D122AB4E4E300B5819C /* ContentView.swift in Sources */,
 				A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */,
-				A863ED802AB0097000C7DF64 /* GPSDataView.swift in Sources */,
+				A803A4362AB92A1A00EC73FB /* GPSDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
