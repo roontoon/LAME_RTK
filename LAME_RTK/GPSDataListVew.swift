@@ -67,7 +67,8 @@ struct GPSDataListView: View {
                 }
                 
                 // This is a box where you can type how far East or West you are.
-                HStack {
+                /*
+                 HStack {
                     Text("Longitude:")  // This is the name of the field.
                 
                     TextField("", text: Binding(
@@ -76,15 +77,16 @@ struct GPSDataListView: View {
                     ))
                     .foregroundColor(Color.red)  // We make the text red to make it stand out.
                 }
-                
+                 */
+                Text("Longitude:")  // This is the name of the field.
+                TextField("", value: $newLongitude, formatter: GPSFormatter())
+                    .foregroundColor(Color.red)  // We make the text red to make it stand out.
+
                 // This is a box where you can type how far North or South you are.
                 HStack {
                     Text("Latitude:")  // This is the name of the field.
-                    TextField("", text: Binding(
-                        get: { String(newLatitude) },  // We turn the number into text so you can see it.
-                        set: { newLatitude = Double($0) ?? 0.0 }  // We turn the text back into a number when you type.
-                    ))
-                    .foregroundColor(Color.green)  // We make the text green because it's cool.
+                    TextField("", value: $newLatitude, formatter: GPSFormatter())
+                        .foregroundColor(Color.red)  // We make the text red to make it stand out.
                 }
                 
                 // This is a box where you can type how high up in the sky you are.
@@ -218,8 +220,8 @@ struct GPSDataListView: View {
     func GPSFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal  // We want decimal numbers.
-        formatter.maximumFractionDigits = 8  // Up to 8 numbers after the dot.
-        formatter.minimumFractionDigits = 8  // At least 8 numbers after the dot.
+        formatter.maximumFractionDigits = 6  // Up to 8 numbers after the dot.
+        formatter.minimumFractionDigits = 6  // At least 8 numbers after the dot.
         return formatter
     }
 }

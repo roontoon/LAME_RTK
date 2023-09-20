@@ -29,9 +29,14 @@ struct GPSDataView: View {
                         NavigationLink(destination: GPSDataListView(gpsDataPoint: GPSDataPoint)) {
                             // Card layout for each GPS data point
                             VStack(alignment: .leading) {
-                                Text(GPSDataPoint.timestamp!, formatter: itemFormatter)
-                                    .font(.headline)
-                                    .foregroundColor(Color.blue)
+
+                                // This is how you can safely show the timestamp in your app.
+                                if let safeTimestamp = GPSDataPoint.timestamp {  // We check if the timestamp is actually there.
+                                    Text(safeTimestamp, formatter: itemFormatter)  // If it's there, we show it nicely formatted.
+                                } else {
+                                    Text("Timestamp not available")  // If it's not there, we show this message instead.
+                                }
+                                    
                                 HStack {
                                     Text("Latitude: ")
                                         .font(.subheadline)
