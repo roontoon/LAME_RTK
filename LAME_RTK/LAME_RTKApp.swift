@@ -26,8 +26,7 @@ struct LAME_RTKApp: App {
     }
     
     // This function checks if we have data and adds some if we don't.
-
-    func checkAndInitializeData() {
+        func checkAndInitializeData() {
         // We print some info to help us debug.
         print("Managed Object Model is \(persistenceController.container.managedObjectModel)")
         

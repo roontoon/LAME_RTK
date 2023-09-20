@@ -53,127 +53,206 @@ struct GPSDataListView: View {
 
     // This is what the screen looks like.
     var body: some View {
-        // We use a form to make it easy to enter information.
-        // We use a scroll view so you can scroll up and down if there's too much stuff.
+        
+        // We're making a scrollable area so you can see everything, even if it's a lot!
         ScrollView {
-            // We use a vertical stack to put things on top of each other.
+            // We're stacking things vertically, like a tower of blocks.
             VStack {
                 
-                // This is a calendar picker for the date and time.
+                // This part is for picking a date and time.
                 HStack {
-                    Text("Timestamp:")  // This is the name of the field.
-                    DatePicker("", selection: $newTimestamp, displayedComponents: .hourAndMinute)
-                        .accentColor(Color.purple)  // We make the calendar picker purple because purple is a fun color!
-                }
-                
-                // This is a box where you can type how far East or West you are.
-                /*
-                 HStack {
-                    Text("Longitude:")  // This is the name of the field.
-                
-                    TextField("", text: Binding(
-                        get: { String(newLongitude) },  // We turn the number into text so you can see it.
-                        set: { newLongitude = Double($0) ?? 0.0 }  // We turn the text back into a number when you type.
-                    ))
-                    .foregroundColor(Color.red)  // We make the text red to make it stand out.
-                }
-                 */
-                Text("Longitude:")  // This is the name of the field.
-                TextField("", value: $newLongitude, formatter: GPSFormatter())
-                    .foregroundColor(Color.red)  // We make the text red to make it stand out.
+                    // This is the label that says "Timestamp:"
+                    Text("Timestamp:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
+                        .padding(.leading, 20)  // Add 20 points of space to the left
 
-                // This is a box where you can type how far North or South you are.
+                    // This is the calendar picker for choosing a date and time.
+                    DatePicker("", selection: $newTimestamp, displayedComponents: .hourAndMinute)
+                        .font(.caption2)
+                        .accentColor(Color.purple)  // We color it purple because purple is awesome!
+                }
+                
+                // This part is for typing how far East or West you are.
                 HStack {
-                    Text("Latitude:")  // This is the name of the field.
+                    // This is the label that says "Longitude:"
+                    Text("Longitude:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+
+                    // This is where you can type the longitude.
+                    TextField("", value: $newLongitude, formatter: GPSFormatter())
+                        .font(.caption2)
+                        .foregroundColor(Color.red)  // We color it red to make it stand out.
+                }
+                
+                // This part is for typing how far North or South you are.
+                HStack {
+                    // This is the label that says "Latitude:"
+                    Text("Latitude:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
+                    // This is where you can type the latitude.
                     TextField("", value: $newLatitude, formatter: GPSFormatter())
-                        .foregroundColor(Color.red)  // We make the text red to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.red)  // We color it red to make it stand out.
                 }
                 
-                // This is a box where you can type how high up in the sky you are.
+                // And you can do the same for all the other boxes to make them look neat!
+                
+                // This part is for typing how high up you are.
                 HStack {
-                    Text("Altitude:")  // This is the name of the field.
+                    Text("Altitude:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newAltitude, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type how fast you are moving.
+                // This part is for typing how fast you're moving.
                 HStack {
-                    Text("Speed:")  // This is the name of the field.
+                    Text("Speed:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newSpeed, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type which direction your face is pointing.
+                // This part is for typing which direction you're facing.
                 HStack {
-                    Text("Heading:")  // This is the name of the field.
+                    Text("Heading:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newHeading, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type which direction you are moving.
+                // This part is for typing which direction you're moving in.
                 HStack {
-                    Text("Course:")  // This is the name of the field.
+                    Text("Course:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newCourse, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type how sure you are about your East/West location.
+                // This part is for typing how sure you are about your East/West location.
                 HStack {
-                    Text("Horizontal Accuracy:")  // This is the name of the field.
+                    Text("Horiz. Accuracy:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newHorizontalAccuracy, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type how sure you are about your up/down location.
+                // This part is for typing how sure you are about your up/down location.
                 HStack {
-                    Text("Vertical Accuracy:")  // This is the name of the field.
+                    Text("Vert. Accuracy:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newVerticalAccuracy, formatter: NumberFormatter())
-                        .foregroundColor(Color.blue)  // We make the text blue to make it stand out.
+                        .font(.caption2)
+                        .foregroundColor(Color.blue)
                 }
                 
-                // This is a box where you can type the air pressure around you.
+                // This part is for typing the air pressure around you.
                 HStack {
-                    Text("Barometric Pressure:")  // This is the name of the field.
+                    Text("Barometric Pres.:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newBarometricPressure, formatter: NumberFormatter())
+                    .font(.caption2)
                 }
                 
-                // This is a box where you can type how far you've traveled.
+                // This part is for typing how far you've traveled.
                 HStack {
-                    Text("Distance Traveled:")  // This is the name of the field.
+                    Text("Distance:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", value: $newDistanceTraveled, formatter: NumberFormatter())
+                        .font(.caption2)
                 }
                 
-                // This is another calendar picker for when you'll get to your destination.
                 HStack {
-                    Text("Estimated Time of Arrival:")  // This is the name of the field.
+                    Text("ETA:")  // This is the title for the field.
+                        .font(.caption2)  // This makes the title very small.
+                        .frame(width: 200, alignment: .leading)  // This gives it some space so it lines up nicely.
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     DatePicker("", selection: $newEstimatedTimeOfArrival, displayedComponents: .hourAndMinute)
+                        .font(.caption2)  // This makes the DatePicker text very small, just like the title!
                 }
                 
-                // This is a box where you can type how close you are to a specific place.
+                // This part is for typing how close you are to a specific place.
                 HStack {
-                    Text("Proximity to Specific Location:")  // This is the name of the field.
+                    Text("Proximity:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
                     TextField("", value: $newProximityToSpecificLocation, formatter: NumberFormatter())
+                    .font(.caption2)
                 }
                 
-                // This is a box where you can type what kind of GPS point this is.
+                // This part is for typing what kind of GPS point this is.
                 HStack {
-                    Text("Entry Type:")  // This is the name of the field.
+                    Text("Entry Type:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
                     TextField("", text: $newEntryType)
+                        .font(.caption2)
                 }
                 
-                // This is a box where you can type the pattern of mowing.
+                // This part is for typing the pattern of mowing.
                 HStack {
-                    Text("Mowing Pattern:")  // This is the name of the field.
+                    Text("Mowing Pattern:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", text: $newMowingPattern)
+                        .font(.caption2)
                 }
                 
-                // This is a box where you can type the ID of the map you're using.
+                // This part is for typing the ID of the map you're using.
                 HStack {
-                    Text("Map ID:")  // This is the name of the field.
+                    Text("Map ID:")
+                        .font(.caption2)
+                        .frame(width: 200, alignment: .leading)
+                        .padding(.leading, 20)  // Add 20 points of space to the left
+                    
                     TextField("", text: $newMapID)
+                        .font(.caption2)
+                        
                 }
             }
         }
+
+ 
 
         // We add a Save button to keep our changes.
         .navigationBarItems(trailing: Button("Save") {
