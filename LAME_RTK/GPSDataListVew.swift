@@ -27,7 +27,7 @@ struct GPSDataListView: View {
     @State private var newEntryType: String  // For the type of GPS point
     @State private var newMowingPattern: String  // For the pattern of mowing
     @State private var newMapID: String  // For the ID of the map
-
+    
     // This sets up the screen with the current GPS data point.
     init(gpsDataPoint: GPSDataPoint) {
         self.gpsDataPoint = gpsDataPoint
@@ -50,7 +50,7 @@ struct GPSDataListView: View {
         self._newMowingPattern = State(initialValue: gpsDataPoint.mowingPattern ?? "")
         self._newMapID = State(initialValue: gpsDataPoint.mapID ?? "")
     }
-
+    
     // This is what the screen looks like.
     var body: some View {
         
@@ -58,202 +58,272 @@ struct GPSDataListView: View {
         ScrollView {
             // We're stacking things vertically, like a tower of blocks.
             VStack {
+                // This part is for showing the estimated time of arrival.
                 
-                // This part is for picking a date and time.
-                HStack {
-                    // This is the label that says "Timestamp:"
-                    Text("Timestamp:")
-                        .font(.caption2)
-                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
-                        .padding(.leading, 20)  // Add 20 points of space to the left
-
-                    // This is the calendar picker for choosing a date and time.
-                    DatePicker("", selection: $newTimestamp, displayedComponents: .hourAndMinute)
-                        .font(.caption2)
-                        .accentColor(Color.purple)  // We color it purple because purple is awesome!
-                }
-                
-                // This part is for typing how far East or West you are.
-                HStack {
-                    // This is the label that says "Longitude:"
-                    Text("Longitude:")
-                        .font(.caption2)
-                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
-                        .padding(.leading, 20)  // Add 20 points of space to the left
-
-                    // This is where you can type the longitude.
-                    TextField("", value: $newLongitude, formatter: GPSFormatter())
-                        .font(.caption2)
-                        .foregroundColor(Color.red)  // We color it red to make it stand out.
-                }
-                
-                // This part is for typing how far North or South you are.
+                // This part is for selecting how far North or south you are.
                 HStack {
                     // This is the label that says "Latitude:"
                     Text("Latitude:")
-                        .font(.caption2)
-                        .frame(width: 200, alignment: .leading)  // We give it some space so it lines up nicely.
-                        .padding(.leading, 20)  // Add 20 points of space to the left
-                    
-                    // This is where you can type the latitude.
-                    TextField("", value: $newLatitude, formatter: GPSFormatter())
-                        .font(.caption2)
-                        .foregroundColor(Color.red)  // We color it red to make it stand out.
+                          .font(.footnote)
+                          .frame(width: 150, alignment: .leading)
+                          .padding(.leading, 20)  // Add padding only to the leading side
+                    // Custom stepper
+                    HStack {
+                        // Minus button
+                        Button(action: {
+                            newLatitude -= 0.000001
+                            newLatitude = round(1000000 * newLatitude) / 1000000  // Round to 6 decimal places
+                        }) {
+                            Text("-")
+                                .font(.footnote)
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color.red)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                        }
+                        Spacer()
+                        // Display value
+                        Text(String(format: "%.6f", newLatitude))
+                            .font(.footnote)
+                            .foregroundColor(Color.red)  // We color it red to make it stand out.
+                        Spacer()
+                        // Plus button
+                        Button(action: {
+                            newLatitude += 0.000001
+                            newLatitude = round(1000000 * newLatitude) / 1000000  // Round to 6 decimal places
+                        }) {
+                            Text("+")
+                                .font(.footnote)
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color.red)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                        }.padding(.trailing, 33)
+                        Spacer()
+                    }
+                    //Spacer()
                 }
+
                 
-                // And you can do the same for all the other boxes to make them look neat!
                 
+                // This part is for selecting how far East or West you are.
+                HStack {
+                    // This is the label that says "Longitude:"
+                    Text("Longitude:")
+                        .font(.footnote)
+                        .frame(width: 150, alignment: .leading)  // We give it some space so it lines up nicely.
+                        .padding(.leading,20)
+                    
+                    
+                    // Custom stepper
+                    HStack {
+                        // Minus button
+                        Button(action: {
+                            newLongitude -= 0.000001
+                            newLongitude = round(1000000 * newLongitude) / 1000000  // Round to 6 decimal places
+                        }) {
+                            Text("-")
+                                .font(.footnote)
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color.red)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                        }
+                        Spacer()
+                        // Display value
+                        Text(String(format: "%.6f", newLongitude))
+                            .font(.footnote)
+                            .foregroundColor(Color.red)  // We color it red to make it stand out.
+                        Spacer()
+                        // Plus button
+                        Button(action: {
+                            newLongitude += 0.000001
+                            newLongitude = round(1000000 * newLongitude) / 1000000  // Round to 6 decimal places
+                        }) {
+                            Text("+")
+                                .font(.footnote)
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color.red)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                        }.padding(.trailing, 33)
+                        Spacer()
+                    }
+                    //Spacer()
+                }
+                                
                 // This part is for typing how high up you are.
                 HStack {
                     Text("Altitude:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newAltitude, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing how fast you're moving.
                 HStack {
                     Text("Speed:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newSpeed, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing which direction you're facing.
                 HStack {
                     Text("Heading:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newHeading, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing which direction you're moving in.
                 HStack {
                     Text("Course:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newCourse, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing how sure you are about your East/West location.
                 HStack {
                     Text("Horiz. Accuracy:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newHorizontalAccuracy, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing how sure you are about your up/down location.
                 HStack {
                     Text("Vert. Accuracy:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newVerticalAccuracy, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                         .foregroundColor(Color.blue)
                 }
                 
                 // This part is for typing the air pressure around you.
                 HStack {
                     Text("Barometric Pres.:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newBarometricPressure, formatter: NumberFormatter())
-                    .font(.caption2)
+                        .font(.footnote)
                 }
                 
                 // This part is for typing how far you've traveled.
                 HStack {
                     Text("Distance:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", value: $newDistanceTraveled, formatter: NumberFormatter())
-                        .font(.caption2)
+                        .font(.footnote)
                 }
                 
+                // This part is for showing the estimated time of arrival.
+                
                 HStack {
-                    Text("ETA:")  // This is the title for the field.
-                        .font(.caption2)  // This makes the title very small.
-                        .frame(width: 200, alignment: .leading)  // This gives it some space so it lines up nicely.
+                    // This is the label that says "ETA:"
+                    Text("ETA:")
+                        .font(.footnote)  // We make the text smaller with "footnote" size.
+                        .frame(width: UIScreen.main.bounds.width * 0.4, alignment: .leading)  // We set the frame width to 40% of the screen width and align the text to the leading (left) edge.
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
-                    DatePicker("", selection: $newEstimatedTimeOfArrival, displayedComponents: .hourAndMinute)
-                        .font(.caption2)  // This makes the DatePicker text very small, just like the title!
+                    // This is a spacer that pushes the next element towards the center.
+                    Spacer()
+                    
+                    // This is the text view that shows the time.
+                    Text("\(newEstimatedTimeOfArrival, formatter: timeFormatter)")
+                        .font(.footnote)  // We make the text smaller with "footnote" size.
+                        .frame(width: UIScreen.main.bounds.width * 0.4, alignment: .leading)  // We set the frame width to 40% of the screen width and align the text to the leading (left) edge.
+                        .padding(.leading, 40)  // Move the text to the left by the width of approximately one letter.
+                    Spacer()
+                    
                 }
                 
                 // This part is for typing how close you are to a specific place.
                 HStack {
                     Text("Proximity:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     TextField("", value: $newProximityToSpecificLocation, formatter: NumberFormatter())
-                    .font(.caption2)
+                        .font(.footnote)
                 }
                 
                 // This part is for typing what kind of GPS point this is.
                 HStack {
                     Text("Entry Type:")
-                        .font(.caption2)
-                        .frame(width: 200, alignment: .leading)
+                        .font(.footnote)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // Use maxWidth: .infinity to push it to the left
                         .padding(.leading, 20)  // Add 20 points of space to the left
-                    TextField("", text: $newEntryType)
-                        .font(.caption2)
+ 
+                    Picker(selection: $newEntryType, label: Text("Select Entry Type")) {
+                        Text("Parameter").tag("Parameter").font(.footnote)  // Set the font size here
+                        Text("Exclusion").tag("Exclusion").font(.footnote)  // Set the font size here
+                        Text("Charging").tag("Charging").font(.footnote)  // Set the font size here
+                    }
+                    .pickerStyle(MenuPickerStyle())  // Use MenuPickerStyle for a dropdown style
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // Use maxWidth: .infinity to push it to the right
+                    .padding(.leading,15)
                 }
-                
+
+
                 // This part is for typing the pattern of mowing.
                 HStack {
                     Text("Mowing Pattern:")
-                        .font(.caption2)
-                        .frame(width: 200, alignment: .leading)
+                        .font(.footnote)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // Use maxWidth: .infinity to push it to the left
                         .padding(.leading, 20)  // Add 20 points of space to the left
-                    
-                    TextField("", text: $newMowingPattern)
-                        .font(.caption2)
+
+                    Picker(selection: $newMowingPattern, label: Text("Select Mowing Pattern")) {
+                        Text("Lane x Lane").tag("Lane x Lane").font(.footnote)  // Set the font size here
+                        Text("Parameter in").tag("Parameter in").font(.footnote)  // Set the font size here
+                    }
+                    .pickerStyle(MenuPickerStyle())  // Use MenuPickerStyle for a dropdown style
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // Use maxWidth: .infinity to push it to the right
+                    .padding(.leading,15)
                 }
-                
+
                 // This part is for typing the ID of the map you're using.
                 HStack {
                     Text("Map ID:")
-                        .font(.caption2)
+                        .font(.footnote)
                         .frame(width: 200, alignment: .leading)
                         .padding(.leading, 20)  // Add 20 points of space to the left
                     
                     TextField("", text: $newMapID)
-                        .font(.caption2)
-                        
+                        .font(.footnote)
                 }
             }
         }
-
- 
-
+        
         // We add a Save button to keep our changes.
         .navigationBarItems(trailing: Button("Save") {
             // When we press Save, this happens.
@@ -294,7 +364,7 @@ struct GPSDataListView: View {
             }
         }
     }
-
+    
     // This makes sure our numbers look right.
     func GPSFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
@@ -303,4 +373,11 @@ struct GPSDataListView: View {
         formatter.minimumFractionDigits = 6  // At least 8 numbers after the dot.
         return formatter
     }
+    
+    var timeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium  // This will show the time with seconds.
+        return formatter
+    }
+    
 }

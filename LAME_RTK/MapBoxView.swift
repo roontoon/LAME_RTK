@@ -4,13 +4,13 @@
 //
 //  Created by Roontoon on 9/5/23.
 //\
-
+/*
 
 // Import SwiftUI for UI components and Mapbox for map functionalities
 import SwiftUI
 //import Mapbox
 
-/*/ Define the MapBoxView struct conforming to UIViewRepresentable for integrating UIKit-based Mapbox into SwiftUI
+//Define the MapBoxView struct conforming to UIViewRepresentable for integrating UIKit-based Mapbox into SwiftUI
 struct MapBoxView: UIViewRepresentable {
     
     // Variable to identify the map, can be dynamic in the future
@@ -83,4 +83,5 @@ struct MapBoxView: UIViewRepresentable {
             return annotationView
         }
     }
-}*/
+}
+*/

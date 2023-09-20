@@ -16,6 +16,14 @@ struct GPSDataView: View {
     // State variable for showing the delete confirmation dialog
     @State private var showingDeleteAlert = false
     
+    // Date formatter for formatting timestamps
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     // Main body of the ContentView
     var body: some View {
         // Creating a navigation view for better UI
@@ -25,20 +33,18 @@ struct GPSDataView: View {
                 // List of GPS data points using card-based UI
                 List {
                     ForEach(GPSDataPoints) { GPSDataPoint in
-                        // Navigation link to GPSDataListVew (corrected the name)
+                        // Navigation link to GPSDataListView
                         NavigationLink(destination: GPSDataListView(gpsDataPoint: GPSDataPoint)) {
                             // Card layout for each GPS data point
                             VStack(alignment: .leading) {
-
-                                // This is how you can safely show the timestamp in your app.
-                                if let safeTimestamp = GPSDataPoint.timestamp {  // We check if the timestamp is actually there.
-                                    Text(safeTimestamp, formatter: itemFormatter)  // If it's there, we show it nicely formatted.
-                                } else {
-                                    Text("Timestamp not available")  // If it's not there, we show this message instead.
-                                }
-                                    
+                                // Displaying the timestamp in a short date and time format
+                                Text("\(dateFormatter.string(from: GPSDataPoint.timestamp ?? Date()))")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.green)
+                                
+                                // Displaying latitude and longitude
                                 HStack {
-                                    Text("Latitude: ")
+                                    Text("Lat:")
                                         .font(.subheadline)
                                         .foregroundColor(Color.gray)
                                     Text(String(format: "%.8f", GPSDataPoint.latitude))
@@ -46,15 +52,14 @@ struct GPSDataView: View {
                                         .foregroundColor(Color.green)
                                 }
                                 HStack {
-                                    Text("Longitude: ")
+                                    Text("Lon:")
                                         .font(.subheadline)
                                         .foregroundColor(Color.gray)
                                     Text(String(format: "%.8f", GPSDataPoint.longitude))
                                         .font(.subheadline)
                                         .foregroundColor(Color.red)
-                                }
+                                }.padding(.trailing,50)
                             }
-                            .padding()
                             .background(Color.black.opacity(0.05))
                             .cornerRadius(8)
                         }
@@ -73,8 +78,8 @@ struct GPSDataView: View {
                             Alert(title: Text("Are you sure?"),
                                   message: Text("This will delete all records."),
                                   primaryButton: .destructive(Text("Delete")) {
-                                      deleteAllRecords()
-                                  },
+                                    deleteAllRecords()
+                                },
                                   secondaryButton: .cancel())
                         }
                     }
@@ -87,13 +92,8 @@ struct GPSDataView: View {
                         }
                     }
                 }
-                
-                // Placeholder text when no item is selected
-                // Text("Select an item")
-                    .foregroundColor(Color.gray)
             }
         }
-        .accentColor(Color.purple)  // Global accent color
     }
     
     // Function to add a new GPS data point
@@ -141,14 +141,6 @@ struct GPSDataView: View {
         }
     }
 }
-
-// Date formatter for formatting timestamps
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .short
-    return formatter
-}()
 
 // Previewing the ContentView
 struct GPSDataView_Previews: PreviewProvider {

@@ -26,7 +26,7 @@ struct LAME_RTKApp: App {
     }
     
     // This function checks if we have data and adds some if we don't.
-        func checkAndInitializeData() {
+    func checkAndInitializeData() {
         // We print some info to help us debug.
         print("Managed Object Model is \(persistenceController.container.managedObjectModel)")
         
@@ -54,7 +54,8 @@ struct LAME_RTKApp: App {
     
     // This function adds some test data.
     private func initializeTestData(in context: NSManagedObjectContext) {
-        // We set up some coordinates for our test data.
+
+        // Initialize the 6x6 meter square
         let centerCoordinate = CLLocationCoordinate2D(latitude: 28.06993, longitude: -82.48436)
         let squareCoordinates = [
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude + 0.000036),
@@ -63,7 +64,6 @@ struct LAME_RTKApp: App {
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude - 0.000036)
         ]
         
-        // We add the test data to our database.
         for coordinate in squareCoordinates {
             let newPoint = GPSDataPoint(context: context)
             newPoint.latitude = coordinate.latitude
@@ -71,13 +71,43 @@ struct LAME_RTKApp: App {
             newPoint.entryType = "Perimeter"
             newPoint.mapID = "TestData"
         }
+        print("Debug: Added Square Coordinates")
         
-        // We save our changes.
+        // Initialize the two 1-meter circles
+        // Randomly generate the coordinates for the circles within the 6x6 meter square
+        for _ in 1...2 {
+            let randomLat = Double.random(in: (centerCoordinate.latitude - 0.000027)...(centerCoordinate.latitude + 0.000027))
+            let randomLon = Double.random(in: (centerCoordinate.longitude - 0.000036)...(centerCoordinate.longitude + 0.000036))
+            let newPoint = GPSDataPoint(context: context)
+            newPoint.latitude = randomLat
+            newPoint.longitude = randomLon
+            newPoint.entryType = "Excluded"
+            newPoint.mapID = "TestData"
+        }
+        print("Debug: Added 2 Circles Coordinates")
+        
+        // Initialize the 1-meter line
+        let lineStart = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude - 0.000009)
+        let lineEnd = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude + 0.000009)
+        
+        let newPointStart = GPSDataPoint(context: context)
+        newPointStart.latitude = lineStart.latitude
+        newPointStart.longitude = lineStart.longitude
+        newPointStart.entryType = "Charging"
+        newPointStart.mapID = "TestData"
+        
+        let newPointEnd = GPSDataPoint(context: context)
+        newPointEnd.latitude = lineEnd.latitude
+        newPointEnd.longitude = lineEnd.longitude
+        newPointEnd.entryType = "Charging"
+        newPointEnd.mapID = "TestData"
+        
+        print("Debug: Added 1 Charging Dock Coordinates")
+        
         do {
             try context.save()
             print("Test data initialized and saved.")
         } catch {
-            // If something goes wrong, we print an error message.
             print("Failed to save test data: \(error)")
         }
     }
