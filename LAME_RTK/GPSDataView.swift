@@ -2,7 +2,7 @@
 import SwiftUI
 import CoreData
 
-// GPSDataView struct serves as the main screen of the app
+// ContentView struct serves as the main screen of the app
 struct GPSDataView: View {
     // Accessing the CoreData storage
     @Environment(\.managedObjectContext) private var viewContext
@@ -36,44 +36,42 @@ struct GPSDataView: View {
                         // Navigation link to GPSDataListView
                         NavigationLink(destination: GPSDataListView(gpsDataPoint: GPSDataPoint)) {
                             // Card layout for each GPS data point
-                            HStack {
-                                // Left-aligned VStack
-                                VStack(alignment: .leading) {
-                                    // Displaying the timestamp in a short date and time format
+                            VStack(alignment: .leading) {
+                                // Displaying the timestamp in a short date and time format
+                                HStack {
                                     Text("\(dateFormatter.string(from: GPSDataPoint.timestamp ?? Date()))")
                                         .font(.footnote)
                                         .foregroundColor(Color.green)
-                                    
-                                    // Displaying latitude
-                                    Text("Latitude: \(String(format: "%.8f", GPSDataPoint.latitude))")
+                                    Spacer() // Pushes the next element to the right
+                                    Text("\(GPSDataPoint.mapID ?? "N/A")")
                                         .font(.footnote)
-                                        .foregroundColor(Color.green)
-                                    
-                                    // Displaying longitude
-                                    Text("Longitude: \(String(format: "%.8f", GPSDataPoint.longitude))")
-                                        .font(.footnote)
-                                        .foregroundColor(Color.red)
+                                        .foregroundColor(Color.blue)
                                 }
                                 
-                                // Spacer for pushing the next VStack to the right
-                                Spacer()
-                                
-                                // Right-aligned VStack
-                                VStack(alignment: .trailing) {
-                                    // Displaying MapID (Assuming MapID is a String)
-                                    Text("\(GPSDataPoint.mapID ?? "Missing")")
+                                // Displaying latitude and longitude
+                                HStack {
+                                    Text("Lat: ")
                                         .font(.footnote)
-                                        .foregroundColor(Color.blue)
-                                    
-                                    // Displaying EntryTyp (Assuming EntryType is a String)
+                                        .foregroundColor(Color.gray)
+                                    Text(String(format: "%.8f", GPSDataPoint.latitude))
+                                        .font(.footnote)
+                                        .foregroundColor(Color.green)
+                                    Spacer() // Pushes the next element to the right
                                     Text("\(GPSDataPoint.entryType ?? "Missing")")
                                         .font(.footnote)
-                                        .foregroundColor(Color.blue)
-                                    
-                                    // Displaying MowingPattern (Assuming MowingPattern is a String)
+                                        .foregroundColor(Color.purple)
+                                }
+                                HStack {
+                                    Text("Lon")
+                                        .font(.footnote)
+                                        .foregroundColor(Color.gray)
+                                    Text(String(format: "%.8f", GPSDataPoint.longitude))
+                                        .font(.footnote)
+                                        .foregroundColor(Color.red)
+                                    Spacer() // Pushes the next element to the right
                                     Text("\(GPSDataPoint.mowingPattern ?? "Missing")")
                                         .font(.footnote)
-                                        .foregroundColor(Color.blue)
+                                        .foregroundColor(Color.orange)
                                 }
                             }
                             .background(Color.black.opacity(0.05))
@@ -119,10 +117,9 @@ struct GPSDataView: View {
             newItem.timestamp = Date()
             newItem.latitude = 0.0
             newItem.longitude = 0.0
-            // Assuming you have these attributes in your CoreData model
-            newItem.mapID = "Default MapID"
-            newItem.entryType = "Default EntryType"
-            newItem.mowingPattern = "Default MowingPattern"
+            newItem.mapID = "Default"
+            newItem.entryType = "Default"
+            newItem.mowingPattern = "Default"
             
             do {
                 try viewContext.save()

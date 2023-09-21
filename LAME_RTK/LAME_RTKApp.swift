@@ -70,6 +70,7 @@ struct LAME_RTKApp: App {
             newPoint.longitude = coordinate.longitude
             newPoint.entryType = "Perimeter"
             newPoint.mapID = "TestData"
+            newPoint.mowingPattern = "Lane x Lane"
         }
         print("Debug: Added Square Coordinates")
         
@@ -83,6 +84,8 @@ struct LAME_RTKApp: App {
             newPoint.longitude = randomLon
             newPoint.entryType = "Excluded"
             newPoint.mapID = "TestData"
+            newPoint.mowingPattern = "Lane x Lane"
+
         }
         print("Debug: Added 2 Circles Coordinates")
         
@@ -94,12 +97,14 @@ struct LAME_RTKApp: App {
         newPointStart.latitude = lineStart.latitude
         newPointStart.longitude = lineStart.longitude
         newPointStart.entryType = "Charging"
+        newPointStart.mowingPattern = "Lane x Lane"
         newPointStart.mapID = "TestData"
         
         let newPointEnd = GPSDataPoint(context: context)
         newPointEnd.latitude = lineEnd.latitude
         newPointEnd.longitude = lineEnd.longitude
         newPointEnd.entryType = "Charging"
+        newPointEnd.mowingPattern = "Lane x Lane"
         newPointEnd.mapID = "TestData"
         
         print("Debug: Added 1 Charging Dock Coordinates")
