@@ -13,16 +13,9 @@
 		A81C6C542AAFB66E00ECEA9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */; };
 		A81C6C572AAFB66E00ECEA9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */; };
 		A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A824EF9A2AB23425002D2BF6 /* PersistenceController.swift */; };
-		A8630EF32AB54E8A00937A5F /* MapboxCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */; };
-		A8630EF42AB54E8A00937A5F /* MapboxCommon.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A8630EF62AB54E8C00937A5F /* MapboxCoreMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEA2AB54DBD00937A5F /* MapboxCoreMaps.xcframework */; };
-		A8630EF72AB54E8C00937A5F /* MapboxCoreMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEA2AB54DBD00937A5F /* MapboxCoreMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A8630EF82AB54E8E00937A5F /* MapboxMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEB2AB54DBE00937A5F /* MapboxMaps.xcframework */; };
-		A8630EF92AB54E8E00937A5F /* MapboxMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEB2AB54DBE00937A5F /* MapboxMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A8630EFA2AB54E9000937A5F /* MapboxMobileEvents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EED2AB54DBF00937A5F /* MapboxMobileEvents.xcframework */; };
-		A8630EFB2AB54E9000937A5F /* MapboxMobileEvents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EED2AB54DBF00937A5F /* MapboxMobileEvents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A8630EFC2AB54E9200937A5F /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEC2AB54DBE00937A5F /* Turf.xcframework */; };
-		A8630EFD2AB54E9200937A5F /* Turf.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8630EEC2AB54DBE00937A5F /* Turf.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A839B0112ABF49C100CA1CD5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A839B0102ABF49C100CA1CD5 /* ContentView.swift */; };
+		A839B0142AC0AB8D00CA1CD5 /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A839B0132AC0AB8D00CA1CD5 /* MapboxCoreNavigation */; };
+		A839B0162AC0AB8D00CA1CD5 /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A839B0152AC0AB8D00CA1CD5 /* MapboxNavigation */; };
 		A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7D2AB0091F00C7DF64 /* Editview.swift */; };
 		A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED812AB009C000C7DF64 /* JoyStickView.swift */; };
 		A863ED842AB009FC00C7DF64 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED832AB009FC00C7DF64 /* MapBoxView.swift */; };
@@ -31,7 +24,6 @@
 		A863ED8E2AB00B6A00C7DF64 /* TestMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED8D2AB00B6A00C7DF64 /* TestMap.swift */; };
 		A863ED9F2AB0F29700C7DF64 /* GPSDataListVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED9E2AB0F29700C7DF64 /* GPSDataListVew.swift */; };
 		A863EDB02AB0FB6200C7DF64 /* GPSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A863EDAA2AB0F69100C7DF64 /* GPSDataModel.xcdatamodeld */; };
-		A8BB7D122AB4E4E300B5819C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB7D112AB4E4E300B5819C /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,11 +33,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A8630EF72AB54E8C00937A5F /* MapboxCoreMaps.xcframework in Embed Frameworks */,
-				A8630EFB2AB54E9000937A5F /* MapboxMobileEvents.xcframework in Embed Frameworks */,
-				A8630EF42AB54E8A00937A5F /* MapboxCommon.xcframework in Embed Frameworks */,
-				A8630EFD2AB54E9200937A5F /* Turf.xcframework in Embed Frameworks */,
-				A8630EF92AB54E8E00937A5F /* MapboxMaps.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,11 +46,7 @@
 		A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A824EF9A2AB23425002D2BF6 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxCommon.xcframework; sourceTree = "<group>"; };
-		A8630EEA2AB54DBD00937A5F /* MapboxCoreMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxCoreMaps.xcframework; sourceTree = "<group>"; };
-		A8630EEB2AB54DBE00937A5F /* MapboxMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxMaps.xcframework; sourceTree = "<group>"; };
-		A8630EEC2AB54DBE00937A5F /* Turf.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Turf.xcframework; sourceTree = "<group>"; };
-		A8630EED2AB54DBF00937A5F /* MapboxMobileEvents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MapboxMobileEvents.xcframework; sourceTree = "<group>"; };
+		A839B0102ABF49C100CA1CD5 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A863ED7D2AB0091F00C7DF64 /* Editview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editview.swift; sourceTree = "<group>"; };
 		A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDataView.swift; sourceTree = "<group>"; };
 		A863ED812AB009C000C7DF64 /* JoyStickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyStickView.swift; sourceTree = "<group>"; };
@@ -74,7 +57,6 @@
 		A863ED9E2AB0F29700C7DF64 /* GPSDataListVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDataListVew.swift; sourceTree = "<group>"; };
 		A863EDAB2AB0F69100C7DF64 /* GPSDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPSDataModel.xcdatamodel; sourceTree = "<group>"; };
 		A863EDAC2AB0F69100C7DF64 /* GPSDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPSDataModel.xcdatamodel; sourceTree = "<group>"; };
-		A8BB7D112AB4E4E300B5819C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "../../LAME-RTK/LAME_RTK/ContentView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,11 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8630EF62AB54E8C00937A5F /* MapboxCoreMaps.xcframework in Frameworks */,
-				A8630EF32AB54E8A00937A5F /* MapboxCommon.xcframework in Frameworks */,
-				A8630EF82AB54E8E00937A5F /* MapboxMaps.xcframework in Frameworks */,
-				A8630EFC2AB54E9200937A5F /* Turf.xcframework in Frameworks */,
-				A8630EFA2AB54E9000937A5F /* MapboxMobileEvents.xcframework in Frameworks */,
+				A839B0142AC0AB8D00CA1CD5 /* MapboxCoreNavigation in Frameworks */,
+				A839B0162AC0AB8D00CA1CD5 /* MapboxNavigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,8 +91,8 @@
 		A81C6C4E2AAFB66D00ECEA9D /* LAME_RTK */ = {
 			isa = PBXGroup;
 			children = (
+				A839B0102ABF49C100CA1CD5 /* ContentView.swift */,
 				A8630EE82AB54D9B00937A5F /* Frameworks */,
-				A8BB7D112AB4E4E300B5819C /* ContentView.swift */,
 				A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */,
 				A863ED7D2AB0091F00C7DF64 /* Editview.swift */,
 				A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */,
@@ -143,11 +122,6 @@
 		A8630EE82AB54D9B00937A5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A8630EE92AB54DBA00937A5F /* MapboxCommon.xcframework */,
-				A8630EEA2AB54DBD00937A5F /* MapboxCoreMaps.xcframework */,
-				A8630EEB2AB54DBE00937A5F /* MapboxMaps.xcframework */,
-				A8630EED2AB54DBF00937A5F /* MapboxMobileEvents.xcframework */,
-				A8630EEC2AB54DBE00937A5F /* Turf.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -169,6 +143,10 @@
 			dependencies = (
 			);
 			name = LAME_RTK;
+			packageProductDependencies = (
+				A839B0132AC0AB8D00CA1CD5 /* MapboxCoreNavigation */,
+				A839B0152AC0AB8D00CA1CD5 /* MapboxNavigation */,
+			);
 			productName = LAME_RTK;
 			productReference = A81C6C4C2AAFB66D00ECEA9D /* LAME_RTK.app */;
 			productType = "com.apple.product-type.application";
@@ -197,6 +175,9 @@
 				Base,
 			);
 			mainGroup = A81C6C432AAFB66D00ECEA9D;
+			packageReferences = (
+				A839B0122AC0AB8D00CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */,
+			);
 			productRefGroup = A81C6C4D2AAFB66D00ECEA9D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +214,7 @@
 				A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */,
 				A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */,
 				A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */,
-				A8BB7D122AB4E4E300B5819C /* ContentView.swift in Sources */,
+				A839B0112ABF49C100CA1CD5 /* ContentView.swift in Sources */,
 				A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */,
 				A803A4362AB92A1A00EC73FB /* GPSDataView.swift in Sources */,
 			);
@@ -280,6 +261,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME_RTK/LAME_RTK/Frameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -343,6 +325,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME_RTK/LAME_RTK/Frameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -387,7 +370,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME_RTK/LAME_RTK/Frameworks;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -418,7 +400,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Users/roontoon/Documents/GitHubLocalRepository/LAME_RTK/LAME_RTK/Frameworks;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -445,6 +426,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A839B0122AC0AB8D00CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-navigation-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A839B0132AC0AB8D00CA1CD5 /* MapboxCoreNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A839B0122AC0AB8D00CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxCoreNavigation;
+		};
+		A839B0152AC0AB8D00CA1CD5 /* MapboxNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A839B0122AC0AB8D00CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxNavigation;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A863EDAA2AB0F69100C7DF64 /* GPSDataModel.xcdatamodeld */ = {
