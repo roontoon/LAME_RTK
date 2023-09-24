@@ -12,7 +12,7 @@ struct MapView: UIViewRepresentable {
     let centerCoordinate = CLLocationCoordinate2D(latitude: 28.06993, longitude: -82.48436)
     
     func makeUIView(context: Context) -> MapboxMaps.MapView {
-        let resourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
+        let resourceOptions = ResourceOptions(accessToken: "token")
         let mapInitOptions = MapInitOptions(resourceOptions: resourceOptions)
         let mapView = MapboxMaps.MapView(frame: context.coordinator.view.bounds, mapInitOptions: mapInitOptions)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
