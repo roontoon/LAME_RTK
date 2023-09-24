@@ -7,7 +7,7 @@ import MapboxMaps
 
 struct MapView: UIViewRepresentable {
     var mapID: String = "TestData"  // Hardcoded for now, can be dynamic in the future
-    
+    //
     // Coordinates from Preferences (hardcoded for now)
     let centerCoordinate = CLLocationCoordinate2D(latitude: 28.06993, longitude: -82.48436)
     
