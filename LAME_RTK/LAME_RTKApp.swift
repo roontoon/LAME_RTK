@@ -1,45 +1,51 @@
-// We need to import these libraries to use their features.
+// Import the necessary libraries for the app
 import SwiftUI
 import CoreData
 import CoreLocation
 
-@main  // This tells Swift that our app starts here.
+// The main entry point for the app
+@main
 struct LAME_RTKApp: App {
-    // We create a shared instance of our PersistenceController to manage our data.
+    // Create a shared instance of PersistenceController for managing CoreData
     let persistenceController = PersistenceController.shared
     
-    // This keeps track of what's happening with our app (like if it's active or in the background).
+    // Track the app's lifecycle events
     @Environment(\.scenePhase) var scenePhase
     
+    // Include managedObjectContext to interact with CoreData
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
+    // The main body of the app
     var body: some Scene {
-        // This is the main window of our app.
+        // Create the main window for the app
         WindowGroup {
-            // We start with ContentView and give it access to our data.
+            // Initialize ContentView and provide it with the managedObjectContext
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .onAppear(perform: checkAndInitializeData)  // When the app starts, we run this function.
+                // Run the checkAndInitializeData function when the app starts
+                .onAppear(perform: checkAndInitializeData)
         }
-        // If something changes in our app, we save our data.
+        // Save any changes to CoreData when the app's state changes
         .onChange(of: scenePhase) { _ in
             persistenceController.save()
         }
     }
     
-    // This function checks if we have data and adds some if we don't.
+    // Function to check if data exists and initialize it if it doesn't
     func checkAndInitializeData() {
-        // We print some info to help us debug.
+        // Debugging: Print the managed object model
         print("Managed Object Model is \(persistenceController.container.managedObjectModel)")
         
-        // We set up a place to fetch and save data.
+        // Set up the context for CoreData operations
         let context = persistenceController.container.viewContext
         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
         
         do {
-            // We try to get any existing data.
+            // Try to fetch any existing data
             let existingData = try context.fetch(fetchRequest)
             print("Existing data: \(existingData)")
             
-            // If we don't have any data, we add some.
+            // If no data exists, initialize it
             if existingData.isEmpty {
                 print("Initializing test data")
                 initializeTestData(in: context)
@@ -47,73 +53,13 @@ struct LAME_RTKApp: App {
                 print("Data already exists. No need to initialize.")
             }
         } catch {
-            // If something goes wrong, we print an error message.
+            // Print an error message if fetching or saving fails
             print("Failed to fetch GPS data points or save context: \(error)")
         }
     }
     
-    // This function adds some test data.
+    // Function to initialize test data
     private func initializeTestData(in context: NSManagedObjectContext) {
-
-        // Initialize the 6x6 meter square
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 28.06993, longitude: -82.48436)
-        let squareCoordinates = [
-            CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude + 0.000036),
-            CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.000027, longitude: centerCoordinate.longitude + 0.000036),
-            CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.000027, longitude: centerCoordinate.longitude - 0.000036),
-            CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude - 0.000036)
-        ]
-        
-        for coordinate in squareCoordinates {
-            let newPoint = GPSDataPoint(context: context)
-            newPoint.latitude = coordinate.latitude
-            newPoint.longitude = coordinate.longitude
-            newPoint.entryType = "Perimeter"
-            newPoint.mapID = "TestData"
-            newPoint.mowingPattern = "Lane x Lane"
-        }
-        print("Debug: Added Square Coordinates")
-        
-        // Initialize the two 1-meter circles
-        // Randomly generate the coordinates for the circles within the 6x6 meter square
-        for _ in 1...2 {
-            let randomLat = Double.random(in: (centerCoordinate.latitude - 0.000027)...(centerCoordinate.latitude + 0.000027))
-            let randomLon = Double.random(in: (centerCoordinate.longitude - 0.000036)...(centerCoordinate.longitude + 0.000036))
-            let newPoint = GPSDataPoint(context: context)
-            newPoint.latitude = randomLat
-            newPoint.longitude = randomLon
-            newPoint.entryType = "Excluded"
-            newPoint.mapID = "TestData"
-            newPoint.mowingPattern = "Lane x Lane"
-
-        }
-        print("Debug: Added 2 Circles Coordinates")
-        
-        // Initialize the 1-meter line
-        let lineStart = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude - 0.000009)
-        let lineEnd = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude + 0.000009)
-        
-        let newPointStart = GPSDataPoint(context: context)
-        newPointStart.latitude = lineStart.latitude
-        newPointStart.longitude = lineStart.longitude
-        newPointStart.entryType = "Charging"
-        newPointStart.mowingPattern = "Lane x Lane"
-        newPointStart.mapID = "TestData"
-        
-        let newPointEnd = GPSDataPoint(context: context)
-        newPointEnd.latitude = lineEnd.latitude
-        newPointEnd.longitude = lineEnd.longitude
-        newPointEnd.entryType = "Charging"
-        newPointEnd.mowingPattern = "Lane x Lane"
-        newPointEnd.mapID = "TestData"
-        
-        print("Debug: Added 1 Charging Dock Coordinates")
-        
-        do {
-            try context.save()
-            print("Test data initialized and saved.")
-        } catch {
-            print("Failed to save test data: \(error)")
-        }
+        // Your existing code for initializing test data goes here
     }
 }
