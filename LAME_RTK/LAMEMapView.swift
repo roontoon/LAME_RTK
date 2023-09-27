@@ -4,7 +4,7 @@ import MapboxMaps
 import CoreData
 
 struct LAMEMapView: UIViewControllerRepresentable {
-     
+
     func makeUIViewController(context: Context) -> MapViewController {
            return MapViewController()
        }
@@ -17,6 +17,10 @@ class MapViewController: UIViewController {
    // Declare a variable to hold the MapView from Mapbox.
    internal var mapView: MapView!
    
+    // Fetch the default latitude and longitude from AppStorage
+    @AppStorage("defaultLongitude") var defaultLongitude: Double = 0.0
+    @AppStorage("defaultLatitude") var defaultLatitude: Double = 0.0
+
    // Declare a variable to hold the managed object context from Core Data.
    let managedObjectContext = PersistenceController.shared.container.viewContext
    
@@ -24,8 +28,10 @@ class MapViewController: UIViewController {
        super.viewDidLoad()
        
        // Initialize the camera options for Mapbox.
-       let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: 28.069767, longitude: -82.484428), zoom: 19, bearing: 0, pitch: 0)
+       //let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: 28.069767, longitude: -82.484428), zoom: 19, bearing: 0, pitch: 0)
 
+       let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: self.defaultLatitude, longitude: self.defaultLongitude), zoom: 19, bearing: 0, pitch: 0)
+       
        // Initialize the resource options for Mapbox.
        let myResourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
 

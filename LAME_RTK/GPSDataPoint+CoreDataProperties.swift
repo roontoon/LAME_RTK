@@ -32,5 +32,8 @@ extension GPSDataPoint {
     @NSManaged public var speed: Double
     @NSManaged public var timestamp: Date?
     @NSManaged public var verticalAccuracy: Double
+    @NSManaged public var defaultLatitude: Double
+    @NSManaged public var defaultLongitude: Double
+
 
 }
