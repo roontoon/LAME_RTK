@@ -36,6 +36,7 @@ struct ContentView: View {
             // Initialize MapView with default location
            /* CustomMapView(defaultLatitude:defaultLatitude,defaultLongitude:defaultLongitude, gpsDataPoints: [CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude)])  */
             LAMEMapView()
+                        //.ignoresSafeArea()
                 .tabItem {
                     Image(systemName: "3.circle.fill")  // Tab icon
                     Text("MapView")  // Tab title

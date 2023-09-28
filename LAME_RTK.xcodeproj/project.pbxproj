@@ -17,7 +17,7 @@
 		A839B01E2AC100B500CA1CD5 /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A839B01D2AC100B500CA1CD5 /* MapboxCoreNavigation */; };
 		A839B0202AC100B500CA1CD5 /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A839B01F2AC100B500CA1CD5 /* MapboxNavigation */; };
 		A839B0222AC21FE400CA1CD5 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A839B0212AC21FE400CA1CD5 /* test.swift */; };
-		A839B04A2AC36D9A00CA1CD5 /* LAMEMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A839B0492AC36D9A00CA1CD5 /* LAMEMapView.swift */; };
+		A839B04C2AC4E37800CA1CD5 /* LAMEMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */; };
 		A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7D2AB0091F00C7DF64 /* Editview.swift */; };
 		A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED812AB009C000C7DF64 /* JoyStickView.swift */; };
 		A863ED842AB009FC00C7DF64 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED832AB009FC00C7DF64 /* MapBoxView.swift */; };
@@ -51,7 +51,7 @@
 		A839B0102ABF49C100CA1CD5 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A839B01B2AC1004100CA1CD5 /* LAME-RTK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LAME-RTK-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A839B0212AC21FE400CA1CD5 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		A839B0492AC36D9A00CA1CD5 /* LAMEMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMEMapView.swift; sourceTree = "<group>"; };
+		A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMEMapView.swift; sourceTree = "<group>"; };
 		A863ED7D2AB0091F00C7DF64 /* Editview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editview.swift; sourceTree = "<group>"; };
 		A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDataView.swift; sourceTree = "<group>"; };
 		A863ED812AB009C000C7DF64 /* JoyStickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyStickView.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				A81C6C552AAFB66E00ECEA9D /* Preview Content */,
 				A863EDAA2AB0F69100C7DF64 /* GPSDataModel.xcdatamodeld */,
 				A839B0212AC21FE400CA1CD5 /* test.swift */,
-				A839B0492AC36D9A00CA1CD5 /* LAMEMapView.swift */,
+				A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */,
 			);
 			path = LAME_RTK;
 			sourceTree = "<group>";
@@ -218,10 +218,10 @@
 				A863EDB02AB0FB6200C7DF64 /* GPSDataModel.xcdatamodeld in Sources */,
 				A863ED8E2AB00B6A00C7DF64 /* TestMap.swift in Sources */,
 				A863ED8A2AB00AF700C7DF64 /* PreferencesView.swift in Sources */,
+				A839B04C2AC4E37800CA1CD5 /* LAMEMapView.swift in Sources */,
 				A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */,
 				A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */,
 				A863ED7E2AB0091F00C7DF64 /* Editview.swift in Sources */,
-				A839B04A2AC36D9A00CA1CD5 /* LAMEMapView.swift in Sources */,
 				A824EF9B2AB23425002D2BF6 /* PersistenceController.swift in Sources */,
 				A839B0112ABF49C100CA1CD5 /* ContentView.swift in Sources */,
 				A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */,
