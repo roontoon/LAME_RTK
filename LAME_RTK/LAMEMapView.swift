@@ -1,9 +1,9 @@
-// Import necessary frameworks for UI, Mapbox, and Core Data functionalities
+// Import the necessary modules for UI, Mapbox, and Core Data
 import SwiftUI
 import MapboxMaps
 import CoreData
 
-// Create a SwiftUI view that represents the MapViewController
+// Define a SwiftUI view that represents the MapViewController
 struct LAMEMapView: UIViewControllerRepresentable {
     
     // Create and return a new MapViewController when the view is made
@@ -66,41 +66,48 @@ class MapViewController: UIViewController {
             // Initialize an empty array to hold PointAnnotations
             var pointAnnotations: [PointAnnotation] = []
             
+            // Initialize arrays to hold coordinates for each entry type
+            var perimeterCoordinates: [CLLocationCoordinate2D] = []
+            var excludedCoordinates: [CLLocationCoordinate2D] = []
+            var chargingCoordinates: [CLLocationCoordinate2D] = []
+            
             // Loop through the fetched Core Data records
             for dataPoint in fetchedResults {
                 // Create a PointAnnotation for each data point
-                var pointAnnotation = PointAnnotation(coordinate: CLLocationCoordinate2DMake(dataPoint.latitude, dataPoint.longitude))
+                let coordinate = CLLocationCoordinate2DMake(dataPoint.latitude, dataPoint.longitude)
+                var pointAnnotation = PointAnnotation(coordinate: coordinate)
                 
                 // Assign an image to the annotation based on the entryType
                 switch dataPoint.entryType {
                 case "Perimeter":
-                    if let greenDiamondImage = UIImage(named: "greenDiamond") {
-                        pointAnnotation.image = .init(image: greenDiamondImage, name: "greenDiamond")
-                    }
+                    pointAnnotation.image = .init(image: UIImage(named: "greenDiamond")!, name: "greenDiamond")
+                    perimeterCoordinates.append(coordinate)
                 case "Excluded":
-                    if let redDiamondImage = UIImage(named: "redDiamond") {
-                        pointAnnotation.image = .init(image: redDiamondImage, name: "redDiamond")
-                    }
+                    pointAnnotation.image = .init(image: UIImage(named: "redDiamond")!, name: "redDiamond")
+                    excludedCoordinates.append(coordinate)
                 case "Charging":
-                    if let blueDiamondImage = UIImage(named: "blueDiamond") {
-                        pointAnnotation.image = .init(image: blueDiamondImage, name: "blueDiamond")
-                    }
+                    pointAnnotation.image = .init(image: UIImage(named: "blueDiamond")!, name: "blueDiamond")
+                    chargingCoordinates.append(coordinate)
                 default:
                     break
                 }
-                
-                // Set the icon anchor point to the bottom of the annotation image
-                pointAnnotation.iconAnchor = .bottom
                 
                 // Add the PointAnnotation to the array
                 pointAnnotations.append(pointAnnotation)
             }
             
-            // Create a PointAnnotationManager to manage the annotations
+            // Create and configure a PointAnnotationManager
             let pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
-            
-            // Set the annotations for the PointAnnotationManager
             pointAnnotationManager.annotations = pointAnnotations
+            
+            // Create PolylineAnnotations for each entry type
+            let perimeterPolyline = PolylineAnnotation(lineCoordinates: perimeterCoordinates)
+            let excludedPolyline = PolylineAnnotation(lineCoordinates: excludedCoordinates)
+            let chargingPolyline = PolylineAnnotation(lineCoordinates: chargingCoordinates)
+            
+            // Create and configure a PolylineAnnotationManager
+            let polylineManager = mapView.annotations.makePolylineAnnotationManager()
+            polylineManager.annotations = [perimeterPolyline, excludedPolyline, chargingPolyline]
             
         } catch {
             // Handle any errors that occur during fetching
