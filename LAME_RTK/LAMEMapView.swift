@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         // Initialize Mapbox resource options
-        let myResourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
+        let myResourceOptions = ResourceOptions(accessToken: "Put token here")
         
         // Initialize camera options for Mapbox
         let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
