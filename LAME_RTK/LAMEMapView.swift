@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         // Initialize Mapbox resource options
-        let myResourceOptions = ResourceOptions(accessToken: "YourAccessTokenHere")
+        let myResourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
         
         // Initialize camera options for Mapbox
         let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
@@ -52,6 +52,14 @@ class MapViewController: UIViewController {
         
         // Fetch and annotate GPS data points from Core Data
         fetchAndAnnotateGPSData()
+        
+        // Add zoom buttons
+        addZoomButtons()
+        
+        // Add double-click to zoom functionality
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        mapView.addGestureRecognizer(doubleTap)
     }
     
     // Function to fetch and annotate GPS data points from Core Data
@@ -91,7 +99,6 @@ class MapViewController: UIViewController {
                 default:
                     break
                 }
-                
                 // Add the PointAnnotation to the array
                 pointAnnotations.append(pointAnnotation)
             }
@@ -100,18 +107,76 @@ class MapViewController: UIViewController {
             let pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
             pointAnnotationManager.annotations = pointAnnotations
             
-            // Create PolylineAnnotations for each entry type
-            let perimeterPolyline = PolylineAnnotation(lineCoordinates: perimeterCoordinates)
-            let excludedPolyline = PolylineAnnotation(lineCoordinates: excludedCoordinates)
-            let chargingPolyline = PolylineAnnotation(lineCoordinates: chargingCoordinates)
-            
+            // Create PolylineAnnotations with different colors
+            var perimeterPolyline = PolylineAnnotation(lineCoordinates: perimeterCoordinates)
+            perimeterPolyline.lineColor = StyleColor(.green) // Set the line color to green
+
+            var excludedPolyline = PolylineAnnotation(lineCoordinates: excludedCoordinates)
+            excludedPolyline.lineColor = StyleColor(.red) // Set the line color to red
+
+            var chargingPolyline = PolylineAnnotation(lineCoordinates: chargingCoordinates)
+            chargingPolyline.lineColor = StyleColor(.blue) // Set the line color to blue
+
             // Create and configure a PolylineAnnotationManager
             let polylineManager = mapView.annotations.makePolylineAnnotationManager()
             polylineManager.annotations = [perimeterPolyline, excludedPolyline, chargingPolyline]
-            
+
         } catch {
             // Handle any errors that occur during fetching
             print("Failed to fetch GPS data points: \(error)")
         }
+    }
+    
+    // Function to add zoom buttons to the map
+    func addZoomButtons() {
+        // Create zoom in button
+        // Initialize a UIButton with a frame at x: 20, y: 20 and dimensions 30x30
+        let zoomInButton = UIButton(frame: CGRect(x: 20, y: 30, width: 30, height: 30))
+        // Set the title of the button to "+"
+        zoomInButton.setTitle("+", for: .normal)
+        // Set the font size of the title to 18
+        zoomInButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        // Set the background color of the button to white
+        zoomInButton.backgroundColor = .lightGray
+        // Set the corner radius of the button to 10, making it rounded
+        zoomInButton.layer.cornerRadius = 10
+        // Add an action to the button, so when it's tapped, it will call the zoomIn function
+        zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchUpInside)
+        
+        // Create zoom out button
+        // Initialize a UIButton with a frame at x: 20, y: 90 and dimensions 30x30
+        let zoomOutButton = UIButton(frame: CGRect(x: 20, y: 70, width: 30, height: 30))
+        // Set the title of the button to "-"
+        zoomOutButton.setTitle("-", for: .normal)
+        // Set the font size of the title to 18
+        zoomOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        // Set the background color of the button to white
+        zoomOutButton.backgroundColor = .lightGray
+        // Set the corner radius of the button to 10, making it rounded
+        zoomOutButton.layer.cornerRadius = 10
+        // Add an action to the button, so when it's tapped, it will call the zoomOut function
+
+        zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchUpInside)
+        
+        // Add buttons to the view
+        self.view.addSubview(zoomInButton)
+        self.view.addSubview(zoomOutButton)
+    }
+    
+    // Function to handle zoom in button tap
+    @objc func zoomIn() {
+        mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom + 1))
+    }
+    
+    // Function to handle zoom out button tap
+    @objc func zoomOut() {
+        mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom - 1))
+    }
+    
+    // Function to handle double tap gesture
+    @objc func handleDoubleTap(_ sender: UITapGestureRecognizer) {
+        let point = sender.location(in: mapView)
+        let coordinate = mapView.mapboxMap.coordinate(for: point)
+        mapView.mapboxMap.setCamera(to: CameraOptions(center: coordinate, zoom: mapView.mapboxMap.cameraState.zoom + 1))
     }
 }
