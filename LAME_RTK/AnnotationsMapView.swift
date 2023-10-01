@@ -34,12 +34,39 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     // Declare a variable to hold the Core Data managed object context
     let managedObjectContext = PersistenceController.shared.container.viewContext
     
-    // Implement the required methods for AnnotationInteractionDelegate
-    func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
-        print("Tapped annotations: \(annotations)")
-    }
+    // MARK: - Annotation Interaction Delegate Methods
     
-    // Function that runs when the view loads
+    /*
+     This function is part of the AnnotationInteractionDelegate protocol.
+     It's called when an annotation on the map is tapped.
+     */
+    // This function is a delegate method from Mapbox's AnnotationManager.
+    // It gets called when an annotation on the map is tapped.
+    func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
+        
+        // Check if the first annotation in the array is of type PointAnnotation.
+        if let tappedAnnotation = annotations.first as? PointAnnotation {
+            
+            // TODO: Replace this with the correct way to get coordinates if PointAnnotation doesn't have a 'coordinate' property.
+            // Display an alert showing the coordinates of the tapped annotation.
+            let alert = UIAlertController(title: "Annotation Tapped", message: "You tapped an annotation.", preferredStyle: .alert)
+            
+            // Add an "OK" button to the alert.
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            // Present the alert.
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+
+    
+    // MARK: - View Lifecycle Methods
+    
+    /*
+     Function that runs when the view loads.
+     It initializes the Mapbox map, location manager, and other UI elements.
+     */
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,34 +98,36 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         
         // Add zoom buttons
         addZoomButtons()
-        
-        // Add double-click to zoom functionality
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTap.numberOfTapsRequired = 2
-        mapView.addGestureRecognizer(doubleTap)
     }
     
-    // Function to fetch and annotate GPS data points from Core Data
+    // MARK: - Custom Methods
+    
+    /**
+     This function fetches GPS data points from Core Data and annotates them on the map.
+     It also sets up different types of annotations based on the entry type of each data point.
+    */
     func fetchAndAnnotateGPSData() {
-        // Create a fetch request for the GPSDataPoint entity
+        // Create a fetch request for the GPSDataPoint entity in Core Data
         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
         
         do {
-            // Execute the fetch request and store the results
+            // Execute the fetch request and store the results in a variable
             let fetchedResults = try managedObjectContext.fetch(fetchRequest)
             
-            // Initialize an empty array to hold PointAnnotations
+            // Initialize an empty array to hold PointAnnotation objects
             var pointAnnotations: [PointAnnotation] = []
             
-            // Initialize arrays to hold coordinates for each entry type
+            // Initialize arrays to hold coordinates for each type of entry (Perimeter, Excluded, Charging)
             var perimeterCoordinates: [CLLocationCoordinate2D] = []
             var excludedCoordinates: [CLLocationCoordinate2D] = []
             var chargingCoordinates: [CLLocationCoordinate2D] = []
             
-            // Loop through the fetched Core Data records
+            // Loop through the fetched results to create annotations
             for dataPoint in fetchedResults {
-                // Create a PointAnnotation for each data point
+                // Create a coordinate from the latitude and longitude of each data point
                 let coordinate = CLLocationCoordinate2DMake(dataPoint.latitude, dataPoint.longitude)
+                
+                // Create a PointAnnotation object with the coordinate
                 var pointAnnotation = PointAnnotation(coordinate: coordinate)
                 
                 // Assign an image to the annotation based on the entryType
@@ -122,13 +151,18 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                     break
                 }
                 
-                // Add the PointAnnotation to the array
+                // Add the created PointAnnotation to the array
                 pointAnnotations.append(pointAnnotation)
             }
             
-            // Create and configure a PointAnnotationManager
+            // Create and configure a PointAnnotationManager to manage the annotations
             let pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
+            
+            // Assign the array of PointAnnotations to the manager
             pointAnnotationManager.annotations = pointAnnotations
+            
+            // Set the delegate for the PointAnnotationManager
+            pointAnnotationManager.delegate = self  // <-- Add this line here
             
             // Create PolylineAnnotations with different colors
             var perimeterPolyline = PolylineAnnotation(lineCoordinates: perimeterCoordinates)
@@ -149,8 +183,25 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             print("Failed to fetch GPS data points: \(error)")
         }
     }
+    /*
+     This function is part of the AnnotationInteractionDelegate protocol.
+     It's called when an annotation on the map is tapped.
+     */
+/*    func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
+        // Check if any annotations were tapped
+        if let tappedAnnotation = annotations.first as? PointAnnotation {
+            // Handle the tapped annotation here
+            // For example, you can show an alert or a custom view to display the annotation details
+            let alert = UIAlertController(title: "Annotation Tapped", message: "You tapped an annotation at \(tappedAnnotation.coordinate)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }*/
     
-    // Function to add zoom buttons to the map
+    /*
+     Function to add zoom buttons to the map.
+     It creates "+" and "-" buttons that allow the user to zoom in and out.
+     */
     func addZoomButtons() {
         // Create zoom in button
         let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
@@ -169,20 +220,19 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         self.view.addSubview(zoomOutButton)
     }
     
-    // Function to handle zoom in button tap
+    /*
+     Function to handle zoom in button tap.
+     It increases the zoom level of the map by 1.
+     */
     @objc func zoomIn() {
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom + 1))
     }
     
-    // Function to handle zoom out button tap
+    /*
+     Function to handle zoom out button tap.
+     It decreases the zoom level of the map by 1.
+     */
     @objc func zoomOut() {
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom - 1))
-    }
-    
-    // Function to handle double tap gesture
-    @objc func handleDoubleTap(_ sender: UITapGestureRecognizer) {
-        let point = sender.location(in: mapView)
-        let coordinate = mapView.mapboxMap.coordinate(for: point)
-        mapView.mapboxMap.setCamera(to: CameraOptions(center: coordinate, zoom: mapView.mapboxMap.cameraState.zoom + 1))
     }
 }
