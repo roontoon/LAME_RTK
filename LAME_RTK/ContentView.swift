@@ -29,7 +29,7 @@ struct ContentView: View {
             JoyStickView()
                 .tabItem {
                     Image(systemName: "2.circle.fill")  // Tab icon
-                    Text("JoyStick View")  // Tab title
+                    Text("JoyStick")  // Tab title
                 }
             
             // Tab 3: MapView
@@ -46,14 +46,15 @@ struct ContentView: View {
             PreferencesView()
                 .tabItem {
                     Image(systemName: "4.circle.fill")  // Tab icon
-                    Text("PreferencesView")  // Tab title
+                    Text("Pref")  // Tab title
                 }
             
             // Tab 5: Placeholder
-            Text("Tab 5 Content")
+            
+            AnnotationsMapView()
                 .tabItem {
                     Image(systemName: "5.circle.fill")  // Tab icon
-                    Text("Tab 5")  // Tab title
+                    Text("Test")  // Tab title
                 }
         }
     }
