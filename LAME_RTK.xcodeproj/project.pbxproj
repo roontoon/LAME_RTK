@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803A4342AB90F8400EC73FB /* Persistence.swift */; };
 		A803A4362AB92A1A00EC73FB /* GPSDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */; };
+		A817D5D12AC8F3FE00AF54A6 /* MapboxCoreNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A817D5D02AC8F3FE00AF54A6 /* MapboxCoreNavigation */; };
+		A817D5D32AC8F3FE00AF54A6 /* MapboxNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = A817D5D22AC8F3FE00AF54A6 /* MapboxNavigation */; };
 		A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */; };
 		A81C6C542AAFB66E00ECEA9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C532AAFB66E00ECEA9D /* Assets.xcassets */; };
 		A81C6C572AAFB66E00ECEA9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A81C6C562AAFB66E00ECEA9D /* Preview Assets.xcassets */; };
@@ -70,7 +72,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A839B01E2AC100B500CA1CD5 /* MapboxCoreNavigation in Frameworks */,
+				A817D5D12AC8F3FE00AF54A6 /* MapboxCoreNavigation in Frameworks */,
 				A839B0202AC100B500CA1CD5 /* MapboxNavigation in Frameworks */,
+				A817D5D32AC8F3FE00AF54A6 /* MapboxNavigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +102,6 @@
 			children = (
 				A839B01B2AC1004100CA1CD5 /* LAME-RTK-Info.plist */,
 				A839B0102ABF49C100CA1CD5 /* ContentView.swift */,
-				A8630EE82AB54D9B00937A5F /* Frameworks */,
 				A81C6C4F2AAFB66D00ECEA9D /* LAME_RTKApp.swift */,
 				A863ED7D2AB0091F00C7DF64 /* Editview.swift */,
 				A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */,
@@ -127,13 +130,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A8630EE82AB54D9B00937A5F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,6 +150,8 @@
 			packageProductDependencies = (
 				A839B01D2AC100B500CA1CD5 /* MapboxCoreNavigation */,
 				A839B01F2AC100B500CA1CD5 /* MapboxNavigation */,
+				A817D5D02AC8F3FE00AF54A6 /* MapboxCoreNavigation */,
+				A817D5D22AC8F3FE00AF54A6 /* MapboxNavigation */,
 			);
 			productName = LAME_RTK;
 			productReference = A81C6C4C2AAFB66D00ECEA9D /* LAME_RTK.app */;
@@ -451,6 +449,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A817D5D02AC8F3FE00AF54A6 /* MapboxCoreNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A839B01C2AC100B500CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxCoreNavigation;
+		};
+		A817D5D22AC8F3FE00AF54A6 /* MapboxNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A839B01C2AC100B500CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;
+			productName = MapboxNavigation;
+		};
 		A839B01D2AC100B500CA1CD5 /* MapboxCoreNavigation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A839B01C2AC100B500CA1CD5 /* XCRemoteSwiftPackageReference "mapbox-navigation-ios" */;

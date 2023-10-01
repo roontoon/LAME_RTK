@@ -5,7 +5,6 @@ import CoreData
 
 // Define a SwiftUI view that represents the MapViewController
 struct LAMEMapView: UIViewControllerRepresentable {
-    
     // Create and return a new MapViewController when the view is made
     func makeUIViewController(context: Context) -> MapViewController {
         return MapViewController()
@@ -33,7 +32,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         // Initialize Mapbox resource options
-        let myResourceOptions = ResourceOptions(accessToken: "Put token here")
+        let myResourceOptions = ResourceOptions(accessToken: "Your Mapbox Token Here")
         
         // Initialize camera options for Mapbox
         let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
@@ -88,17 +87,30 @@ class MapViewController: UIViewController {
                 // Assign an image to the annotation based on the entryType
                 switch dataPoint.entryType {
                 case "Perimeter":
-                    pointAnnotation.image = .init(image: UIImage(named: "greenDiamond")!, name: "greenDiamond")
+                    // Safely unwrap the image asset with capitalized color name
+                    if let GreenDiamondImage = UIImage(named: "GreenDiamond") {
+                        pointAnnotation.image = .init(image: GreenDiamondImage, name: "GreenDiamond")
+                    }
+                    // Add the coordinate to the perimeterCoordinates array
                     perimeterCoordinates.append(coordinate)
                 case "Excluded":
-                    pointAnnotation.image = .init(image: UIImage(named: "redDiamond")!, name: "redDiamond")
+                    // Safely unwrap the image asset with capitalized color name
+                    if let RedDiamondImage = UIImage(named: "RedDiamond") {
+                        pointAnnotation.image = .init(image: RedDiamondImage, name: "RedDiamond")
+                    }
+                    // Add the coordinate to the excludedCoordinates array
                     excludedCoordinates.append(coordinate)
                 case "Charging":
-                    pointAnnotation.image = .init(image: UIImage(named: "blueDiamond")!, name: "blueDiamond")
+                    // Safely unwrap the image asset with capitalized color name
+                    if let BlueDiamondImage = UIImage(named: "BlueDiamond") {
+                        pointAnnotation.image = .init(image: BlueDiamondImage, name: "BlueDiamond")
+                    }
+                    // Add the coordinate to the chargingCoordinates array
                     chargingCoordinates.append(coordinate)
                 default:
                     break
                 }
+                
                 // Add the PointAnnotation to the array
                 pointAnnotations.append(pointAnnotation)
             }
@@ -130,32 +142,15 @@ class MapViewController: UIViewController {
     // Function to add zoom buttons to the map
     func addZoomButtons() {
         // Create zoom in button
-        // Initialize a UIButton with a frame at x: 20, y: 20 and dimensions 30x30
-        let zoomInButton = UIButton(frame: CGRect(x: 20, y: 30, width: 30, height: 30))
-        // Set the title of the button to "+"
+        let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
         zoomInButton.setTitle("+", for: .normal)
-        // Set the font size of the title to 18
-        zoomInButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-        // Set the background color of the button to white
-        zoomInButton.backgroundColor = .lightGray
-        // Set the corner radius of the button to 10, making it rounded
-        zoomInButton.layer.cornerRadius = 10
-        // Add an action to the button, so when it's tapped, it will call the zoomIn function
+        zoomInButton.backgroundColor = .white
         zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchUpInside)
         
         // Create zoom out button
-        // Initialize a UIButton with a frame at x: 20, y: 90 and dimensions 30x30
-        let zoomOutButton = UIButton(frame: CGRect(x: 20, y: 70, width: 30, height: 30))
-        // Set the title of the button to "-"
+        let zoomOutButton = UIButton(frame: CGRect(x: 20, y: 60, width: 30, height: 30))
         zoomOutButton.setTitle("-", for: .normal)
-        // Set the font size of the title to 18
-        zoomOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-        // Set the background color of the button to white
-        zoomOutButton.backgroundColor = .lightGray
-        // Set the corner radius of the button to 10, making it rounded
-        zoomOutButton.layer.cornerRadius = 10
-        // Add an action to the button, so when it's tapped, it will call the zoomOut function
-
+        zoomOutButton.backgroundColor = .white
         zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchUpInside)
         
         // Add buttons to the view
