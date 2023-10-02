@@ -1,4 +1,4 @@
-// Import the necessary modules for UI, Mapbox, and Core Data
+/*// Import the necessary modules for UI, Mapbox, and Core Data
 import SwiftUI
 import MapboxMaps
 import CoreData
@@ -175,3 +175,4 @@ class MapViewController: UIViewController {
         mapView.mapboxMap.setCamera(to: CameraOptions(center: coordinate, zoom: mapView.mapboxMap.cameraState.zoom + 1))
     }
 }
+*/

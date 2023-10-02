@@ -36,18 +36,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     
     // MARK: - Annotation Interaction Delegate Methods
     
-    /*
-     This function is part of the AnnotationInteractionDelegate protocol.
-     It's called when an annotation on the map is tapped.
-     */
     // This function is a delegate method from Mapbox's AnnotationManager.
     // It gets called when an annotation on the map is tapped.
     func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
-        
         // Check if the first annotation in the array is of type PointAnnotation.
         if let tappedAnnotation = annotations.first as? PointAnnotation {
-            
-            // TODO: Replace this with the correct way to get coordinates if PointAnnotation doesn't have a 'coordinate' property.
             // Display an alert showing the coordinates of the tapped annotation.
             let alert = UIAlertController(title: "Annotation Tapped", message: "You tapped an annotation.", preferredStyle: .alert)
             
@@ -58,15 +51,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             self.present(alert, animated: true, completion: nil)
         }
     }
-
-
     
     // MARK: - View Lifecycle Methods
     
-    /*
-     Function that runs when the view loads.
-     It initializes the Mapbox map, location manager, and other UI elements.
-     */
+    // Function that runs when the view loads.
+    // It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,7 +90,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     // MARK: - Custom Methods
-    
+
     /**
      This function fetches GPS data points from Core Data and annotates them on the map.
      It also sets up different types of annotations based on the entry type of each data point.
@@ -183,25 +172,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             print("Failed to fetch GPS data points: \(error)")
         }
     }
-    /*
-     This function is part of the AnnotationInteractionDelegate protocol.
-     It's called when an annotation on the map is tapped.
-     */
-/*    func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
-        // Check if any annotations were tapped
-        if let tappedAnnotation = annotations.first as? PointAnnotation {
-            // Handle the tapped annotation here
-            // For example, you can show an alert or a custom view to display the annotation details
-            let alert = UIAlertController(title: "Annotation Tapped", message: "You tapped an annotation at \(tappedAnnotation.coordinate)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }*/
-    
-    /*
-     Function to add zoom buttons to the map.
-     It creates "+" and "-" buttons that allow the user to zoom in and out.
-     */
+
+    // Function to add zoom buttons to the map.
     func addZoomButtons() {
         // Create zoom in button
         let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
@@ -220,18 +192,12 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         self.view.addSubview(zoomOutButton)
     }
     
-    /*
-     Function to handle zoom in button tap.
-     It increases the zoom level of the map by 1.
-     */
+    // Function to handle zoom in button tap.
     @objc func zoomIn() {
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom + 1))
     }
     
-    /*
-     Function to handle zoom out button tap.
-     It decreases the zoom level of the map by 1.
-     */
+    // Function to handle zoom out button tap.
     @objc func zoomOut() {
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom - 1))
     }
