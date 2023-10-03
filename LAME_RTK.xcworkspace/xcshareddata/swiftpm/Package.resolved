@@ -48,10 +48,10 @@
     {
       "identity" : "mapbox-navigation-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mapbox/mapbox-navigation-ios.git",
+      "location" : "https://github.com/mapbox/mapbox-navigation-ios",
       "state" : {
         "branch" : "main",
-        "revision" : "255e1199d34bab75dca0a67bdac12d5421504a8d"
+        "revision" : "e0cf0f6ada32fb58343235be4f952adad0ea56cc"
       }
     },
     {

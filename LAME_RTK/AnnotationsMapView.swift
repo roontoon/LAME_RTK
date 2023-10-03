@@ -115,11 +115,10 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
 
-    
     // MARK: - View Lifecycle Methods
     
-    // Function that runs when the view loads.
-    // It initializes the Mapbox map, location manager, and other UI elements.
+    /// Function that runs when the view loads.
+    /// It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -154,7 +153,6 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     // MARK: - Custom Methods
-
     /**
      This function fetches GPS data points from Core Data and annotates them on the map.
      It also sets up different types of annotations based on the entry type of each data point.
