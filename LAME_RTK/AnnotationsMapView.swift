@@ -51,15 +51,6 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             // Debug message confirming the type of the tapped annotation.
             print("Tapped annotation is a PointAnnotation.")
             
-            // Create a PointAnnotation with specific coordinates.
-            var annotation = PointAnnotation(coordinate: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194))
-            
-            // Set the userInfo dictionary for the new annotation.
-            annotation.userInfo = ["latitude": 37.7749, "longitude": -122.4194, "description": "San Francisco"]
-            
-            // Debug message to verify the userInfo data.
-            print("UserInfo for the new annotation: \(String(describing: annotation.userInfo))")
-            
             // Verify if `userInfo` of `tappedAnnotation` has data.
             if let userInfo = tappedAnnotation.userInfo {
                 
