@@ -1,14 +1,14 @@
-// We need to import these libraries to use their features.
+/// We need to import these libraries to use their features.
 import SwiftUI
 import CoreData
 import CoreLocation
 
-@main  // This tells Swift that our app starts here.
+@main  /// This tells Swift that our app starts here.
 struct LAME_RTKApp: App {
-    // We create a shared instance of our PersistenceController to manage our data.
+    /// Create a shared instance of our PersistenceController to manage our data.
     let persistenceController = PersistenceController.shared
     
-    // This keeps track of what's happening with our app (like if it's active or in the background).
+    /// This keeps track of what's happening with our app (like if it's active or in the background).
     @Environment(\.scenePhase) var scenePhase
     
     var body: some Scene {
@@ -56,7 +56,7 @@ struct LAME_RTKApp: App {
     private func initializeTestData(in context: NSManagedObjectContext) {
 
         // Initialize the 6x6 meter square
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 28.06993, longitude: -82.48436)
+        let centerCoordinate = CLLocationCoordinate2D(latitude: 28.0699300, longitude: -82.4843600)
         let squareCoordinates = [
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude + 0.000036),
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.000027, longitude: centerCoordinate.longitude + 0.000036),

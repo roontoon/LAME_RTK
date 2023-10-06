@@ -71,8 +71,8 @@ struct PreferencesView: View {
             .padding() // Adding padding for better layout.
             
             // Display the saved longitude and latitude.
-            Text("Saved Longitude: \(defaultLongitude, specifier: "%.8f")")
-            Text("Saved Latitude: \(defaultLatitude, specifier: "%.8f")")
+            Text("Saved Longitude: \(defaultLongitude, specifier: "%.7f")")
+            Text("Saved Latitude: \(defaultLatitude, specifier: "%.7f")")
         }
     }
 }

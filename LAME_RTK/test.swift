@@ -4,7 +4,7 @@
 //
 //  Created by Roontoon on 9/25/23.
 //
-
+/*
 import UIKit
 import MapboxMaps
 
@@ -153,3 +153,4 @@ public class CameraLocationConsumer: LocationConsumer {
             duration: 1.3)
     }
 }
+*/

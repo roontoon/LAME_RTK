@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:LAME_RTK/GPSDataPoint+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:LAME_RTK.xcodeproj">
    </FileRef>
 </Workspace>
