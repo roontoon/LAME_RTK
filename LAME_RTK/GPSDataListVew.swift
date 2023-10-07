@@ -58,13 +58,14 @@ struct GPSDataListView: View {
         ScrollView {
             // We're stacking things vertically, like a tower of blocks.
             VStack {
+                
                 // This part is for showing the estimated time of arrival.
                 
                 // This part is for selecting how far North or south you are.
                 HStack {
                     // This is the label that says "Latitude:"
                     Text("Latitude:")
-                          .font(.footnote)
+                          .font(.body)
                           .frame(width: 150, alignment: .leading)
                           .padding(.leading, 20)  // Add padding only to the leading side
                     // Custom stepper
@@ -75,17 +76,17 @@ struct GPSDataListView: View {
                             newLatitude = round(1000000 * newLatitude) / 1000000  // Round to 6 decimal places
                         }) {
                             Text("-")
-                                .font(.footnote)
+                                .font(.title)
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(Color.red)
+                                .foregroundColor(Color.green)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
                         }
                         Spacer()
                         // Display value
                         Text(String(format: "%.6f", newLatitude))
-                            .font(.footnote)
-                            .foregroundColor(Color.red)  // We color it red to make it stand out.
+                            .font(.body)
+                            .foregroundColor(Color.green)  // We color it red to make it stand out.
                         Spacer()
                         // Plus button
                         Button(action: {
@@ -93,7 +94,7 @@ struct GPSDataListView: View {
                             newLatitude = round(1000000 * newLatitude) / 1000000  // Round to 6 decimal places
                         }) {
                             Text("+")
-                                .font(.footnote)
+                                .font(.title)
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(Color.red)
                                 .background(Color.gray.opacity(0.2))
@@ -103,14 +104,12 @@ struct GPSDataListView: View {
                     }
                     //Spacer()
                 }
-
-                
                 
                 // This part is for selecting how far East or West you are.
                 HStack {
                     // This is the label that says "Longitude:"
                     Text("Longitude:")
-                        .font(.footnote)
+                        .font(.body)
                         .frame(width: 150, alignment: .leading)  // We give it some space so it lines up nicely.
                         .padding(.leading,20)
                     
@@ -123,17 +122,17 @@ struct GPSDataListView: View {
                             newLongitude = round(1000000 * newLongitude) / 1000000  // Round to 6 decimal places
                         }) {
                             Text("-")
-                                .font(.footnote)
+                                .font(.title)
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(Color.red)
+                                .foregroundColor(Color.blue)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
                         }
                         Spacer()
                         // Display value
                         Text(String(format: "%.6f", newLongitude))
-                            .font(.footnote)
-                            .foregroundColor(Color.red)  // We color it red to make it stand out.
+                            .font(.body)
+                            .foregroundColor(Color.blue)  // We color it red to make it stand out.
                         Spacer()
                         // Plus button
                         Button(action: {
@@ -141,7 +140,7 @@ struct GPSDataListView: View {
                             newLongitude = round(1000000 * newLongitude) / 1000000  // Round to 6 decimal places
                         }) {
                             Text("+")
-                                .font(.footnote)
+                                .font(.title)
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(Color.red)
                                 .background(Color.gray.opacity(0.2))
@@ -155,12 +154,12 @@ struct GPSDataListView: View {
                 // This part is for typing how high up you are.
                 HStack {
                     Text("Altitude:")
-                        .font(.footnote)
-                        .frame(width: 200, alignment: .leading)
-                        .padding(.leading, 20)  // Add 20 points of space to the left
+                        .font(.body)
+                        .frame(width: 350, alignment: .leading)
+                        .padding(.leading, 2)  // Add 20 points of space to the left
                     
-                    TextField("", value: $newAltitude, formatter: NumberFormatter())
-                        .font(.footnote)
+                   // TextField("", value: $newAltitude, formatter:
+                    Text(String(newAltitude))                        .font(.body)
                         .foregroundColor(Color.blue)
                 }
                 
@@ -293,7 +292,6 @@ struct GPSDataListView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)  // Use maxWidth: .infinity to push it to the right
                     .padding(.leading,15)
                 }
-
 
                 // This part is for typing the pattern of mowing.
                 HStack {
