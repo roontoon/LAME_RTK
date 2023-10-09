@@ -30,6 +30,7 @@
 		A863ED9F2AB0F29700C7DF64 /* GPSDataListVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED9E2AB0F29700C7DF64 /* GPSDataListVew.swift */; };
 		A863EDB02AB0FB6200C7DF64 /* GPSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A863EDAA2AB0F69100C7DF64 /* GPSDataModel.xcdatamodeld */; };
 		A87A36862AD0ECDD003C201C /* EditView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87A36852AD0ECDD003C201C /* EditView2.swift */; };
+		A8DE758B2AD32D7C00BB24B8 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DE758A2AD32D7C00BB24B8 /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,7 @@
 		A863EDAB2AB0F69100C7DF64 /* GPSDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPSDataModel.xcdatamodel; sourceTree = "<group>"; };
 		A863EDAC2AB0F69100C7DF64 /* GPSDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPSDataModel.xcdatamodel; sourceTree = "<group>"; };
 		A87A36852AD0ECDD003C201C /* EditView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView2.swift; sourceTree = "<group>"; };
+		A8DE758A2AD32D7C00BB24B8 /* ViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = "../../Swift-Examples/SwiftUI_View_Modifiers/final/AdoptAPet/Views/ViewModifiers/ViewModifiers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		A81C6C4E2AAFB66D00ECEA9D /* LAME_RTK */ = {
 			isa = PBXGroup;
 			children = (
+				A8DE758A2AD32D7C00BB24B8 /* ViewModifiers.swift */,
 				A81A1E4B2AC9C4390009330D /* AnnotationsMapView.swift */,
 				A839B01B2AC1004100CA1CD5 /* LAME-RTK-Info.plist */,
 				A839B0102ABF49C100CA1CD5 /* ContentView.swift */,
@@ -219,6 +222,7 @@
 				A863ED842AB009FC00C7DF64 /* MapBoxView.swift in Sources */,
 				A863ED9F2AB0F29700C7DF64 /* GPSDataListVew.swift in Sources */,
 				A863ED8C2AB00B3200C7DF64 /* CustomMapView.swift in Sources */,
+				A8DE758B2AD32D7C00BB24B8 /* ViewModifiers.swift in Sources */,
 				A863EDB02AB0FB6200C7DF64 /* GPSDataModel.xcdatamodeld in Sources */,
 				A863ED8E2AB00B6A00C7DF64 /* TestMap.swift in Sources */,
 				A863ED8A2AB00AF700C7DF64 /* PreferencesView.swift in Sources */,
