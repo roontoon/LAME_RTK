@@ -1,9 +1,17 @@
+/// AnnotationsMapView.swift
+/// Date and Time Documented: October 9, 2023, 3:00 PM
+///
+/// This file defines a SwiftUI view and a UIViewController that handles the Mapbox map annotations.
+/// It fetches GPS data points from Core Data, displays them as annotations on the map,
+/// and allows users to edit latitude and longitude directly in the annotation's popup window.
+
 /// Import the necessary modules for UI, Mapbox, Core Data, and Core Location
 import SwiftUI
 import MapboxMaps
 import CoreData
 import CoreLocation
 
+// MARK: - SwiftUI View for AnnotationsMapViewController
 /// Define a SwiftUI view that represents the AnnotationsMapViewController
 struct AnnotationsMapView: UIViewControllerRepresentable {
     /// Create and return a new AnnotationsMapViewController when the view is made
@@ -16,8 +24,11 @@ struct AnnotationsMapView: UIViewControllerRepresentable {
     }
 }
 
+// MARK: - AnnotationsMapViewController Class Definition
 /// Define the AnnotationsMapViewController class
 class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate, AnnotationInteractionDelegate {
+
+    // MARK: - Properties and Variables
     /// Declare a MapView variable to hold the Mapbox map
     internal var mapView: MapView!
     
@@ -33,132 +44,95 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     
     /// Declare a variable to hold the Core Data managed object context
     let managedObjectContext = PersistenceController.shared.container.viewContext
-    
-    // MARK: - Annotation Interaction Delegate Methods
 
+    // MARK: - Annotation Interaction Delegate Methods
     /**
      This function is a delegate method from Mapbox's AnnotationManager.
      It gets called when an annotation on the map is tapped.
     */
     func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
         
-        /// Debug message to indicate that the function was triggered.
-        print("Annotation was tapped.")
-        
         /// Check if the first annotation in the array is of type PointAnnotation.
         if let tappedAnnotation = annotations.first as? PointAnnotation {
-            
-            /// Debug message confirming the type of the tapped annotation.
-            print("Tapped annotation is a PointAnnotation.")
             
             /// Verify if `userInfo` of `tappedAnnotation` has data.
             if let userInfo = tappedAnnotation.userInfo {
                 
-                /// Debug message confirming the existence of userInfo.
-                print("UserInfo data exists.")
-                
                 /// Extract the latitude and longitude from userInfo.
                 if let latitude = userInfo["latitude"] as? Double,
-                   let longitude = userInfo["longitude"] as? Double {
+                   let longitude = userInfo["longitude"] as? Double,
+                   let objectID = userInfo["objectID"] as? NSManagedObjectID { // New: fetch objectID
                     
-                    /// Debug message displaying the extracted coordinates.
-                    print("Extracted latitude: \(latitude) and longitude: \(longitude) from annotation.")
+                    /// Create an alert to display and edit the coordinates when an annotation is tapped.
+                    let alert = UIAlertController(title: "Edit Annotation", message: "Edit latitude and longitude.", preferredStyle: .alert)
                     
-                    /// Create a string to display the coordinates.
-                    let coordinateString = "Latitude: \(latitude), Longitude: \(longitude)"
+                    /// Add text fields for latitude and longitude.
+                    alert.addTextField { (textField) in
+                        textField.placeholder = "Latitude"
+                        textField.text = "\(latitude)"
+                    }
+                    alert.addTextField { (textField) in
+                        textField.placeholder = "Longitude"
+                        textField.text = "\(longitude)"
+                    }
                     
-                    /// Debug message displaying the created string with coordinates.
-                    print(coordinateString)
+                    /// Add a "Cancel" button to the alert.
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     
-                    /// Create an alert to display the coordinates when an annotation is tapped.
-                    let alert = UIAlertController(title: "Annotation Tapped", message: coordinateString, preferredStyle: .alert)
-                    
-                    /// Debug message indicating that the alert is ready to be presented.
-                    print("Alert is ready to be presented.")
-                    
-                    /// Add an "OK" button to the alert.
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    /// Add a "Save" button to the alert.
+                    alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+                        if let latText = alert.textFields?[0].text, let lonText = alert.textFields?[1].text {
+                            if let newLat = Double(latText), let newLon = Double(lonText) {
+                                self.updateGPSDataPoint(objectID: objectID, newLat: newLat, newLon: newLon)
+                            }
+                        }
+                    }))
                     
                     /// Present the alert.
                     self.present(alert, animated: true, completion: nil)
-                    
-                    /// Debug message indicating that the alert has been presented.
-                    print("Alert has been presented.")
-                    
-                    return /// Exit the function early to avoid showing the default alert.
-                } else {
-                    /// Debug message indicating that the keys either don't exist or aren't of type Double in userInfo.
-                    print("Latitude and/or longitude keys either don't exist or aren't of type Double in userInfo.")
                 }
-            } else {
-                /// Debug message indicating the lack of userInfo data for the tapped annotation.
-                print("UserInfo data doesn't exist for the tapped annotation.")
             }
-            
-            /// Create a default alert to display when an annotation is tapped.
-            let alert = UIAlertController(title: "Annotation Tapped", message: "You tapped an annotation.", preferredStyle: .alert)
-            
-            /// Debug message indicating that the alert is ready to be presented.
-            print("Alert is ready to be presented.")
-            
-            /// Add an "OK" button to the alert.
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            /// Present the alert.
-            self.present(alert, animated: true, completion: nil)
-            
-            /// Debug message indicating that the alert has been presented.
-            print("Alert has been presented.")
-        } else {
-            /// Debug message indicating that the tapped annotation is not a PointAnnotation.
-            print("The tapped annotation is not a PointAnnotation.")
         }
     }
 
     // MARK: - View Lifecycle Methods
-    
     /// Function that runs when the view loads.
     /// It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Initialize the location manager and set its delegate
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        // Initialize UI and Managers
+        initializeLocationManager()
+        initializeMapView()
         
-        /// Initialize Mapbox resource options
-        let myResourceOptions = ResourceOptions(accessToken: "Your Mapbox Token Here")
-        
-        /// Initialize camera options for Mapbox
-        let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
-        
-        /// Initialize Mapbox map with resource and camera options
-        let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: .streets)
-        
-        /// Create a new MapView with the initialization options
-        mapView = MapView(frame: view.bounds, mapInitOptions: myMapInitOptions)
-        
-        /// Set the autoresizing mask for the MapView
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        /// Add the MapView to the view hierarchy
-        self.view.addSubview(mapView)
-        
-        /// Fetch and annotate GPS data points from Core Data
+        // Fetch and annotate GPS data points
         fetchAndAnnotateGPSData()
         
-        /// Add zoom buttons
+        // Add zoom buttons
         addZoomButtons()
     }
     
-    // MARK: - Custom Methods
-    /**
-     This function fetches GPS data points from Core Data and annotates them on the map.
-     It also sets up different types of annotations based on the entry type of each data point.
-    */
+    // MARK: - Custom Initialization Methods
+    /// Initializes the Location Manager and requests user authorization for location access.
+    func initializeLocationManager() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    /// Initializes the Mapbox MapView and adds it to the view hierarchy.
+    func initializeMapView() {
+        let myResourceOptions = ResourceOptions(accessToken: "Your Mapbox Token Here")
+        let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
+        let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: .streets)
+        mapView = MapView(frame: view.bounds, mapInitOptions: myMapInitOptions)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.addSubview(mapView)
+    }
+
     // MARK: - Fetch and Annotate GPS Data
     /// Fetches GPS data points from Core Data and annotates them on the map.
+    /// It also sets up different types of annotations based on the entry type of each data point.
     func fetchAndAnnotateGPSData() {
         /// Create a fetch request for the GPSDataPoint entity in Core Data
         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
@@ -183,8 +157,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                 /// Create a PointAnnotation object with the coordinate
                 var pointAnnotation = PointAnnotation(coordinate: coordinate)
                 
-                /// Populate the userInfo dictionary with latitude and longitude
-                pointAnnotation.userInfo = ["latitude": dataPoint.latitude, "longitude": dataPoint.longitude]
+                /// Populate the userInfo dictionary with latitude, longitude, and Core Data objectID
+                pointAnnotation.userInfo = ["latitude": dataPoint.latitude, "longitude": dataPoint.longitude, "objectID": dataPoint.objectID]
                 
                 /// Assign an image to the annotation based on the entryType
                 switch dataPoint.entryType {
@@ -219,44 +193,60 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             
             /// Set the delegate for the PointAnnotationManager
             pointAnnotationManager.delegate = self
-            /// This line sets the delegate to self
             
             /// Create PolylineAnnotations with different colors
             var perimeterPolyline = PolylineAnnotation(lineCoordinates: perimeterCoordinates)
-            perimeterPolyline.lineColor = StyleColor(.green) // Set the line color to green
-
+            perimeterPolyline.lineColor = StyleColor(.green)
+            
             var excludedPolyline = PolylineAnnotation(lineCoordinates: excludedCoordinates)
-            excludedPolyline.lineColor = StyleColor(.red) // Set the line color to red
-
+            excludedPolyline.lineColor = StyleColor(.red)
+            
             var chargingPolyline = PolylineAnnotation(lineCoordinates: chargingCoordinates)
-            chargingPolyline.lineColor = StyleColor(.blue) // Set the line color to blue
-
+            chargingPolyline.lineColor = StyleColor(.blue)
+            
             /// Create and configure a PolylineAnnotationManager
             let polylineManager = mapView.annotations.makePolylineAnnotationManager()
             polylineManager.annotations = [perimeterPolyline, excludedPolyline, chargingPolyline]
-
+            
         } catch {
             /// Handle any errors that occur during fetching
             print("Failed to fetch GPS data points: \(error)")
         }
     }
 
+    // MARK: - Core Data Update Method
+    /// Updates the latitude and longitude of a GPSDataPoint in Core Data and commits the changes.
+    func updateGPSDataPoint(objectID: NSManagedObjectID, newLat: Double, newLon: Double) {
+        do {
+            /// Fetch the GPSDataPoint object from Core Data using its objectID
+            if let objectToUpdate = try managedObjectContext.existingObject(with: objectID) as? GPSDataPoint {
+                
+                /// Update the latitude and longitude fields of the object
+                objectToUpdate.latitude = newLat
+                objectToUpdate.longitude = newLon
+                
+                /// Commit the changes to the managed object context
+                try managedObjectContext.save()
+            }
+        } catch {
+            /// Handle any errors that occur during fetching or saving
+            print("Failed to update GPS data point: \(error)")
+        }
+    }
 
+    // MARK: - UI Customization Methods
     /// Function to add zoom buttons to the map.
     func addZoomButtons() {
-        /// Create zoom in button
         let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
         zoomInButton.setTitle("+", for: .normal)
         zoomInButton.backgroundColor = .white
         zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchUpInside)
         
-        /// Create zoom out button
         let zoomOutButton = UIButton(frame: CGRect(x: 20, y: 60, width: 30, height: 30))
         zoomOutButton.setTitle("-", for: .normal)
         zoomOutButton.backgroundColor = .white
         zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchUpInside)
         
-        /// Add buttons to the view
         self.view.addSubview(zoomInButton)
         self.view.addSubview(zoomOutButton)
     }
