@@ -42,7 +42,10 @@ struct LAME_RTKApp: App {
             // If we don't have any data, we add some.
             if existingData.isEmpty {
                 print("Initializing test data")
-                initializeTestData(in: context)
+                //initializeTestData(in: context)
+                initializeTestData(in: context, centerCoordinate: CLLocationCoordinate2D(latitude: 28.0699300, longitude: -82.4843600), mapID: "FirstMap")
+                initializeTestData(in: context, centerCoordinate: CLLocationCoordinate2D(latitude: 28.0697616, longitude: -82.4844158), mapID: "SecondMap")
+                
             } else {
                 print("Data already exists. No need to initialize.")
             }
@@ -52,11 +55,12 @@ struct LAME_RTKApp: App {
         }
     }
     
-    // This function adds some test data.
-    private func initializeTestData(in context: NSManagedObjectContext) {
-
-        // Initialize the 6x6 meter square
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 28.0699300, longitude: -82.4843600)
+    // Adds test data centered around a given coordinate and associates them with a specific mapID.
+    private func initializeTestData(in context: NSManagedObjectContext, centerCoordinate: CLLocationCoordinate2D, mapID: String) {
+        
+        var dataPointCounter = 1  // Initialize counter for dataPointCount field
+        
+        // Initialize the 6x6 meter square around the center coordinate
         let squareCoordinates = [
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude + 0.000036),
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.000027, longitude: centerCoordinate.longitude + 0.000036),
@@ -64,51 +68,61 @@ struct LAME_RTKApp: App {
             CLLocationCoordinate2D(latitude: centerCoordinate.latitude + 0.000027, longitude: centerCoordinate.longitude - 0.000036)
         ]
         
+        // Loop to create a GPSDataPoint for each square coordinate
         for coordinate in squareCoordinates {
-            let newPoint = GPSDataPoint(context: context)
-            newPoint.latitude = coordinate.latitude
-            newPoint.longitude = coordinate.longitude
-            newPoint.entryType = "Perimeter"
-            newPoint.mapID = "TestData"
-            newPoint.mowingPattern = "Lane x Lane"
+            let newPoint = GPSDataPoint(context: context)  // Create new GPSDataPoint
+            newPoint.latitude = coordinate.latitude  // Set latitude
+            newPoint.longitude = coordinate.longitude  // Set longitude
+            newPoint.entryType = "Perimeter"  // Set entry type as 'Perimeter'
+            newPoint.mapID = mapID  // Set the map ID
+            newPoint.mowingPattern = "Lane x Lane"  // Set mowing pattern
+            newPoint.dataPointCount = Int16(dataPointCounter)  // Set data point count
+            dataPointCounter += 1  // Increment the counter
         }
-        print("Debug: Added Square Coordinates")
+        print("Debug: Added Square Coordinates")  // Debug message
         
-        // Initialize the two 1-meter circles
-        // Randomly generate the coordinates for the circles within the 6x6 meter square
+        // Reset dataPointCounter for the next entryType
+        dataPointCounter = 1
+        
+        // Initialize two 1-meter circles within the 6x6 meter square
         for _ in 1...2 {
+            // Randomly generate coordinates for the circle
             let randomLat = Double.random(in: (centerCoordinate.latitude - 0.000027)...(centerCoordinate.latitude + 0.000027))
             let randomLon = Double.random(in: (centerCoordinate.longitude - 0.000036)...(centerCoordinate.longitude + 0.000036))
-            let newPoint = GPSDataPoint(context: context)
-            newPoint.latitude = randomLat
-            newPoint.longitude = randomLon
-            newPoint.entryType = "Excluded"
-            newPoint.mapID = "TestData"
-            newPoint.mowingPattern = "Lane x Lane"
-
+            let newPoint = GPSDataPoint(context: context)  // Create new GPSDataPoint
+            newPoint.latitude = randomLat  // Set latitude
+            newPoint.longitude = randomLon  // Set longitude
+            newPoint.entryType = "Excluded"  // Set entry type as 'Excluded'
+            newPoint.mapID = mapID  // Set the map ID
+            newPoint.mowingPattern = "Lane x Lane"  // Set mowing pattern
+            newPoint.dataPointCount = Int16(dataPointCounter)  // Set data point count
+            dataPointCounter += 1  // Increment the counter
         }
-        print("Debug: Added 2 Circles Coordinates")
+        print("Debug: Added 2 Circles Coordinates")  // Debug message
         
-        // Initialize the 1-meter line
-        let lineStart = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude - 0.000009)
-        let lineEnd = CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude + 0.000009)
+        // Reset dataPointCounter for the next entryType
+        dataPointCounter = 1
         
-        let newPointStart = GPSDataPoint(context: context)
-        newPointStart.latitude = lineStart.latitude
-        newPointStart.longitude = lineStart.longitude
-        newPointStart.entryType = "Charging"
-        newPointStart.mowingPattern = "Lane x Lane"
-        newPointStart.mapID = "TestData"
+        // Initialize the 1-meter line around the center coordinate
+        let lineCoordinates = [
+            CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude - 0.000009),
+            CLLocationCoordinate2D(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude + 0.000009)
+        ]
         
-        let newPointEnd = GPSDataPoint(context: context)
-        newPointEnd.latitude = lineEnd.latitude
-        newPointEnd.longitude = lineEnd.longitude
-        newPointEnd.entryType = "Charging"
-        newPointEnd.mowingPattern = "Lane x Lane"
-        newPointEnd.mapID = "TestData"
+        // Loop to create a GPSDataPoint for each line coordinate
+        for coordinate in lineCoordinates {
+            let newPoint = GPSDataPoint(context: context)  // Create new GPSDataPoint
+            newPoint.latitude = coordinate.latitude  // Set latitude
+            newPoint.longitude = coordinate.longitude  // Set longitude
+            newPoint.entryType = "Charging"  // Set entry type as 'Charging'
+            newPoint.mapID = mapID  // Set the map ID
+            newPoint.mowingPattern = "Lane x Lane"  // Set mowing pattern
+            newPoint.dataPointCount = Int16(dataPointCounter)  // Set data point count
+            dataPointCounter += 1  // Increment the counter
+        }
+        print("Debug: Added 1 Charging Dock Coordinates")  // Debug message
         
-        print("Debug: Added 1 Charging Dock Coordinates")
-        
+        // Save the context to store all the created data points
         do {
             try context.save()
             print("Test data initialized and saved.")
@@ -116,4 +130,5 @@ struct LAME_RTKApp: App {
             print("Failed to save test data: \(error)")
         }
     }
+    
 }

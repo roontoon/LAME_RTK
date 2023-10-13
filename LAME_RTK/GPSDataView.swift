@@ -26,12 +26,22 @@ struct GPSDataView: View {
     // Accessing the CoreData storage
     @Environment(\.managedObjectContext) private var viewContext
     
-    // Fetching GPS data points from CoreData and sorting them by timestamp
+    /*/ Fetching GPS data points from CoreData and sorting them by timestamp
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \GPSDataPoint.timestamp, ascending: true)],
         animation: .default)
     private var GPSDataPoints: FetchedResults<GPSDataPoint>
+    */
     
+    @FetchRequest(
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \GPSDataPoint.mapID, ascending: true),
+            NSSortDescriptor(keyPath: \GPSDataPoint.entryType, ascending: true),
+            NSSortDescriptor(keyPath: \GPSDataPoint.dataPointCount, ascending: true)
+        ],
+        animation: .default)
+    private var GPSDataPoints: FetchedResults<GPSDataPoint>
+
     // State variable for showing the delete confirmation dialog
     @State private var showingDeleteAlert = false
     
@@ -64,7 +74,9 @@ struct GPSDataView: View {
                                     Text("\(dateFormatter.string(from: GPSDataPoint.timestamp ?? Date()))")
                                         .font(.footnote)
                                         .foregroundColor(Color.black)
-                                    Spacer() // Pushes the next element to the right
+                                    Spacer() 
+                                                                        
+                                    // Pushes the next element to the right
                                     Text("\(GPSDataPoint.mapID ?? "N/A")")
                                         .font(.footnote)
                                         .foregroundColor(Color.black)
@@ -77,8 +89,14 @@ struct GPSDataView: View {
                                     Text(String(format: "%.7f", GPSDataPoint.latitude))
                                         .font(.footnote)
                                         .foregroundColor(Color.green)
+                                    
                                     Spacer() // Pushes the next element to the right
+
                                     Text("\(GPSDataPoint.entryType ?? "Missing")")
+                                        .font(.footnote)
+                                        .foregroundColor(Color.black)
+                                    
+                                    Text(String(GPSDataPoint.dataPointCount))
                                         .font(.footnote)
                                         .foregroundColor(Color.black)
                                 }
