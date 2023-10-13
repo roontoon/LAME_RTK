@@ -34,8 +34,7 @@ struct ContentView: View {
             
             // Tab 3: MapView
             // Initialize MapView with default location
-          
-                        //.ignoresSafeArea()
+            FloatingMenu()
                 .tabItem {
                     Image(systemName: "3.circle.fill")  // Tab icon
                     Text("MapView")  // Tab title
@@ -49,7 +48,6 @@ struct ContentView: View {
                 }
             
             // Tab 5: Placeholder
-            
             AnnotationsMapView()
                 .tabItem {
                     Image(systemName: "5.circle.fill")  // Tab icon
