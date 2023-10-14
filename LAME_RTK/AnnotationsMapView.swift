@@ -12,9 +12,11 @@ import MapboxMaps
 import CoreData
 import CoreLocation
 
+
 // MARK: - SwiftUI View for AnnotationsMapViewController
 /// Define a SwiftUI view that represents the AnnotationsMapViewController
 struct AnnotationsMapView: UIViewControllerRepresentable {
+    
     /// Create and return a new AnnotationsMapViewController when the view is made
     func makeUIViewController(context: Context) -> AnnotationsMapViewController {
         return AnnotationsMapViewController()

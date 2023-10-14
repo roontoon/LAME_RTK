@@ -4,13 +4,15 @@ import CoreLocation  // Import CoreLocation for CLLocationCoordinate2D
 
 // ContentView struct conforming to the View protocol
 struct ContentView: View {
-    
     // Using Environment to fetch the managedObjectContext
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     // Fetch the default latitude and longitude from AppStorage
     @AppStorage("defaultLongitude") var defaultLongitude: Double = 0.0
     @AppStorage("defaultLatitude") var defaultLatitude: Double = 0.0
+    
+    // State variable for the selected map
+    @State private var selectedMap = "map1"
     
     // The body property for the ContentView
     var body: some View {
@@ -47,12 +49,29 @@ struct ContentView: View {
                     Text("Pref")  // Tab title
                 }
             
-            // Tab 5: Placeholder
-            AnnotationsMapView()
-                .tabItem {
-                    Image(systemName: "5.circle.fill")  // Tab icon
-                    Text("Test")  // Tab title
+            // Tab 5: AnnotationsMapView with Map Selector
+            VStack {
+                // MARK: - Map Selector UI
+                /// Picker for selecting the map using SegmentedPickerStyle
+                Picker("Select Map", selection: $selectedMap) {
+                    Text("map1").tag("map1")
+                    Text("map2").tag("map2")
+                    Text("map3").tag("map3")
                 }
+                //.pickerStyle(SegmentedPickerStyle())
+                //.pickerStyle(MenuPickerStyle())
+                //.pickerStyle(InlinePickerStyle())
+                //.pickerStyle(WheelPickerStyle())
+                .pickerStyle(DefaultPickerStyle())
+                .padding()
+                
+                // AnnotationsMapView
+                AnnotationsMapView()
+            }
+            .tabItem {
+                Image(systemName: "5.circle.fill")  // Tab icon
+                Text("Test")  // Tab title
+            }
         }
     }
 }
