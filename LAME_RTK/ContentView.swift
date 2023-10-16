@@ -53,19 +53,20 @@ struct ContentView: View {
             VStack {
                 // MARK: - Map Selector UI
                 /// Picker for selecting the map using SegmentedPickerStyle
-                Picker("Select Map", selection: $selectedMap) {
+               /* Picker("Select Map", selection: $selectedMap) {
                     Text("map1").tag("map1")
                     Text("map2").tag("map2")
                     Text("map3").tag("map3")
-                }
+                }*/
                 //.pickerStyle(SegmentedPickerStyle())
                 //.pickerStyle(MenuPickerStyle())
                 //.pickerStyle(InlinePickerStyle())
                 //.pickerStyle(WheelPickerStyle())
-                .pickerStyle(DefaultPickerStyle())
-                .padding()
+                //.pickerStyle(DefaultPickerStyle())
+                //.padding()
                 
                 // AnnotationsMapView
+                PickerView()
                 AnnotationsMapView()
             }
             .tabItem {

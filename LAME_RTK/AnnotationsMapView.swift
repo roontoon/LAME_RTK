@@ -30,6 +30,9 @@ struct AnnotationsMapView: UIViewControllerRepresentable {
 
 // MARK: - AnnotationsMapViewController Class Definition
 /// Define the AnnotationsMapViewController class
+///
+///
+@objcMembers
 class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate, AnnotationInteractionDelegate {
     
     // MARK: - Properties and Variables
@@ -47,12 +50,20 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     
     /// Declare a variable to check if the map has been centered
     var hasCenteredMap = false
+
+    /// Declare a variable to o store unique mapIDs
+    //var uniqueMapIDs: [String] = []
     
+    var selectedMapID: String?  // Add this line to keep track of the selected map ID
+
+    var mapIDs: [String] = []  // This will hold the unique mapIDs fetched from Core Data
+
     /// Fetch the default latitude and longitude from AppStorage
     @AppStorage("defaultLongitude") var defaultLongitude: Double = 0.0
     @AppStorage("defaultLatitude") var defaultLatitude: Double = 0.0
     
     /// Declare a variable to hold the Core Data managed object context
+    ///
     let managedObjectContext = PersistenceController.shared.container.viewContext
     // MARK: - Annotation Interaction Delegate Methods
     /// This function is a delegate method from Mapbox's AnnotationManager.
@@ -99,6 +110,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
      Also refreshes the map to reflect these changes.
     */
     func updateGPSDataPoint(objectID: NSManagedObjectID, newLat: Double, newLon: Double) {
+        print("***** updateGPSDataPoint called")
         do {
             /// Fetch the GPSDataPoint object from Core Data using its objectID
             if let objectToUpdate = try managedObjectContext.existingObject(with: objectID) as? GPSDataPoint {
@@ -120,14 +132,22 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
 
+    
     /**
      Fetches GPS data points from Core Data and annotates them on the map.
      It also sets up different types of annotations based on the entry type of each data point.
     */
     func fetchAndAnnotateGPSData() {
-        /// Create a fetch request for the GPSDataPoint entity in Core Data
+        print("***** fetchAndAnnotateGPSData called for mapID: \(self.selectedMapID ?? "None")")
+
+        // Create a fetch request for the GPSDataPoint entity in Core Data
         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
         
+        // Add a predicate to filter by the selected mapID
+        if let currentMapID = self.selectedMapID {
+            fetchRequest.predicate = NSPredicate(format: "mapID == %@", currentMapID)
+        }
+
         /// Check if the PointAnnotationManager has been initialized, if not, initialize it
         if pointAnnotationManager == nil {
             pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
@@ -216,6 +236,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
+  
+        print("***** viewDidLoad called")
+ 
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelectedMapIDChange(_:)), name: Notification.Name("selectedMapIDChanged"), object: nil)
+
         
         // Initialize UI and Managers
         initializeLocationManager()
@@ -226,9 +251,25 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         
         // Add zoom buttons
         addZoomButtons()
+        
+        // New: Fetch unique mapIDs from Core Data
+        fetchUniqueMapIDs()
+
     }
+    
+    /// Handle the selectedMapID change.
+    @objc func handleSelectedMapIDChange(_ notification: Notification) {
+        print("***** handleSelectedMapIDChange called")
+        if let userInfo = notification.userInfo, let newMapID = userInfo["selectedMapID"] as? String {
+            // Update the map and annotations based on the newMapID
+            self.selectedMapID = newMapID
+            fetchAndAnnotateGPSData()  // Or however you refresh the map annotations
+        }
+    }
+    
     /// Initializes the Location Manager and requests user authorization for location access.
     func initializeLocationManager() {
+        print("***** initializeLocationManager called")
         locationManager = CLLocationManager()  // Initialize CLLocationManager
         locationManager.delegate = self  // Set the delegate to self
         locationManager.requestWhenInUseAuthorization()  // Request permission to access location
@@ -236,8 +277,9 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
 
     /// Initializes the Mapbox MapView and adds it to the view hierarchy.
     func initializeMapView() {
+        print("***** initializeMapView called")
         // Provide the Mapbox access token, camera options, and map style
-        let myResourceOptions = ResourceOptions(accessToken: "Your Mapbox Token Here")
+        let myResourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
         let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
         let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: .streets)
         
@@ -252,11 +294,71 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     }
 
     
+    // MARK: - Broadcast Selected Map ID Change
+
+    /// Update and broadcast the selected map ID.
+    func updateSelectedMapID(newMapID: String) {
+        self.selectedMapID = newMapID
+        print("***** updateSelectedMapID called")
+        // Broadcast the change
+        NotificationCenter.default.post(name: Notification.Name("selectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newMapID])
+    }
+    
+    // MARK: - Fetch Unique Map IDs
+    /**
+     Fetches unique map IDs from the Core Data model and updates the shared view model.
+
+     This function fetches all unique `mapID` values from the `GPSDataPoint` entity in Core Data.
+     It then updates the `uniqueMapIDs` property of the shared view model to reflect these values.
+
+     - Parameters: None
+     - Returns: None
+    */
+    func fetchUniqueMapIDs() {
+       
+        print("***** fetchUniqueMapIDs called")
+        // Initialize an empty set to hold unique mapIDs
+        var uniqueMapIDsSet = Set<String>()
+        
+        // Create a fetch request for the GPSDataPoint entity in Core Data
+        let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
+        
+        do {
+            // Execute the fetch request and store the results in a variable
+            let fetchedResults = try managedObjectContext.fetch(fetchRequest)
+            
+            // Loop through the fetched results to collect unique mapIDs
+            for dataPoint in fetchedResults {
+                if let mapID = dataPoint.mapID {
+                    uniqueMapIDsSet.insert(mapID)
+                }
+            }
+            
+            // Convert the set to an array
+            let uniqueMapIDsArray = Array(uniqueMapIDsSet)
+            
+            // Update the shared ViewModel
+            if let firstMapID = uniqueMapIDsArray.first {
+                self.selectedMapID = firstMapID
+            }
+            
+        } catch {
+            // Handle any errors that occur during fetching
+            print("***** Failed to fetch GPS data points: \(error)")
+        }
+    }
+
+    
+
     // MARK: - UI Customization Methods
     /// Contains methods for customizing the UI, such as adding zoom buttons.
     
+    
+    
     /// Function to add zoom buttons to the map.
     @objc func addZoomButtons() {
+        print("***** addZoomButtons called")
+
         /// Create a zoom in button with a "+" label.
         let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
         zoomInButton.setTitle("+", for: .normal)
