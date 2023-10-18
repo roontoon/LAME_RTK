@@ -1,5 +1,5 @@
 // SharedViewModel.swift
-
+/*
 import Combine
 import SwiftUI
 import CoreData
@@ -31,3 +31,4 @@ class SharedViewModel: ObservableObject {
         }
     }
 }
+*/
