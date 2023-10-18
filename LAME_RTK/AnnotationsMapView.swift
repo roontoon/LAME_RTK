@@ -54,9 +54,12 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// Declare a variable to o store unique mapIDs
     //var uniqueMapIDs: [String] = []
     
+    /// Declare a variable to o store unique mapIDs
+    var mapIDs: [String] = ["Pick a Map"]  // Initialize with default "Pick a Map" value
+
     var selectedMapID: String?  // Add this line to keep track of the selected map ID
 
-    var mapIDs: [String] = []  // This will hold the unique mapIDs fetched from Core Data
+   // var mapIDs: [String] = []  // This will hold the unique mapIDs fetched from Core Data
 
     var pickerHostingController: UIHostingController<MapIDPicker>? = nil
 
@@ -178,6 +181,12 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             fetchRequest.predicate = NSPredicate(format: "mapID == %@", currentMapID)
         }
         
+        // MARK: Modification - Adding Sort Descriptors
+        let sortDescriptor1 = NSSortDescriptor(key: "mapID", ascending: true)
+        let sortDescriptor2 = NSSortDescriptor(key: "entryType", ascending: true)
+        let sortDescriptor3 = NSSortDescriptor(key: "dataPointCount", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor1, sortDescriptor2, sortDescriptor3]
+        
         do {
             /// Execute the fetch request and store the results in a variable
             let fetchedResults = try managedObjectContext.fetch(fetchRequest)
@@ -259,8 +268,18 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
-      
-        print("***** viewDidLoad called")
+        print("***** Debug: selectedMapID in viewDidLoad \(self.selectedMapID ?? "None")")
+        
+        // Retrieve the last selected map ID if available
+        if let lastSelectedMapID = UserDefaults.standard.string(forKey: "lastSelectedMapID") {
+            selectedMapID = lastSelectedMapID
+        } else {
+            // Set a default mapID if one hasn't been set yet
+            if selectedMapID == nil {
+                selectedMapID = " "  // Replace "FirstMap" with your actual default map ID
+            }
+        }
+        
         
         // Initialize UI and Managers
         initializeLocationManager()
@@ -275,6 +294,9 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
 
         // New: Fetch unique mapIDs from Core Data
         fetchUniqueMapIDs()
+
+        // Sort the mapIDs to ensure a predictable order
+        mapIDs.sort()
 
         // New: Initialize Picker View
         initializePickerView()
@@ -415,12 +437,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             // Convert the set to an array
             mapIDs = Array(uniqueMapIDsSet)
             
-            // Debug: Log the new content of mapIDs
-            print("***** Debug: New mapIDs content: \(mapIDs)")
-            
-            // Update the picker view if needed (consider using a method to update the picker)
-            // ...
-            
+            // Sort the fetched map IDs
+            mapIDs.sort()
+
+             print("***** Debug: New mapIDs content: \(mapIDs)")
+                        
         } catch {
             // Handle any errors that occur during fetching
             print("***** Failed to fetch GPS data points: \(error)")
@@ -437,7 +458,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         - newMapID: The new map ID to be set
      - Returns: None
     */
-    func updateSelectedMapID(newMapID: String) {
+    /*func updateSelectedMapID(newMapID: String) {
         // Check if the "Pick a Map" option is selected
         if newMapID != "Pick a Map" {
             self.selectedMapID = newMapID
@@ -447,7 +468,24 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             // Explicitly fetch and annotate GPS data for the new selectedMapID
             fetchAndAnnotateGPSData()
         }
+    }*/
+    
+    func updateSelectedMapID(newMapID: String) {
+        // Check if the "Pick a Map" option is selected
+        if newMapID != "Pick a Map" {
+            self.selectedMapID = newMapID
+            // Save the newly selected map ID for future app launches
+            UserDefaults.standard.set(newMapID, forKey: "lastSelectedMapID")
+
+            print("***** Debug: Updated selectedMapID to \(newMapID)")  // Debug statement
+            
+            NotificationCenter.default.post(name: Notification.Name("selectedMapIDChanged"), object:nil, userInfo: ["selectedMapID": newMapID])
+            
+            // Explicitly fetch and annotate GPS data for the new selectedMapID
+            fetchAndAnnotateGPSData()
+        }
     }
+    
     
     // MARK: - Handle Selected Map ID Change
     /**
