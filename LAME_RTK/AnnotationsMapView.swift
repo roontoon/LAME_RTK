@@ -307,7 +307,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         }
 
         // Fetch and annotate GPS data points
-        fetchAndAnnotateGPSData()
+        //fetchAndAnnotateGPSData()
     }
     
  
@@ -406,11 +406,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
      Fetches unique map IDs from the Core Data model and updates the mapIDs array.
 
      This function fetches all unique `mapID` values from the `GPSDataPoint` entity in Core Data.
-     It then updates the `mapIDs` array to reflect these values.
+     It then updates the `mapIDs` array to reflect these values, sorting them only once after all unique IDs have been collected.
 
      - Parameters: None
      - Returns: None
-     */
+    */
     func fetchUniqueMapIDs() {
         print("***** fetchUniqueMapIDs called")
         
@@ -434,19 +434,17 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                 }
             }
             
-            // Convert the set to an array
-            mapIDs = Array(uniqueMapIDsSet)
+            // Convert the set to an array and sort it once
+            mapIDs = Array(uniqueMapIDsSet).sorted()
             
-            // Sort the fetched map IDs
-            mapIDs.sort()
-
-             print("***** Debug: New mapIDs content: \(mapIDs)")
-                        
+            print("***** Debug: New sorted mapIDs content: \(mapIDs)")
+                            
         } catch {
             // Handle any errors that occur during fetching
             print("***** Failed to fetch GPS data points: \(error)")
         }
     }
+
 
 
     // MARK: - Update and Broadcast Selected Map ID
