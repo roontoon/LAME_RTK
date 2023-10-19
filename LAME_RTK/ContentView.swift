@@ -86,10 +86,11 @@ struct ContentView: View {
                     Image(systemName: "5.circle.fill")  // Tab icon
                     Text("Test")  // Tab title
                 }
-                .onAppear {
-                    // Debugging: Check if ContentView is appearing
-                    print("***** Debugging: ContentView for AnnotationsMapView did appear.")
-                }
+           /* ///.onAppear {
+            /// Debugging: Check if ContentView is appearing
+            /// print("***** Debugging: ContentView for AnnotationsMapView did appear.")
+            ///}
+            */
         }
     }
 }

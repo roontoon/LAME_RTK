@@ -21,6 +21,7 @@
 		A839B04C2AC4E37800CA1CD5 /* LAMEMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */; };
 		A84B23552ADB46ED003DDA0B /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84B23542ADB46ED003DDA0B /* SharedViewModel.swift */; };
 		A84B23572ADB9144003DDA0B /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84B23562ADB9144003DDA0B /* PickerView.swift */; };
+		A84B23592AE1AC46003DDA0B /* annotationsMapViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84B23582AE1AC46003DDA0B /* annotationsMapViewControler.swift */; };
 		A863ED822AB009C000C7DF64 /* JoyStickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED812AB009C000C7DF64 /* JoyStickView.swift */; };
 		A863ED8A2AB00AF700C7DF64 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED892AB00AF700C7DF64 /* PreferencesView.swift */; };
 		A863ED9F2AB0F29700C7DF64 /* GPSDataListVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A863ED9E2AB0F29700C7DF64 /* GPSDataListVew.swift */; };
@@ -54,6 +55,7 @@
 		A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMEMapView.swift; sourceTree = "<group>"; };
 		A84B23542ADB46ED003DDA0B /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
 		A84B23562ADB9144003DDA0B /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		A84B23582AE1AC46003DDA0B /* annotationsMapViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = annotationsMapViewControler.swift; sourceTree = "<group>"; };
 		A863ED7F2AB0097000C7DF64 /* GPSDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDataView.swift; sourceTree = "<group>"; };
 		A863ED812AB009C000C7DF64 /* JoyStickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyStickView.swift; sourceTree = "<group>"; };
 		A863ED892AB00AF700C7DF64 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				A839B04B2AC4E37800CA1CD5 /* LAMEMapView.swift */,
 				A8DE75902AD8D85B00BB24B8 /* FloatingMenu.swift */,
 				A84B23562ADB9144003DDA0B /* PickerView.swift */,
+				A84B23582AE1AC46003DDA0B /* annotationsMapViewControler.swift */,
 			);
 			path = LAME_RTK;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				A84B23572ADB9144003DDA0B /* PickerView.swift in Sources */,
 				A803A4352AB90F8400EC73FB /* Persistence.swift in Sources */,
 				A81A1E4C2AC9C4390009330D /* AnnotationsMapView.swift in Sources */,
+				A84B23592AE1AC46003DDA0B /* annotationsMapViewControler.swift in Sources */,
 				A839B0112ABF49C100CA1CD5 /* ContentView.swift in Sources */,
 				A81C6C502AAFB66D00ECEA9D /* LAME_RTKApp.swift in Sources */,
 				A8DE75912AD8D85B00BB24B8 /* FloatingMenu.swift in Sources */,

@@ -1,10 +1,10 @@
 /// AnnotationsMapView.swift
-/// Date and Time Documented: October 9, 2023, 3:00 PM
+/// Date and Time Documented: October 17, 2023, 12:00 PM
 ///
-/// This file defines a SwiftUI view and a UIViewController that handles the Mapbox map annotations.
+/// This file defines a SwiftUI view and a UIViewController for handling Mapbox map annotations.
 /// It fetches GPS data points from Core Data, displays them as annotations on the map,
 /// allows users to edit latitude and longitude directly in the annotation's popup window,
-/// and refreshes the map after editing.
+/// and includes a Picker for selecting Map IDs.
 
 // Import the necessary modules for UI, Mapbox, Core Data, and Core Location
 import SwiftUI
@@ -12,21 +12,54 @@ import MapboxMaps
 import CoreData
 import CoreLocation
 
-
-// MARK: - SwiftUI View for AnnotationsMapViewController
-/// Define a SwiftUI view that represents the AnnotationsMapViewController
-struct AnnotationsMapView: UIViewControllerRepresentable {
+// MARK: - MapIDPicker Struct Definition
+/// This struct defines a SwiftUI Picker for selecting Map IDs.
+/// It holds an array of Map IDs and a closure that is called when a new Map ID is selected.
+/// The Picker's appearance and behavior are also configured here.
+struct MapIDPicker: View {
     
-    /// Create and return a new AnnotationsMapViewController when the view is made
-    func makeUIViewController(context: Context) -> AnnotationsMapViewController {
-        return AnnotationsMapViewController()
+    // MARK: - Properties and Variables
+    /// An array of strings representing the available Map IDs.
+    var mapIDs: [String]
+    
+    /// A closure that takes the newly selected Map ID as a parameter.
+    var onSelectionChanged: (String) -> Void
+    
+    /// A state variable to hold the currently selected Map ID.
+    @State private var selectedMapID: String
+    
+    // MARK: - Initializer
+    /// Initializes the MapIDPicker with the given mapIDs and onSelectionChanged closure.
+    ///
+    /// - Parameters:
+    ///   - mapIDs: An array of strings representing the available Map IDs.
+    ///   - onSelectionChanged: A closure that will be called when the selected Map ID changes.
+    init(mapIDs: [String], onSelectionChanged: @escaping (String) -> Void) {
+        self.mapIDs = mapIDs
+        self.onSelectionChanged = onSelectionChanged
+        self._selectedMapID = State(initialValue: mapIDs.first ?? "")
     }
     
-    /// Update the AnnotationsMapViewController when there are changes
-    func updateUIViewController(_ uiViewController: AnnotationsMapViewController, context: Context) {
-        // Note: This function is left intentionally empty for now
+    // MARK: - Body Definition
+    /// The body of the MapIDPicker.
+    ///
+    var body: some View{
+        Picker("Select Map ID", selection: $selectedMapID) {
+            ForEach(mapIDs, id: \.self) { mapID in
+                Text(mapID)
+                    .font(.custom("Arial", size: 14))  // Set the font to Arial with a size of 14
+                    .foregroundColor(.red)  // Set the font color to red
+            }
+        }
+        .onChange(of: selectedMapID, perform: onSelectionChanged)  // Use .onChange to handle selection changes
+        .onAppear() {
+            debugPrint("Rendering Picker with selectedMapID: \(selectedMapID)")
+        }
     }
 }
+
+    
+
 
 // MARK: - AnnotationsMapViewController Class Definition
 /// Define the AnnotationsMapViewController class
@@ -39,9 +72,13 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// Declare a MapView variable to hold the Mapbox map
     internal var mapView: MapView!
     
+    // MARK: - Debugging Option
+    /// Set this variable to true to enable debugging print statements, or false to disable them.
+    var debugMode: Bool = true
+    
     /// Declare a variable to manage Point Annotations
     var pointAnnotationManager: PointAnnotationManager?
-
+    
     /// Declare a variable to manage Polyline Annotations
     var polylineAnnotationManager: PolylineAnnotationManager?
     
@@ -50,19 +87,19 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     
     /// Declare a variable to check if the map has been centered
     var hasCenteredMap = false
-
+    
     /// Declare a variable to o store unique mapIDs
     //var uniqueMapIDs: [String] = []
     
     /// Declare a variable to o store unique mapIDs
     var mapIDs: [String] = ["Pick a Map"]  // Initialize with default "Pick a Map" value
-
+    
     var selectedMapID: String?  // Add this line to keep track of the selected map ID
-
-   // var mapIDs: [String] = []  // This will hold the unique mapIDs fetched from Core Data
-
+    
+    // var mapIDs: [String] = []  // This will hold the unique mapIDs fetched from Core Data
+    
     var pickerHostingController: UIHostingController<MapIDPicker>? = nil
-
+    
     /// Fetch the default latitude and longitude from AppStorage
     @AppStorage("defaultLongitude") var defaultLongitude: Double = 0.0
     @AppStorage("defaultLatitude") var defaultLatitude: Double = 0.0
@@ -74,7 +111,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// This function is a delegate method from Mapbox's AnnotationManager.
     /// It gets called when an annotation on the map is tapped.
     func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
-        print("Tapped on annotation: \(annotations)") // Debug print
+        debugPrint("Tapped on annotation: \(annotations)")
+        
         // Check if the first annotation in the array is a PointAnnotation.
         if let tappedAnnotation = annotations.first as? PointAnnotation {
             // Verify if userInfo of tappedAnnotation has data.
@@ -89,10 +127,14 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                     alert.addTextField { (textField) in
                         textField.placeholder = "Latitude"
                         textField.text = "\(latitude)"
+                        textField.keyboardType = .decimalPad  // Set keyboard type to decimal pad
+                        
                     }
                     alert.addTextField { (textField) in
                         textField.placeholder = "Longitude"
                         textField.text = "\(longitude)"
+                        textField.keyboardType = .decimalPad  // Set keyboard type to decimal pad
+                        
                     }
                     // Add a "Cancel" button to the alert.
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -113,9 +155,9 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /**
      Updates the latitude and longitude of a GPSDataPoint in Core Data and commits the changes.
      Also refreshes the map to reflect these changes.
-    */
+     */
     func updateGPSDataPoint(objectID: NSManagedObjectID, newLat: Double, newLon: Double) {
-        print("***** updateGPSDataPoint called")
+        debugPrint("***** updateGPSDataPoint called")
         do {
             /// Fetch the GPSDataPoint object from Core Data using its objectID
             if let objectToUpdate = try managedObjectContext.existingObject(with: objectID) as? GPSDataPoint {
@@ -136,29 +178,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             print("Failed to update GPS data point: \(error)")
         }
     }
-
-    // MARK: - MapIDPicker SwiftUI View
-    struct MapIDPicker: View {
-        var mapIDs: [String]
-        @State var selectedMapID: String = "Pick a Map" // Track the currently selected map ID
-        var onMapIDSelected: (String) -> Void
-
-        var body: some View {
-            Picker("Select Map ID", selection: $selectedMapID) {
-                Text("Pick a Map").tag("Pick a Map")
-                ForEach(mapIDs, id: \.self) { mapID in
-                    Text(mapID).tag(mapID)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-            .onReceive([self.selectedMapID].publisher.first()) { (newMapID) in
-                onMapIDSelected(newMapID)
-            }
-        }
-    }
+    
+    
     
     // MARK: - Fetch and Annotate GPS Data
-
+    
     /**
      Fetches GPS data points for the selected mapID from Core Data and annotates them on the map.
      
@@ -170,11 +194,25 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
      */
     func fetchAndAnnotateGPSData() {
         
-        // Debugging statement to print the mapID for which data is being fetched
-        print("***** fetchAndAnnotateGPSData called for mapID: \(self.selectedMapID ?? "None")")
-        
         /// Create a fetch request for the GPSDataPoint entity in Core Data
         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
+        
+        /// Check if the PointAnnotationManager has been initialized, if not, initialize it
+        if pointAnnotationManager == nil {
+            pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
+            debugPrint("***** Debug: pointAnnotationManager initialized")
+        }
+        
+        /// Set the delegate for the PointAnnotationManager
+        pointAnnotationManager?.delegate = self
+        debugPrint("***** Debug: pointAnnotationManager delegate set to self")
+        
+        // Debugging statement to print the mapID for which data is being fetched
+        debugPrint("***** fetchAndAnnotateGPSData called for mapID: \(self.selectedMapID ?? "None")")
+        
+        /*        /// Create a fetch request for the GPSDataPoint entity in Core Data
+         let fetchRequest: NSFetchRequest<GPSDataPoint> = GPSDataPoint.fetchRequest()
+         */
         
         // Add a predicate to filter by the selected mapID
         if let currentMapID = self.selectedMapID {
@@ -192,7 +230,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             let fetchedResults = try managedObjectContext.fetch(fetchRequest)
             
             // Debug: Print the number of fetched results for the current mapID
-            print("***** Debug: Number of fetched results for mapID \(self.selectedMapID ?? "None"): \(fetchedResults.count)")
+            debugPrint("***** Debug: Number of fetched results for mapID \(self.selectedMapID ?? "None"): \(fetchedResults.count)")
             
             /// Initialize an empty array to hold PointAnnotation objects
             var pointAnnotations: [PointAnnotation] = []
@@ -204,7 +242,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             
             /// Loop through the fetched results to create annotations
             for dataPoint in fetchedResults {
-                print("***** Debug: Fetched Data - Latitude: \(dataPoint.latitude), Longitude: \(dataPoint.longitude), MapID: \(dataPoint.mapID ?? "None")")
+                debugPrint("***** Debug: Fetched Data - Latitude: \(dataPoint.latitude), Longitude: \(dataPoint.longitude), MapID: \(dataPoint.mapID ?? "None")")
                 
                 /// Create a coordinate using the latitude and longitude of each data point
                 let coordinate = CLLocationCoordinate2DMake(dataPoint.latitude, dataPoint.longitude)
@@ -258,17 +296,17 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             
         } catch {
             /// Print any errors that occur during fetching
-            print("Failed to fetch GPS data points: \(error)")
+            debugPrint("Failed to fetch GPS data points: \(error)")
         }
     }
-
-
+    
+    
     // MARK: - View Lifecycle Methods
     /// Function that runs when the view loads.
     /// It initializes the Mapbox map, location manager, and other UI elements.
     override public func viewDidLoad() {
         super.viewDidLoad()
-        print("***** Debug: selectedMapID in viewDidLoad \(self.selectedMapID ?? "None")")
+        debugPrint("***** Debug: selectedMapID in viewDidLoad \(self.selectedMapID ?? "None")")
         
         // Retrieve the last selected map ID if available
         if let lastSelectedMapID = UserDefaults.standard.string(forKey: "lastSelectedMapID") {
@@ -291,37 +329,37 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         
         // Add zoom buttons
         addZoomButtons()
-
+        
         // New: Fetch unique mapIDs from Core Data
         fetchUniqueMapIDs()
-
+        
         // Sort the mapIDs to ensure a predictable order
         mapIDs.sort()
-
+        
         // New: Initialize Picker View
         initializePickerView()
-
+        
         // Set a default mapID if one hasn't been set yet
         if selectedMapID == nil {
             selectedMapID = "Pick a Map"
         }
-
+        
         // Fetch and annotate GPS data points
         //fetchAndAnnotateGPSData()
     }
     
- 
+    
     /// Initializes the Location Manager and requests user authorization for location access.
     func initializeLocationManager() {
-        print("***** initializeLocationManager called")
+        debugPrint("***** initializeLocationManager called")
         locationManager = CLLocationManager()  // Initialize CLLocationManager
         locationManager.delegate = self  // Set the delegate to self
         locationManager.requestWhenInUseAuthorization()  // Request permission to access location
     }
-
+    
     /// Initializes the Mapbox MapView and adds it to the view hierarchy.
     func initializeMapView() {
-        print("***** initializeMapView called")
+        debugPrint("***** initializeMapView called")
         // Provide the Mapbox access token, camera options, and map style
         let myResourceOptions = ResourceOptions(accessToken: "sk.eyJ1Ijoicm9vbnRvb24iLCJhIjoiY2xtamZ1b3UzMDJ4MjJrbDgxMm0ya3prMiJ9.VtLaE_XUfS9QSXa2QREpdQ")
         let cameraOptions = CameraOptions(center: CLLocationCoordinate2D(latitude: defaultLatitude, longitude: defaultLongitude), zoom: 19)
@@ -336,83 +374,18 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         // Add MapView to the main view
         self.view.addSubview(mapView)
     }
-
-    // MARK: - Initialize SwiftUI Picker
-        /**
-         Initializes the SwiftUI Picker and adds it to the view hierarchy.
-
-         - Parameters: None
-         - Returns: None
-        */
-    func initializePickerView() {
-        print("***** initializePickerView called")
-        
-        // Debug: Log the content of mapIDs
-        print("***** Debug: mapIDs content: \(mapIDs)")
-        
-        let picker = MapIDPicker(mapIDs: mapIDs) { [self] selectedMapID in
-            print("***** Picker selected: \(selectedMapID)")  // Debugging statement
-            self.updateSelectedMapID(newMapID: selectedMapID)
-        }
-        
-        pickerHostingController = UIHostingController(rootView: picker)
-        pickerHostingController?.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Debug: Check if pickerHostingController's view is nil
-        if pickerHostingController?.view == nil {
-            print("***** Debug: pickerHostingController's view is nil")
-        } else {
-            print("***** Debug: pickerHostingController's view is not nil")
-        }
-        
-        addChild(pickerHostingController!)
-        view.addSubview(pickerHostingController!.view)
-        
-        let constraints = [
-            pickerHostingController!.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            pickerHostingController!.view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            pickerHostingController!.view.widthAnchor.constraint(equalToConstant: 200),
-            pickerHostingController!.view.heightAnchor.constraint(equalToConstant: 50)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
-        
-        pickerHostingController?.didMove(toParent: self)
-        
-        // Debug: Log the frame after applying constraints
-        DispatchQueue.main.async {
-            print("***** Debug: pickerHostingController's view frame after constraints: \(String(describing: self.pickerHostingController?.view.frame))")
-        }
-    }
-
     
- /*  // MARK: - Update and Broadcast Selected Map ID
-    /**
-     Updates the selected map ID and broadcasts the change.
-     Includes a debug print statement to check the new selected map ID.
-
-     - Parameters:
-        - newMapID: The new map ID to be set
-     - Returns: None
-    */
-    func updateSelectedMapID(newMapID: String) {
-        self.selectedMapID = newMapID
-        print("***** Debug: Updated selectedMapID to \(newMapID)")  // Debug statement
-        NotificationCenter.default.post(name: Notification.Name("selectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newMapID])
-    }
-    */
     // MARK: - Fetch Unique Map IDs
     /**
      Fetches unique map IDs from the Core Data model and updates the mapIDs array.
-
-     This function fetches all unique `mapID` values from the `GPSDataPoint` entity in Core Data.
-     It then updates the `mapIDs` array to reflect these values, sorting them only once after all unique IDs have been collected.
+     Ensures "Pick A Map" is the first element in the mapIDs array.
 
      - Parameters: None
      - Returns: None
-    */
+     */
     func fetchUniqueMapIDs() {
-        print("***** fetchUniqueMapIDs called")
+        // Debug print statement to indicate that the function has been called
+        debugPrint("***** fetchUniqueMapIDs called")
         
         // Initialize an empty set to hold unique mapIDs
         var uniqueMapIDsSet = Set<String>()
@@ -424,9 +397,6 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             // Execute the fetch request and store the results in a variable
             let fetchedResults = try managedObjectContext.fetch(fetchRequest)
             
-            // Debug: Log the count of fetched results
-            print("***** Debug: Number of fetched results: \(fetchedResults.count)")
-            
             // Loop through the fetched results to collect unique mapIDs
             for dataPoint in fetchedResults {
                 if let mapID = dataPoint.mapID {
@@ -434,18 +404,28 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                 }
             }
             
-            // Convert the set to an array and sort it once
+            // Convert the set to an array and sort it
             mapIDs = Array(uniqueMapIDsSet).sorted()
             
-            print("***** Debug: New sorted mapIDs content: \(mapIDs)")
-                            
+            // Custom sort to ensure "Pick A Map" is the first item
+            mapIDs.sort { (a, b) -> Bool in
+                if a == "Pick A Map" {
+                    return true
+                }
+                if b == "Pick A Map" {
+                    return false
+                }
+                return a < b
+            }
+            
+            // Debug print statement to show the new sorted content of mapIDs
+            debugPrint("***** Debug: New sorted mapIDs content: \(mapIDs)")
+            
         } catch {
             // Handle any errors that occur during fetching
-            print("***** Failed to fetch GPS data points: \(error)")
+            debugPrint("***** Failed to fetch GPS data points: \(error)")
         }
     }
-
-
 
     // MARK: - Update and Broadcast Selected Map ID
     /**
@@ -453,29 +433,24 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
      Includes a debug print statement to check the new selected map ID.
 
      - Parameters:
-        - newMapID: The new map ID to be set
+     - newMapID: The new map ID to be set
      - Returns: None
-    */
-    /*func updateSelectedMapID(newMapID: String) {
-        // Check if the "Pick a Map" option is selected
-        if newMapID != "Pick a Map" {
-            self.selectedMapID = newMapID
-            print("***** Debug: Updated selectedMapID to \(newMapID)")  // Debug statement
-            NotificationCenter.default.post(name: Notification.Name("selectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newMapID])
-            
-            // Explicitly fetch and annotate GPS data for the new selectedMapID
-            fetchAndAnnotateGPSData()
-        }
-    }*/
-    
+     */
     func updateSelectedMapID(newMapID: String) {
-        // Check if the "Pick a Map" option is selected
-        if newMapID != "Pick a Map" {
+        if newMapID == "Pick A Map" {
+            // Clearing annotations and polylines when "Pick A Map" is selected
+            self.selectedMapID = nil
+            UserDefaults.standard.removeObject(forKey: "lastSelectedMapID")
+            pointAnnotationManager?.annotations = []
+            polylineAnnotationManager?.annotations = []
+            mapIDs = ["Pick A Map"]
+            debugPrint("***** Debug: Cleared all annotations and polylines")  // Debug statement
+        } else {
             self.selectedMapID = newMapID
             // Save the newly selected map ID for future app launches
             UserDefaults.standard.set(newMapID, forKey: "lastSelectedMapID")
-
-            print("***** Debug: Updated selectedMapID to \(newMapID)")  // Debug statement
+            
+            debugPrint("***** Debug: Updated selectedMapID to \(newMapID)")  // Debug statement
             
             NotificationCenter.default.post(name: Notification.Name("selectedMapIDChanged"), object:nil, userInfo: ["selectedMapID": newMapID])
             
@@ -483,33 +458,95 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             fetchAndAnnotateGPSData()
         }
     }
-    
+
     
     // MARK: - Handle Selected Map ID Change
     /**
      Handles the change in selected map ID and updates the annotations.
-
+     
      - Parameters:
-        - notification: The notification object containing the new map ID
+     - notification: The notification object containing the new map ID
      - Returns: None
-    */
+     */
     @objc func handleSelectedMapIDChange(_ notification: Notification) {
-        print("***** Debug: handleSelectedMapIDChange triggered")  // Debug statement
+        debugPrint("***** Debug: handleSelectedMapIDChange triggered")  // Debug statement
         if let userInfo = notification.userInfo, let newMapID = userInfo["selectedMapID"] as? String {
-            print("***** Debug: New selectedMapID from notification is \(newMapID)")  // Debug statement
+            debugPrint("***** Debug: New selectedMapID from notification is \(newMapID)")  // Debug statement
             self.selectedMapID = newMapID
             fetchAndAnnotateGPSData()
         }
     }
+    
+    // MARK: - Debug Control
+    /// Variable to control debug printing. Set to true to enable debug prints and false to disable them.
+    /// Custom debug print function.
+    func debugPrint(_ items: Any...) {
+        if debugMode {
+            print(items)
+        }
+    }
+    
+    // MARK: - Initialize Picker View
+    /**
+     Initializes the Picker view for selecting a map ID and adds it to the view hierarchy.
+
+     The function initializes a SwiftUI Picker view using the MapIDPicker struct.
+     It then wraps this SwiftUI view into a UIHostingController to be compatible with UIKit.
+     The picker allows users to select a map ID, which is then used to fetch and display
+     corresponding GPS data points as annotations on the Mapbox map.
+
+     - Parameters: None
+     - Returns: None
+     */
+    func initializePickerView() {
+        debugPrint("***** initializePickerView called")  // Debug statement
+        
+        // Make sure "Pick A Map" is the first element
+        if !mapIDs.contains("Pick A Map") {
+            mapIDs.insert("Pick A Map", at: 0)
+        }
+
+        // Initialize MapIDPicker SwiftUI View
+        // The picker is initialized with the current list of map IDs and a callback function to update the selected map ID.
+        let picker = MapIDPicker(mapIDs: self.mapIDs) { selectedMapID in
+            self.updateSelectedMapID(newMapID: selectedMapID)
+        }
+        
+        // Create a UIHostingController to host the SwiftUI Picker view
+        // This allows us to add the SwiftUI view to our UIKit-based view hierarchy.
+        self.pickerHostingController = UIHostingController(rootView: picker)
+        
+        // Configure the appearance and layout of the hosting controller's view
+        if let pickerHC = self.pickerHostingController {
+            pickerHC.view.translatesAutoresizingMaskIntoConstraints = false
+            pickerHC.view.backgroundColor = .clear  // Set the background color to clear
+            
+            // Add the hosting controller as a child view controller
+            // This ensures that it participates in the UIKit view controller lifecycle.
+            self.addChild(pickerHC)
+            self.view.addSubview(pickerHC.view)
+            pickerHC.didMove(toParent: self)
+            
+            // Add layout constraints to position the picker view
+            // The picker is positioned 20 points from the leading and trailing edges and 20 points from the top safe area.
+            NSLayoutConstraint.activate([
+                pickerHC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+                pickerHC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+                pickerHC.view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                pickerHC.view.heightAnchor.constraint(equalToConstant: 50)  // Set the height of the picker view to 50 points
+            ])
+        }
+    }
 
 
+    
     // MARK: - UI Customization Methods
     /// Contains methods for customizing the UI, such as adding zoom buttons.
     
     /// Function to add zoom buttons to the map.
     @objc func addZoomButtons() {
-        print("***** addZoomButtons called")
-
+        debugPrint("***** addZoomButtons called")
+        
         /// Create a zoom in button with a "+" label.
         let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
         zoomInButton.setTitle("+", for: .normal)
