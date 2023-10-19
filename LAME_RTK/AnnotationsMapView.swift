@@ -12,10 +12,10 @@ import MapboxMaps
 import CoreData
 import CoreLocation
 
-// MARK: - MapIDPicker Struct Definition
+// MARK: - MapIDPicker Struct Definition (Without Body)
 /// This struct defines a SwiftUI Picker for selecting Map IDs.
 /// It holds an array of Map IDs and a closure that is called when a new Map ID is selected.
-/// The Picker's appearance and behavior are also configured here.
+/// The Picker's appearance and behavior are configured here.
 struct MapIDPicker: View {
     
     // MARK: - Properties and Variables
@@ -26,7 +26,7 @@ struct MapIDPicker: View {
     var onSelectionChanged: (String) -> Void
     
     /// A state variable to hold the currently selected Map ID.
-    @State private var selectedMapID: String
+    @State internal var selectedMapID: String
     
     // MARK: - Initializer
     /// Initializes the MapIDPicker with the given mapIDs and onSelectionChanged closure.
@@ -39,26 +39,8 @@ struct MapIDPicker: View {
         self.onSelectionChanged = onSelectionChanged
         self._selectedMapID = State(initialValue: mapIDs.first ?? "")
     }
-    
-    // MARK: - Body Definition
-    /// The body of the MapIDPicker.
-    ///
-    var body: some View{
-        Picker("Select Map ID", selection: $selectedMapID) {
-            ForEach(mapIDs, id: \.self) { mapID in
-                Text(mapID)
-                    .font(.custom("Arial", size: 14))  // Set the font to Arial with a size of 14
-                    .foregroundColor(.red)  // Set the font color to red
-            }
-        }
-        .onChange(of: selectedMapID, perform: onSelectionChanged)  // Use .onChange to handle selection changes
-        .onAppear() {
-            debugPrint("Rendering Picker with selectedMapID: \(selectedMapID)")
-        }
-    }
 }
 
-    
 
 
 // MARK: - AnnotationsMapViewController Class Definition
@@ -89,9 +71,6 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     var hasCenteredMap = false
     
     /// Declare a variable to o store unique mapIDs
-    //var uniqueMapIDs: [String] = []
-    
-    /// Declare a variable to o store unique mapIDs
     var mapIDs: [String] = ["Pick a Map"]  // Initialize with default "Pick a Map" value
     
     var selectedMapID: String?  // Add this line to keep track of the selected map ID
@@ -107,6 +86,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// Declare a variable to hold the Core Data managed object context
     ///
     let managedObjectContext = PersistenceController.shared.container.viewContext
+
+
     // MARK: - Annotation Interaction Delegate Methods
     /// This function is a delegate method from Mapbox's AnnotationManager.
     /// It gets called when an annotation on the map is tapped.
@@ -128,13 +109,11 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                         textField.placeholder = "Latitude"
                         textField.text = "\(latitude)"
                         textField.keyboardType = .decimalPad  // Set keyboard type to decimal pad
-                        
                     }
                     alert.addTextField { (textField) in
                         textField.placeholder = "Longitude"
                         textField.text = "\(longitude)"
                         textField.keyboardType = .decimalPad  // Set keyboard type to decimal pad
-                        
                     }
                     // Add a "Cancel" button to the alert.
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -379,7 +358,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /**
      Fetches unique map IDs from the Core Data model and updates the mapIDs array.
      Ensures "Pick A Map" is the first element in the mapIDs array.
-
+     
      - Parameters: None
      - Returns: None
      */
@@ -426,12 +405,12 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             debugPrint("***** Failed to fetch GPS data points: \(error)")
         }
     }
-
+    
     // MARK: - Update and Broadcast Selected Map ID
     /**
      Updates the selected map ID and broadcasts the change.
      Includes a debug print statement to check the new selected map ID.
-
+     
      - Parameters:
      - newMapID: The new map ID to be set
      - Returns: None
@@ -458,7 +437,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             fetchAndAnnotateGPSData()
         }
     }
-
+    
     
     // MARK: - Handle Selected Map ID Change
     /**
@@ -489,12 +468,12 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     // MARK: - Initialize Picker View
     /**
      Initializes the Picker view for selecting a map ID and adds it to the view hierarchy.
-
+     
      The function initializes a SwiftUI Picker view using the MapIDPicker struct.
      It then wraps this SwiftUI view into a UIHostingController to be compatible with UIKit.
      The picker allows users to select a map ID, which is then used to fetch and display
      corresponding GPS data points as annotations on the Mapbox map.
-
+     
      - Parameters: None
      - Returns: None
      */
@@ -505,7 +484,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         if !mapIDs.contains("Pick A Map") {
             mapIDs.insert("Pick A Map", at: 0)
         }
-
+        
         // Initialize MapIDPicker SwiftUI View
         // The picker is initialized with the current list of map IDs and a callback function to update the selected map ID.
         let picker = MapIDPicker(mapIDs: self.mapIDs) { selectedMapID in
@@ -537,8 +516,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             ])
         }
     }
-
-
+    
+    
     
     // MARK: - UI Customization Methods
     /// Contains methods for customizing the UI, such as adding zoom buttons.
