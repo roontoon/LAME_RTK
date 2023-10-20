@@ -54,6 +54,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// Declare a MapView variable to hold the Mapbox map
     internal var mapView: MapView!
     
+    
     // MARK: - Debugging Option
     /// Set this variable to true to enable debugging print statements, or false to disable them.
     var debugMode: Bool = true
@@ -307,7 +308,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         polylineAnnotationManager = mapView.annotations.makePolylineAnnotationManager()
         
         // Add zoom buttons
-        addZoomButtons()
+        //addZoomButtons()
         
         // New: Fetch unique mapIDs from Core Data
         fetchUniqueMapIDs()
@@ -523,39 +524,29 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     /// Contains methods for customizing the UI, such as adding zoom buttons.
     
     /// Function to add zoom buttons to the map.
-    @objc func addZoomButtons() {
-        debugPrint("***** addZoomButtons called")
-        
-        /// Create a zoom in button with a "+" label.
-        let zoomInButton = UIButton(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
-        zoomInButton.setTitle("+", for: .normal)
-        zoomInButton.backgroundColor = .white
-        
-        /// Add an action for the zoom in button. It calls the 'zoomIn()' function when pressed.
-        zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchUpInside)
-        
-        /// Create a zoom out button with a "-" label.
-        let zoomOutButton = UIButton(frame: CGRect(x: 20, y: 60, width: 30, height: 30))
-        zoomOutButton.setTitle("-", for: .normal)
-        zoomOutButton.backgroundColor = .white
-        
-        /// Add an action for the zoom out button. It calls the 'zoomOut()' function when pressed.
-        zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchUpInside)
-        
-        /// Add the zoom buttons to the view.
-        self.view.addSubview(zoomInButton)
-        self.view.addSubview(zoomOutButton)
-    }
-    
-    /// Function to handle zoom in button tap.
-    @objc func zoomIn() {
-        /// Increase the map's zoom level by 1.
+    // MARK: - MapZoomDelegate Protocol Methods
+    /// Implementation for the zoomIn function from the MapZoomDelegate protocol
+    ///
+    /// This function handles zooming in on the Mapbox map.
+    func zoomIn() {
+        var zoom = mapView.cameraState.zoom
+        zoom += 1.0 // Increment the zoom level by 1. Adjust as needed.
+        let cameraOptions = CameraOptions(zoom: zoom)
+      //  mapView.setCamera(to: cameraOptions)
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom + 1))
+        debugPrint("zoomIn Triggered")
     }
     
-    /// Function to handle zoom out button tap.
-    @objc func zoomOut() {
-        /// Decrease the map's zoom level by 1.
+    /// Implementation for the zoomOut function from the MapZoomDelegate protocol
+    ///
+    /// This function handles zooming out on the Mapbox map.
+    func zoomOut() {
+        var zoom = mapView.cameraState.zoom
+        zoom -= 1.0 // Decrement the zoom level by 1. Adjust as needed.
+        let cameraOptions = CameraOptions(zoom: zoom)
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom - 1))
+        debugPrint("zoomOut Triggered")
     }
+    
+
 }

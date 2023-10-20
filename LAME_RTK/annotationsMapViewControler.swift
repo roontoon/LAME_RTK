@@ -13,7 +13,6 @@
 ///
 
 // Import necessary modules
-import UIKit
 import MapboxMaps
 import CoreLocation
 import CoreData
