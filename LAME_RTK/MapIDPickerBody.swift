@@ -1,15 +1,17 @@
-/// MapIDPickerBody.swift
-/// Date and Time Documented: October 17, 2023, 12:30 PM
-///
-/// This file defines the body of the MapIDPicker SwiftUI view.
-/// It contains the UI elements that make up the Picker, as well as behavior for selection changes.
-/// The body also contains zoom-in and zoom-out buttons that delegate their actions to an external object.
+//
+//  MapIDPickerBody.swift
+//  YourApp
+//
+//  Created by Your Name on Date
+//  Date and Time Documented: October 17, 2023, 12:30 PM
+//
+//  Overview:
+//  This file defines the body of the MapIDPicker SwiftUI view.
+//  It contains the UI elements that make up the Picker, as well as behavior for selection changes.
+//  The body also contains zoom-in and zoom-out buttons that delegate their actions to an external object.
+//
 
 import SwiftUI
-import MapboxMaps
-
-// Declare a variable to hold the delegate instance
-var delegate: MapZoomDelegate?
 
 // MARK: - MapZoomDelegate Protocol
 /// Protocol to delegate zooming actions to an external object.
@@ -21,32 +23,50 @@ protocol MapZoomDelegate: AnyObject {
     func zoomOut()
 }
 
-extension MapIDPicker {
+// MARK: - MapIDPicker
+struct MapIDPicker {
     
+    // MARK: - Properties
+    /// An array of map IDs to display in the picker.
+    let mapIDs: [String]
+    
+    /// A binding to the currently selected map ID.
+    @Binding var selectedMapID: String
+    
+    /// Declare a variable to hold the delegate instance
+    private var delegate: MapZoomDelegate?
+
+    // MARK: - Setting the Delegate
+    /// Function to set the delegate for map zooming actions.
+    ///
+    /// - Parameters:
+    ///   - newDelegate: An object that conforms to the MapZoomDelegate protocol.
+    mutating func setZoomDelegate(newDelegate: MapZoomDelegate) {
+        self.delegate = newDelegate
+    }
     
     // MARK: - Body Definition
     /// The body of the MapIDPicker.
     ///
     var body: some View {
-        HStack{
+        HStack {
             Spacer()
             Picker("Select Map ID", selection: $selectedMapID) {
                 ForEach(mapIDs, id: \.self) { mapID in
                     Text(mapID)
-                        .font(.custom("Arial", size: 8))  // Set the font to Arial with a size of 14
+                        .font(.custom("Arial", size: 8))
                 }
             }
-            .onChange(of: selectedMapID, perform: onSelectionChanged)  // Use .onChange to handle selection changes
-            .onAppear() {
-                debugPrint("***** Rendering Picker with selectedMapID: \(selectedMapID)")
+            .onChange(of: selectedMapID) { newValue in
+                debugPrint("***** Rendering Picker with selectedMapID: \(newValue)")
             }
             Spacer()
             
             // MARK: - Zoom Buttons
+            /// Zoom buttons for the map.
             HStack {
                 // Zoom In Button
                 Button(action: {
-                    // Delegate the zoomIn action to the external object.
                     delegate?.zoomIn()
                 }) {
                     Image(systemName: "plus.magnifyingglass")
@@ -58,7 +78,6 @@ extension MapIDPicker {
                 
                 // Zoom Out Button
                 Button(action: {
-                    // Delegate the zoomOut action to the external object.
                     delegate?.zoomOut()
                 }) {
                     Image(systemName: "minus.magnifyingglass")
@@ -70,19 +89,11 @@ extension MapIDPicker {
             }
             Spacer()
         }
-        .padding(0)  // Zero padding on top and bottom
-        .background(Color(UIColor.systemGray4))
+        .padding(0)
+        .background(Color.gray)
         .overlay(
-            RoundedRectangle(cornerRadius: 8) // You can adjust the corner radius
-                .stroke(Color.black, lineWidth: 1)  // Set the stroke color to black and line width to 1
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.black, lineWidth: 1)
         )
-    }
-    // MARK: - Setting the Delegate
-    /// Function to set the delegate for map zooming actions.
-    ///
-    /// - Parameters:
-    ///   - newDelegate: An object that conforms to the MapZoomDelegate protocol.
-    func setZoomDelegate(newDelegate: MapZoomDelegate) {
-        delegate = newDelegate
     }
 }

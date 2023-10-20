@@ -547,6 +547,4 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: mapView.mapboxMap.cameraState.zoom - 1))
         debugPrint("zoomOut Triggered")
     }
-    
-
 }
