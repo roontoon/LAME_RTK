@@ -6,8 +6,9 @@ import CoreLocation
 @main  /// This tells Swift that our app starts here.
 struct LAME_RTKApp: App {
     /// Create a shared instance of our PersistenceController to manage our data.
-    let persistenceController = PersistenceController.shared
-    
+    //let persistenceController = PersistenceController.shared
+    let persistenceController = PersistenceController(inMemory: true)
+
     /// This keeps track of what's happening with our app (like if it's active or in the background).
     @Environment(\.scenePhase) var scenePhase
     

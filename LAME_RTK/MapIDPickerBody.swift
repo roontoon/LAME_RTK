@@ -1,99 +1,62 @@
+// MapIDPickerBody.swift
+// Date and Time Documented: October 23, 2023, 10:30 AM
 //
-//  MapIDPickerBody.swift
-//  YourApp
-//
-//  Created by Your Name on Date
-//  Date and Time Documented: October 17, 2023, 12:30 PM
-//
-//  Overview:
-//  This file defines the body of the MapIDPicker SwiftUI view.
-//  It contains the UI elements that make up the Picker, as well as behavior for selection changes.
-//  The body also contains zoom-in and zoom-out buttons that delegate their actions to an external object.
-//
+// This file defines the body of the MapIDPicker SwiftUI view.
+// It contains the UI elements that make up the Picker, as well as behavior for selection changes.
+// The Picker is designed to float over other views, making it ideal for map interfaces.
 
 import SwiftUI
 
-// MARK: - MapZoomDelegate Protocol
-/// Protocol to delegate zooming actions to an external object.
-protocol MapZoomDelegate: AnyObject {
-    /// Function to handle zooming in on the map.
-    func zoomIn()
+// MARK: - MapIDPickerBody Struct Definition
+/// The main struct that defines the MapIDPickerBody.
+struct MapIDPickerBody: View {
     
-    /// Function to handle zooming out on the map.
-    func zoomOut()
-}
-
-// MARK: - MapIDPicker
-struct MapIDPicker {
-    
-    // MARK: - Properties
-    /// An array of map IDs to display in the picker.
-    let mapIDs: [String]
-    
-    /// A binding to the currently selected map ID.
+    // MARK: - Properties and Variables
+    /// Declare a state for managing the selected Map ID
     @Binding var selectedMapID: String
     
-    /// Declare a variable to hold the delegate instance
-    private var delegate: MapZoomDelegate?
-
-    // MARK: - Setting the Delegate
-    /// Function to set the delegate for map zooming actions.
-    ///
-    /// - Parameters:
-    ///   - newDelegate: An object that conforms to the MapZoomDelegate protocol.
-    mutating func setZoomDelegate(newDelegate: MapZoomDelegate) {
-        self.delegate = newDelegate
-    }
+    /// Declare an array to hold the Map IDs
+    let mapIDs: [String]
     
     // MARK: - Body Definition
-    /// The body of the MapIDPicker.
-    ///
+    /// The body of the MapIDPickerBody.
     var body: some View {
-        HStack {
-            Spacer()
-            Picker("Select Map ID", selection: $selectedMapID) {
-                ForEach(mapIDs, id: \.self) { mapID in
-                    Text(mapID)
-                        .font(.custom("Arial", size: 8))
+        ZStack {
+            VStack {
+                Spacer()
+                HStack {
+                    //Text("***** debug")
+                    Spacer()
+                    Picker("Select Map ID", selection: $selectedMapID.onChange { newValue in
+                        print("Debug: Picker selected \(newValue)") // Debug Statement
+                    }) {
+                        ForEach(mapIDs, id: \.self) { mapID in
+                            Text(mapID)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .background(Color.white.opacity(0.8))
+                    .cornerRadius(10)
+                    .padding()
                 }
             }
-            .onChange(of: selectedMapID) { newValue in
-                debugPrint("***** Rendering Picker with selectedMapID: \(newValue)")
-            }
-            Spacer()
-            
-            // MARK: - Zoom Buttons
-            /// Zoom buttons for the map.
-            HStack {
-                // Zoom In Button
-                Button(action: {
-                    delegate?.zoomIn()
-                }) {
-                    Image(systemName: "plus.magnifyingglass")
-                        .foregroundColor(.white)
-                        .padding(4)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                }
-                
-                // Zoom Out Button
-                Button(action: {
-                    delegate?.zoomOut()
-                }) {
-                    Image(systemName: "minus.magnifyingglass")
-                        .foregroundColor(.white)
-                        .padding(4)
-                        .background(Color.red)
-                        .cornerRadius(8)
-                }
-            }
-            Spacer()
         }
-        .padding(0)
-        .background(Color.gray)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.black, lineWidth: 1)
+        .onAppear {
+            print("**** MapIDPickerBody appeared") // Existing Debug Statement
+        }
+    }
+}
+
+// MARK: - Binding onChange Extension
+/// This extension adds an onChange handler to SwiftUI's Binding
+extension Binding {
+    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
+        return Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler(newValue)
+            }
         )
     }
 }

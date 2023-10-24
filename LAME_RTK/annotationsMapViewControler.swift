@@ -11,7 +11,7 @@
 /// This class is responsible for handling the Mapbox map, GPS annotations, and user interactions.
 /// It initializes the Mapbox map, manages Point and Polyline annotations, and updates GPS data points.
 ///
-
+/*
 // Import necessary modules
 import MapboxMaps
 import CoreLocation
@@ -41,3 +41,4 @@ struct AnnotationsMapView: UIViewControllerRepresentable {
         // Note: This function is left intentionally empty for now
     }
 }
+*/
