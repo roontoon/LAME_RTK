@@ -89,10 +89,11 @@ struct AnnotationsMapView: View {
                 selectedMapID = lastSelectedMapID}
         }
         .onChange(of: selectedMapID) { newValue in
-            
-            
             print("**** selectedMapID changed to: \(newValue)")
             UserDefaults.standard.setValue(newValue, forKey: "lastSelectedMapID")
+
+            // Notify AnnotationsMapViewController about the change in selectedMapID
+            NotificationCenter.default.post(name: Notification.Name("SelectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newValue])
         }
     }
 }
@@ -221,6 +222,13 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
      Additionally, it fetches unique map IDs from the Core Data and stores them in the mapIDs array.
      */
     func fetchAndAnnotateGPSData() {
+        
+        // Clear the map if the selected map is "Pick a map"
+        if selectedMapID == "Pick a map" {
+            pointAnnotationManager?.annotations = []
+            polylineAnnotationManager?.annotations = []
+            return
+        }
         
         print("***** Debug: Inside fetchAndAnnotateGPSData")
         
