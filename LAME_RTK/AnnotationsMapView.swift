@@ -49,8 +49,8 @@ struct AnnotationsMapView: View {
     
     // MARK: - Properties and Variables
     /// Declare a state for managing the selected Map ID
-    @State var selectedMapID: String = "SecondMap"  // Replace with your default Map ID
-
+    @State var selectedMapID: String = "Pick a map"  // Replace with your default Map ID
+    
     /// FetchRequest to get mapIDs from Core Data
     @FetchRequest(
         entity: GPSDataPoint.entity(),
@@ -76,19 +76,24 @@ struct AnnotationsMapView: View {
             // Floating Picker as an overlay
             VStack {
                 Spacer() // Pushes the picker to the bottom
-                MapIDPickerBody(selectedMapID: $selectedMapID, mapIDs: uniqueMapIDs)
+                MapIDPickerBody(selectedMapID: $selectedMapID, mapIDs: ["Pick a map"] + uniqueMapIDs)
                     .background(Color.white.opacity(0.0)) // Adjust opacity here
                     .cornerRadius(10)
                     .padding(0)
             }
         }
         .onAppear {
-             print("**** AnnotationsMapContainerView appeared")
-         }
-         .onChange(of: selectedMapID) { newValue in  // Existing block
-             print("**** selectedMapID changed to: \(newValue)")
-             NotificationCenter.default.post(name: Notification.Name("SelectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newValue])
-         }
+            print("**** AnnotationsMapContainerView appeared")
+            print("**** Unique Map IDs: \(["Pick a map"] + uniqueMapIDs)")  // Debug statement to check uniqueMapIDs
+            if let lastSelectedMapID = UserDefaults.standard.string(forKey: "lastSelectedMapID") {
+                selectedMapID = lastSelectedMapID}
+        }
+        .onChange(of: selectedMapID) { newValue in
+            
+            
+            print("**** selectedMapID changed to: \(newValue)")
+            UserDefaults.standard.setValue(newValue, forKey: "lastSelectedMapID")
+        }
     }
 }
 
@@ -332,12 +337,28 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     // In AnnotationsMapViewController Class Definition
+    /*func didSelectMapID(_ selectedMapID: String) {
+     print("***** Debug: didSelectMapID called with \(selectedMapID)")
+     self.selectedMapID = selectedMapID
+     print("***** Debug: self.selectedMapID updated to \(self.selectedMapID)")
+     fetchAndAnnotateGPSData()
+     print("***** Debug: fetchAndAnnotateGPSData called")
+     }
+     */
+    
+    // MARK: - MapIDSelectionDelegate Conformance
+    /// Function to update the selected Map ID.
     func didSelectMapID(_ selectedMapID: String) {
-        print("***** Debug: didSelectMapID called with \(selectedMapID)")
-        self.selectedMapID = selectedMapID
-        print("***** Debug: self.selectedMapID updated to \(self.selectedMapID)")
-        fetchAndAnnotateGPSData()
-        print("***** Debug: fetchAndAnnotateGPSData called")
+        print("***** New Map ID selected: \(selectedMapID)")
+        self.selectedMapID = selectedMapID  // Update the selected Map ID
+        
+        // Clear the map if the selected map is "Pick a map"
+        if selectedMapID == "Pick a map" {
+            pointAnnotationManager?.annotations = []
+            polylineAnnotationManager?.annotations = []
+            return
+        }
+        fetchAndAnnotateGPSData()  // Refresh the map annotations
     }
     
     // MARK: - Observers
@@ -345,7 +366,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     func subscribeToSelectedMapIDChanges() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleSelectedMapIDChange(notification:)), name: Notification.Name("SelectedMapIDChanged"), object: nil)
     }
-
+    
     /// Function to handle the selected Map ID change
     @objc func handleSelectedMapIDChange(notification: Notification) {
         if let newMapID = notification.userInfo?["selectedMapID"] as? String {
@@ -353,7 +374,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             fetchAndAnnotateGPSData()
         }
     }
-
+    
     
     // MARK: - View Lifecycle Methods
     /// Function that runs when the view loads.
