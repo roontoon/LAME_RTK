@@ -71,7 +71,7 @@ struct AnnotationsMapView: View {
         ZStack(alignment: .bottomTrailing) {  // Explicit alignment
             // Map as a background
             AnnotationsMapControllerRepresentable(selectedMapID: selectedMapID, fetchedResults: fetchedResults)  // Pass the fetchedResults here
-        //.edgesIgnoringSafeArea(.all)
+            //.edgesIgnoringSafeArea(.all)
             
             // Floating Picker as an overlay
             VStack {
@@ -81,6 +81,26 @@ struct AnnotationsMapView: View {
                     .cornerRadius(10)
                     .padding(0)
             }
+            
+            // MARK: - Save Button Overlay
+            /// This section contains the Save Button overlay which, when tapped,
+            /// will post a notification named "SaveCurrentView".
+            Button(action: {
+                // Post a notification to save the current view
+                NotificationCenter.default.post(name: Notification.Name("SaveCurrentView"), object: nil)
+            }) {
+                // Use square.and.arrow.down as the button icon
+                Image(systemName: "square.and.arrow.down")
+                    .resizable()
+                    .frame(width: 24, height: 24)  // Define frame dimensions for the image
+            }
+            .padding()  // Padding around the image
+            .background(Color.blue)  // Background color of the button
+            .foregroundColor(.white)  // Foreground color of the image
+            .cornerRadius(10)  // Rounded corners for the button
+            .padding(20)  // Padding around the button
+            
+            
         }
         .onAppear {
             print("***** AnnotationsMapContainerView appeared")
@@ -92,7 +112,7 @@ struct AnnotationsMapView: View {
         .onChange(of: selectedMapID) { newValue in
             print("***** selectedMapID changed to: \(newValue)")
             UserDefaults.standard.setValue(newValue, forKey: "lastSelectedMapID")
-
+            
             // Notify AnnotationsMapViewController about the change in selectedMapID
             NotificationCenter.default.post(name: Notification.Name("SelectedMapIDChanged"), object: nil, userInfo: ["selectedMapID": newValue])
         }
@@ -214,7 +234,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
     // Date and Time Documented: October 23, 2023, 12:45 PM
     // MARK: - Observers
     // Section to manage observer functions and handlers for various notifications.
-
+    
     /// Subscribe to changes in the zoom level.
     func subscribeToZoomLevelChanges() {
         UserDefaults.standard.addObserver(self,
@@ -222,7 +242,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
                                           options: .new,
                                           context: nil)
     }
-
+    
     /// Function to handle the zoom level change
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
@@ -234,7 +254,7 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             }
         }
     }
-
+    
     /// Function to update the map zoom level
     func updateMapZoomLevel(to zoomLevel: Double) {
         mapView.mapboxMap.setCamera(to: CameraOptions(zoom: zoomLevel))
@@ -373,15 +393,15 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
-    // In AnnotationsMapViewController Class Definition
-    /*func didSelectMapID(_ selectedMapID: String) {
-     print("***** Debug: didSelectMapID called with \(selectedMapID)")
-     self.selectedMapID = selectedMapID
-     print("***** Debug: self.selectedMapID updated to \(self.selectedMapID)")
-     fetchAndAnnotateGPSData()
-     print("***** Debug: fetchAndAnnotateGPSData called")
-     }
-     */
+    // MARK: - Save Current GPS and Zoom Level
+    /// Function to save the current GPS coordinates and zoom level to UserDefaults
+    func saveCurrentSettings() {
+        let currentCamera = mapView.mapboxMap.cameraState
+        UserDefaults.standard.set(currentCamera.center.latitude, forKey: "defaultLatitude")
+        UserDefaults.standard.set(currentCamera.center.longitude, forKey: "defaultLongitude")
+        UserDefaults.standard.set(currentCamera.zoom, forKey: "zoomLevel")
+    }
+    
     
     // MARK: - MapIDSelectionDelegate Conformance
     /// Function to update the selected Map ID.
@@ -439,6 +459,9 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         
         subscribeToZoomLevelChanges()
         
+        // Subscribe to SaveCurrentView notification
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSaveCurrentView), name: Notification.Name("SaveCurrentView"), object: nil)
+        
         /// Declare a variable to hold the selected Map ID
         var selectedMapID: String = "SecondMap" // Default value, update as necessary
         
@@ -492,6 +515,9 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
+    @objc func handleSaveCurrentView(notification: Notification) {
+        saveCurrentSettings()
+    }
     
     // MARK: - UI Customization Methods
     /// Contains methods for customizing the UI, such as adding zoom buttons.

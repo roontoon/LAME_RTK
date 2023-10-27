@@ -5,10 +5,18 @@ import CoreLocation
 
 @main  /// This tells Swift that our app starts here.
 struct LAME_RTKApp: App {
+    
+    init() {
+        // MARK: - Set Light Appearance
+        // Force light appearance universally across the application
+        UITraitCollection.current = UITraitCollection(userInterfaceStyle: .light)
+    }
+    
     /// Create a shared instance of our PersistenceController to manage our data.
     //let persistenceController = PersistenceController.shared
     let persistenceController = PersistenceController(inMemory: true)
-
+    
+    
     /// This keeps track of what's happening with our app (like if it's active or in the background).
     @Environment(\.scenePhase) var scenePhase
     
@@ -21,8 +29,18 @@ struct LAME_RTKApp: App {
                 .onAppear(perform: checkAndInitializeData)  // When the app starts, we run this function.
         }
         // If something changes in our app, we save our data.
-        .onChange(of: scenePhase) { _ in
-            persistenceController.save()
+        .onChange(of: scenePhase) { newPhase in
+            // MARK: - Save Core Data Changes
+            // Save any pending Core Data changes.
+            if newPhase == .inactive || newPhase == .background {
+                persistenceController.save()
+            }
+            
+            // MARK: - Set Light Appearance
+            // Force light appearance universally across the application.
+            if newPhase == .active {
+                UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .light
+            }
         }
     }
     

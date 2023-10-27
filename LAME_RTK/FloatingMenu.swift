@@ -33,17 +33,18 @@ struct FloatingMenu: View {
                 if self.selected == 0{
                     GeometryReader{_ in
                         VStack(spacing: 15){
+                            /*
                             Spacer()  // Pushes the other content to the middle
-                            
                             // Home label
                             Text("Home")
                                 .font(.title)
                                 .foregroundColor(.white)
                             
                             // Home image
-                            Image("1").resizable().frame(height: 100) //.cornerRadius(4)
+                            Image("1").resizable().frame(height: 100).cornerRadius(2)
                             
                             Spacer()  // Pushes the other content to the middle
+                            */
                         }.padding()  // Padding around the VStack
                     }
                 }
@@ -52,12 +53,13 @@ struct FloatingMenu: View {
                 else if self.selected == 1{
                     GeometryReader{_ in
                         VStack(spacing: 15){
-                            Spacer()
+                            /*Spacer()
                             Text("Wishlist")
                                 .font(.title)
                                 .foregroundColor(.white)
                             Image("2").resizable().frame(height: 100)   //.cornerRadius(4)
                             Spacer()
+                             */
                         }.padding()
                     }
                 }
@@ -66,22 +68,22 @@ struct FloatingMenu: View {
                 else{
                     GeometryReader{_ in
                         VStack(spacing: 15){
+                            /*
                             Spacer()
                             Text("Cart")
                                 .font(.title)
                                 .foregroundColor(.white)
                             Image("3").resizable().frame(height: 100)//.cornerRadius(4)
                             Spacer()
+                             */
                         }.padding()
                     }
                 }
                 
-            }.background(Color.gray)  // Background color of the content area
-            .edgesIgnoringSafeArea(.all)  // Ignoring safe area
-            
+            }
             // Attach the FloatingTabbar
             FloatingTabbar(selected: self.$selected)
-        }
+        }.background(Color.gray)
     }
 }
 
@@ -110,25 +112,11 @@ struct FloatingTabbar : View {
         
         // Root HStack
         HStack{
-            
             // Creates a spacer that pushes content to the right
             Spacer(minLength: 0)
             
             // Inner HStack for the tab buttons
             HStack{
-                
-                // When expanded, show the close button
-                if self.expand {
-                    
-                    // Close Button: Toggles the expand state to false
-                    Button(action: {
-                        self.expand = false  // Close the tab bar
-                    }) {
-                        Image(systemName: "xmark").foregroundColor(.red)//.padding()
-                    }
-                    
-                    Spacer(minLength: 5)
-                }
                 
                 // Dynamic content based on the expand state
                 if !self.expand {
@@ -137,51 +125,69 @@ struct FloatingTabbar : View {
                     Button(action: {
                         self.expand.toggle()  // Toggle expand state
                     }) {
-                        Image(systemName: "arrow.left").foregroundColor(.green)//.padding(4)
+                        Image(systemName: "map").foregroundColor(.green).padding(2)
                     }
                 }
+                
                 else {
-                    
+                    // ******** add picker here.
                     // Home Tab Button
                     Button(action: {
                         self.selected = 0  // Set selected to Home
                     }) {
-                        Image(systemName: "house").foregroundColor(self.selected == 0 ? .green : .gray).padding(.horizontal)
+                        Image(systemName: "location").foregroundColor(self.selected == 0 ? .green : .gray).padding(.horizontal)
                     }
                     
                     // Spacer between buttons
-                    Spacer(minLength: 15)
+                    //Spacer(minLength: 15)
                     
                     // Wishlist Tab Button
                     Button(action: {
                         self.selected = 1  // Set selected to Wishlist
                     }) {
-                        Image(systemName: "suit.heart").foregroundColor(self.selected == 1 ? .green : .gray).padding(.horizontal)
+                        Image(systemName: "mappin").foregroundColor(self.selected == 1 ? .green : .gray).padding(.horizontal)
                     }
                     
                     // Spacer between buttons
-                    Spacer(minLength: 25)
+                    Spacer(minLength: 40)
                     
                     // Cart Tab Button
                     Button(action: {
                         self.selected = 2  // Set selected to Cart
                     }) {
-                        Image(systemName: "cart").foregroundColor(self.selected == 2 ? .green : .gray).padding(.horizontal)
+                        Image(systemName: "plus.square").foregroundColor(self.selected == 2 ? .red : .gray).padding(.horizontal)
                     }
+                    
+                    Spacer()
+                    
+                    // When expanded, show the close button
+                    if self.expand {
+                        
+                        // Close Button: Toggles the expand state to false
+                        Button(action: {
+                            self.expand = false  // Close the tab bar
+                        }) {
+                            Image(systemName: "xmark").foregroundColor(.red)//.padding()
+                            
+                            // Spacer()
+                        }.padding(2)
+                    }
+                    
+                    
                 }
             }
-            .padding(.vertical, self.expand ? 2 : 8)  // Vertical padding based on expand state
-            .padding(.horizontal, self.expand ? 45 : 8)  // Horizontal padding based on expand state
+            .padding(.vertical, self.expand ? 8 : 8)  // Vertical padding based on expand state
+            .padding(.horizontal, self.expand ? 45 : 2)  // Horizontal padding based on expand state
             .background(Color.white)  // Background color of the tab bar
+            .cornerRadius(10)
             //.clipShape(Capsule())  // Rounded corners
-            .padding(22)  // Padding around the tab bar
+            .padding(10)  // Padding around the tab bar
             
             // Long press gesture to toggle expand
             .onLongPressGesture {
                 self.expand.toggle()  // Toggle expand state
             }
             
-        }
-     //   .animation(.interactiveSpring(response: 0.6, dampingFraction: 0.6, blendDuration: 0.6))  // Animation for expand toggle
+        }.animation(.interactiveSpring(response: 0.6, dampingFraction: 0.6, blendDuration: 0.6))  // Animation for expand toggle
     }
 }
