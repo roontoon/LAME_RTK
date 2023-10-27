@@ -71,7 +71,7 @@ struct AnnotationsMapView: View {
         ZStack(alignment: .bottomTrailing) {  // Explicit alignment
             // Map as a background
             AnnotationsMapControllerRepresentable(selectedMapID: selectedMapID, fetchedResults: fetchedResults)  // Pass the fetchedResults here
-                .edgesIgnoringSafeArea(.all)
+        //.edgesIgnoringSafeArea(.all)
             
             // Floating Picker as an overlay
             VStack {
@@ -83,13 +83,14 @@ struct AnnotationsMapView: View {
             }
         }
         .onAppear {
-            print("**** AnnotationsMapContainerView appeared")
-            print("**** Unique Map IDs: \(["Pick a map"] + uniqueMapIDs)")  // Debug statement to check uniqueMapIDs
+            print("***** AnnotationsMapContainerView appeared")
+            print("***** Unique Map IDs: \(["Pick a map"] + uniqueMapIDs)")  // Debug statement to check uniqueMapIDs
+            
             if let lastSelectedMapID = UserDefaults.standard.string(forKey: "lastSelectedMapID") {
                 selectedMapID = lastSelectedMapID}
         }
         .onChange(of: selectedMapID) { newValue in
-            print("**** selectedMapID changed to: \(newValue)")
+            print("***** selectedMapID changed to: \(newValue)")
             UserDefaults.standard.setValue(newValue, forKey: "lastSelectedMapID")
 
             // Notify AnnotationsMapViewController about the change in selectedMapID
@@ -97,7 +98,6 @@ struct AnnotationsMapView: View {
         }
     }
 }
-
 
 // MARK: - AnnotationsMapViewController Class Definition
 /// Define the AnnotationsMapViewController class
@@ -209,6 +209,35 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
             /// Handle any errors that occur during fetching or saving
             print("***** Failed to update GPS data point: \(error)")
         }
+    }
+    
+    // Date and Time Documented: October 23, 2023, 12:45 PM
+    // MARK: - Observers
+    // Section to manage observer functions and handlers for various notifications.
+
+    /// Subscribe to changes in the zoom level.
+    func subscribeToZoomLevelChanges() {
+        UserDefaults.standard.addObserver(self,
+                                          forKeyPath: "zoomLevel",
+                                          options: .new,
+                                          context: nil)
+    }
+
+    /// Function to handle the zoom level change
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        if keyPath == "zoomLevel" {
+            if let newZoomLevel = change?[.newKey] as? Double {
+                updateMapZoomLevel(to: newZoomLevel)
+            }
+        }
+    }
+
+    /// Function to update the map zoom level
+    func updateMapZoomLevel(to zoomLevel: Double) {
+        mapView.mapboxMap.setCamera(to: CameraOptions(zoom: zoomLevel))
     }
     
     /**
@@ -407,6 +436,8 @@ class AnnotationsMapViewController: UIViewController, CLLocationManagerDelegate,
         
         // Add zoom buttons
         addZoomButtons()
+        
+        subscribeToZoomLevelChanges()
         
         /// Declare a variable to hold the selected Map ID
         var selectedMapID: String = "SecondMap" // Default value, update as necessary

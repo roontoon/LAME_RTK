@@ -3,55 +3,72 @@
 //  Lame_RTK
 //
 //  Created by Roontoon on 9/5/23.
-//\
+//  Date and Time Documented: October 23, 2023, 12:30 PM
+//
+//  Overview:
+//  The PreferencesView struct defines the UI and behavior for the Preferences screen in the application.
+//  It now also allows users to set the zoom level for the map.
+//
 
 import SwiftUI
 import CoreLocation
 
-// The PreferencesView struct defines the UI and behavior for the Preferences screen.
+// Create an observable class that holds the zoom level
+class ZoomLevel: ObservableObject {
+    @Published var level: Double = 19.0
+}
+
+// MARK: - PreferencesView Definition
 struct PreferencesView: View {
     
-    // Using AppStorage to save and retrieve mowerWidth, laneOverlap, longitude, and latitude from UserDefaults.
+    // MARK: - Variables and AppStorage
     @AppStorage("mowerWidth") var mowerWidth: Double = 0
     @AppStorage("laneOverlap") var laneOverlap: Double = 0
     @AppStorage("defaultLongitude") var defaultLongitude: Double = 0.0
     @AppStorage("defaultLatitude") var defaultLatitude: Double = 0.0
     
-    // State variable to hold the address entered by the user.
+    // Store the zoom level setting, default is 19.
+    @AppStorage("zoomLevel") var zoomLevel: Double = 19.0
+    
     @State private var address: String = ""
     
-    // The body property defines the UI elements that make up the PreferencesView.
+    
+    // MARK: - Main Body
     var body: some View {
         VStack {
             
-            // Title for the Preferences screen.
+            // Title
             Text("Preferences")
                 .font(.title)
             
-            // Slider and label for adjusting the mowerWidth.
+            // MARK: - Mower Width Slider
             HStack {
                 Text("Mower Width (mm): \(Int(mowerWidth))")
-                
-                // Slider for mowerWidth, ranging from 0 to 600 mm.
                 Slider(value: $mowerWidth, in: 0...600)
             }
-            .padding() // Adding padding for better layout.
+            .padding()
             
-            // Slider and label for adjusting the laneOverlap.
+            // MARK: - Lane Overlap Slider
             HStack {
                 Text("Lane Overlap (mm): \(Int(laneOverlap))")
-                
-                // Slider for laneOverlap, ranging from 0 to 600 mm.
                 Slider(value: $laneOverlap, in: 0...600)
             }
-            .padding() // Adding padding for better layout.
+            .padding()
             
-            // Text field for entering the address.
+            // MARK: - Zoom Level Slider
+            // Slider and label for adjusting the zoom level of the map.
+            HStack {
+                Text("Zoom Level: \(Int(zoomLevel))")
+                Slider(value: $zoomLevel, in: 0...22)
+                
+            }
+            .padding()
+            
+            // MARK: - Address Lookup
             TextField("Enter Address", text: $address)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
-            // Button to perform the address lookup.
             Button("Lookup Address") {
                 let geocoder = CLGeocoder()
                 geocoder.geocodeAddressString(address) { (placemarks, error) in
@@ -62,15 +79,14 @@ struct PreferencesView: View {
                     
                     if let firstPlacemark = placemarks?[0],
                        let location = firstPlacemark.location {
-                        // Save the longitude and latitude to UserDefaults.
                         defaultLongitude = location.coordinate.longitude
                         defaultLatitude = location.coordinate.latitude
                     }
                 }
             }
-            .padding() // Adding padding for better layout.
+            .padding()
             
-            // Display the saved longitude and latitude.
+            // MARK: - Display Saved Location
             Text("Saved Longitude: \(defaultLongitude, specifier: "%.7f")")
             Text("Saved Latitude: \(defaultLatitude, specifier: "%.7f")")
         }
