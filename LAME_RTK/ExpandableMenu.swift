@@ -6,10 +6,8 @@
 //  Last Modified on: 10/27/23
 //
 //  Overview:
-//  This SwiftUI View file defines the ExpandableMenu view.
-//  The ExpandableMenu starts as a circle with an SFImage "map", located at the far right bottom.
-//  When clicked, it expands to the full open position with a green fill in between.
-//  This version includes an explicit width for the expanded menu and hides the map button when expanded.
+//  This version includes an explicit width for the expanded menu,
+//  bold SF Symbols, and a spring animation for the expandable menu.
 //
 
 // MARK: - Import Statements
@@ -30,7 +28,7 @@ struct ExpandableMenu: View {
     var body: some View {
         
         // Root ZStack to overlay content
-        ZStack(alignment: .bottomTrailing) {
+        ZStack {
             
             // MARK: - Expanded Menu (Left to Right)
             if isExpanded {
@@ -55,30 +53,42 @@ struct ExpandableMenu: View {
                     Spacer()
                     createIconButton("folder")
                     Spacer()
+                    
+                    // Map Icon on the far right-hand side
+                    Image(systemName: "map")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .bold))  // Bold SF Symbol
+                        .padding(10)
+                        .background(Color(white: 0.8))
+                        .clipShape(Circle())
+                        .offset(x: 12)  // Precise X control
                 }
                 .padding(.horizontal, 10)
-                .frame(width: 300, height: 39)  // Explicitly setting the width to 300 points
-                .background(RoundedRectangle(cornerRadius: 39)
+                .frame(width: 369, height: 44)  // Explicit Frame
+                .background(RoundedRectangle(cornerRadius: 44)
                 .fill(Color(white: 0.8)))
                 .onTapGesture {
                     isExpanded.toggle()  // Toggle expand state
                 }
+                .animation(.spring())  // Spring animation
             }
             
             // MARK: - Map Circle Button (Right Bottom)
-            if !isExpanded {  // Only visible when isExpanded is false
-                Button(action: {
-                    isExpanded.toggle()  // Toggle expand state
-                }) {
-                    ZStack{
+            if !isExpanded {
+                HStack {
+                    Spacer()  // Align to the right
+                    Button(action: {
+                        isExpanded.toggle()  // Toggle expand state
+                    }) {
                         Image(systemName: "map")
                             .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .bold))  // Bold SF Symbol
                             .padding(10)
                             .background(Color(white: 0.8))
                             .clipShape(Circle())
                     }
+                    .padding(10)
                 }
-                .padding(10)
             }
         }
     }
@@ -95,6 +105,7 @@ struct ExpandableMenu: View {
         }) {
             Image(systemName: systemName)
                 .foregroundColor(.white)
+                .font(.system(size: 20, weight: .bold))  // Bold SF Symbol
         }
     }
 }
