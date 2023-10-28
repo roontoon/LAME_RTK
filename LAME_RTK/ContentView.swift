@@ -63,7 +63,8 @@ struct ContentView: View {
             // MARK: - Tab 3: FloatingMenu
             
             // Tab for MapView
-            FloatingMenu()
+            //FloatingMenu()
+            ExpandableMenu()
             //SimplePickerView()
                 .tabItem {
                     Image(systemName: "3.circle.fill")  // Tab icon
