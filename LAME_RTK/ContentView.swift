@@ -54,7 +54,22 @@ struct ContentView: View {
             // MARK: - Tab 2: JoyStickView
             
             // Tab for JoyStick
-            JoyStickView()
+            //JoyStickView()
+            //ColorPickerExample()
+            
+            
+            HStack{
+                CustomMenuPicker(selection: .constant(1), placeholder: "Select Item", placeholderColor: .green, content: AnyView(
+                    VStack {
+                        Text("Item 1").tag(1)
+                        Text("Item 2").tag(2)
+                        Text("Item 3").tag(3)
+                    }
+                ))
+                
+                
+            }
+            
                 .tabItem {
                     Image(systemName: "2.circle.fill")  // Tab icon
                     Text("JoyStick")  // Tab title

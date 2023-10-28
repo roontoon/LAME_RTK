@@ -9,8 +9,10 @@
 //  This SwiftUI View file defines the ExpandableMenu view.
 //  The ExpandableMenu starts as a circle with an SFImage "map", located at the far right bottom.
 //  When clicked, it expands to the full open position with a green fill in between.
+//  This version includes an explicit width for the expanded menu and hides the map button when expanded.
 //
 
+// MARK: - Import Statements
 import SwiftUI
 
 // MARK: - Main ExpandableMenu View
@@ -20,6 +22,8 @@ struct ExpandableMenu: View {
     // MARK: - State Variables
     /// Controls the state of the menu (expanded or not).
     @State private var isExpanded = false
+    /// State variable for the picker selection.
+    @State private var pickerSelection = "Option 1"
     
     // MARK: - View Body
     /// The body property defines the structure and content of the view.
@@ -28,39 +32,69 @@ struct ExpandableMenu: View {
         // Root ZStack to overlay content
         ZStack(alignment: .bottomTrailing) {
             
-            // Your other content can go here
-            
             // MARK: - Expanded Menu (Left to Right)
             if isExpanded {
                 HStack {
+                    // Picker at the far left
+                    Picker("Options", selection: $pickerSelection) {
+                        Text("Option 1").tag("Option 1").foregroundColor(.white)
+                        Text("Option 2").tag("Option 2").foregroundColor(.white)
+                        Text("Option 3").tag("Option 3").foregroundColor(.white)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .foregroundColor(.white)
                     
-                    RoundedRectangle(cornerRadius: 39)
-                        .fill(Color(white: 0.8))
-                        .frame(width: 370, height: 39)
+                    Spacer()
                     
+                    // Icon buttons with white foreground
+                    createIconButton("star.fill")
+                    Spacer()
+                    createIconButton("pencil")
+                    Spacer()
+                    createIconButton("trash")
+                    Spacer()
+                    createIconButton("folder")
+                    Spacer()
                 }
-                .padding(10)  // Padding adjusted to 10
+                .padding(.horizontal, 10)
+                .frame(width: 300, height: 39)  // Explicitly setting the width to 300 points
+                .background(RoundedRectangle(cornerRadius: 39)
+                .fill(Color(white: 0.8)))
                 .onTapGesture {
                     isExpanded.toggle()  // Toggle expand state
                 }
             }
             
             // MARK: - Map Circle Button (Right Bottom)
-            // This button is now declared after the expanded menu to ensure it is rendered above.
-            Button(action: {
-                isExpanded.toggle()  // Toggle expand state
-            }) {
-                HStack{ Spacer()
+            if !isExpanded {  // Only visible when isExpanded is false
+                Button(action: {
+                    isExpanded.toggle()  // Toggle expand state
+                }) {
                     ZStack{
                         Image(systemName: "map")
-                            .foregroundColor(isExpanded ? .white : .white) // Foreground color changes based on expand state
-                            .padding(10)  // Padding adjusted to 10
+                            .foregroundColor(.white)
+                            .padding(10)
                             .background(Color(white: 0.8))
                             .clipShape(Circle())
                     }
                 }
+                .padding(10)
             }
-            .padding(10)  // Padding adjusted to 10
+        }
+    }
+    
+    // MARK: - Helper Functions
+    /// Creates an icon button with a given system image name.
+    ///
+    /// - Parameters:
+    ///   - systemName: The name of the system image to be used.
+    /// - Returns: A Button view with the specified system image.
+    func createIconButton(_ systemName: String) -> some View {
+        Button(action: {
+            // Action for each button
+        }) {
+            Image(systemName: systemName)
+                .foregroundColor(.white)
         }
     }
 }
